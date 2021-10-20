@@ -2,13 +2,20 @@
   "name": "ivyelite-online",
   "version": "0.1.0",
   "private": true,
+  "bin": {
+    "one": "./scripts/one.js"
+  },
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "pm2 startOrRestart ./server/pm2config.json && vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.23.0",
+    "chalk": "^4.1.2",
+    "commander": "^8.2.0",
     "core-js": "^3.6.5",
+    "figlet": "^1.5.2",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-mysql-session": "^0.0.2",
@@ -17,6 +24,7 @@
     "koa2-cors": "^2.0.6",
     "md5": "^2.3.0",
     "mysql": "^2.18.1",
+    "shelljs": "^0.8.4",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0"
   },

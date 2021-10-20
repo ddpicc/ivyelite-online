@@ -28,12 +28,10 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
         text
       >
         <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <v-icon @click="postlogin">mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -44,6 +42,7 @@
 </template>
 
 <script>
+import api from './api/loginApi'
 import HelloWorld from './components/HelloWorld';
 
 export default {
@@ -56,5 +55,16 @@ export default {
   data: () => ({
     //
   }),
+
+  methods: {
+    postlogin: function(){
+      alert('1241');
+      api.login('124s', '36w')
+        .then(res => {
+          console.log(res)
+        })
+    }
+    
+  },
 };
 </script>
