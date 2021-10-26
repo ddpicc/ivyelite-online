@@ -1,70 +1,27 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon @click="postlogin">mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+  <router-view v-if="isRouterAlive"></router-view>
 </template>
 
 <script>
-import api from './api/loginApi'
-import HelloWorld from './components/HelloWorld';
-
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-
-  methods: {
-    postlogin: function(){
-      alert('1241');
-      api.login('124s', '36w')
-        .then(res => {
-          console.log(res)
-        })
+    name: 'APP',
+    provide () {
+      return {
+        reload: this.reload
+      }
+    },
+    data () {
+      return {
+        isRouterAlive: true
+      }
+    },
+    methods: {
+      reload () {
+        this.isRouterAlive = false
+        this.$nextTick(()=>{
+          this.isRouterAlive =true;
+        });
+      }
     }
-    
-  },
-};
+  }
 </script>
