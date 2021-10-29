@@ -37,7 +37,7 @@
         <h2 class="font-weight-bold mb-3 white--text">热门课程</h2>
         <v-row>
           <v-col
-            v-for="({ title, summary }, i) in classList"
+            v-for="({ cover_url, name, summary }, i) in courses"
             :key="i"
             cols="12"
             md="3"
@@ -56,10 +56,10 @@
 
               <v-img
                 height="250"
-                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                :src="cover_url"
               ></v-img>
 
-              <v-card-title>{{title}}</v-card-title>
+              <v-card-title>{{name}}</v-card-title>
 
               <v-card-text>
                 <v-row
@@ -135,35 +135,31 @@
 </template>
 
 <script>
+  import courseApi from '../api/courseApi'
   export default {
     name: 'HomePage',
 
     data: () => ({
       selection: '',
-      classList: [
-        {
-          title: 'gmat',
-          summary: 'good class',
-        },
-        {
-          title: 'gre',
-          summary: 'english class',
-        },
-        {
-          title: 'gmat',
-          summary: 'good class',
-        },
-        {
-          title: 'gre',
-          summary: 'english class',
-        }
-      ]
+      courses: [],
     }),
 
     methods: {
       reserve: function(){
+        //alert(this.$store.state.user.name)
+      },
 
-      }
-    }
+      getAllCourses: function(){
+				courseApi.getAllCourses().then( (res) => {
+          if (res.data.code === 200) {
+						this.courses = res.data.data;
+					}
+        })
+			}
+    },
+
+    mounted: function(){
+			this.getAllCourses();
+		}
   }
 </script>

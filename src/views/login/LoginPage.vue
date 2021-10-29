@@ -16,7 +16,7 @@
           >
             <v-card flat class="elevation-12">
               <v-card-text>
-                <v-tabs v-model="tab">
+                <v-tabs fixed-tabs v-model="tab">
                   <v-tab>邮箱登录</v-tab>
                   <v-tab>手机登录</v-tab>
                 </v-tabs>
@@ -56,8 +56,8 @@
                             <v-text-field
                               solo
                               label="输入手机"
-                              :rules="emailRules"
-                              v-model="loginEmail"
+                              :rules="[v => !!v || 'Phone number is required']"
+                              v-model="loginPhone"
                             ></v-text-field>
                           </v-col>
                         </v-row>
@@ -85,7 +85,6 @@
                     </v-col>
                     <v-col cols="6" class="d-inline-flex justify-end">
                       <router-link to="forgetPass" style="color:red">忘记密码</router-link>   
-                      <!--a href="http://www.w3school.com.cn/" style="color:red">{{$t('lang.login_forgetPassword')}}</a -->
                     </v-col>
                   </v-row>
               </v-card-text>
@@ -126,44 +125,44 @@
       return {
         loginEmail: '',
         password: '',
-        phoneNumber: '',
+        loginPhone: '',
         tab: null,
-        loginBtnName: "登录",
+        emailRules: [
+          v => !!v || 'E-mail is required',
+          //v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+        ],
+        phonePrefixs: ['+1','+86'],
+        phonePrefix: '+1',
+
         snackbar: false,
         snackbarColor: '',
         notification: '',
         snackbarTimeout: 3000,
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-        ],
-        phonePrefixs: ['+001','+86'],
-        phonePrefix: '+001'
       }
     },
 
     methods: {
       loginClick: function(){
-        if (this.loginEmail === '' || this.password === '') {
-          alert('账号或密码不能为空');
-        } else {
-          var userInfo = {username: this.loginEmail, password: this.password};
-          this.$store.dispatch('user/LoginByEmail', userInfo).then(() => {
+        this.$store.dispatch('user/LoginByEmail', {
+          email: this.loginEmail,
+          password: this.password,
+        }).then( res => {
+          if(res == 'login success'){
             this.snackbar = true;
             this.notification = '登录成功';
             this.snackbarColor = 'green';
-            
-            this.$router.push({ path: '/dashboard' });
-          }).catch(err => {
+            this.$router.push({ path: '/' });
+          }else if(res == 'login fail'){
             this.snackbar = true;
-            this.notification = '连接错误，请重试';
-            console.log(err);
-          });
-        }         
+            this.notification = '用户名或密码错误';
+            this.snackbarColor = 'red';
+          }
+          
+        })
       },
 
-      jumpHome: function(){
-        this.$router.push({ path: '/' });
+      register: function(){
+        
       }
     }
   }

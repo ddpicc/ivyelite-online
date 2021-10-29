@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 //import router from '../router'
 
 Vue.prototype.axios = axios
@@ -11,38 +12,30 @@ let baseURL
 
 if (window.location.hostname.indexOf('localhost') > -1) {
   // 本地调试用url
-  baseURL = 'http://localhost:3000/api'
+  baseURL = 'http://localhost:3000'
 } else {
   // 线上url
-  baseURL = 'http://' + window.location.hostname + '/api'
+  baseURL = 'http://' + window.location.hostname
 }
 
 axios.defaults.withCredentials = true
 axios.defaults.baseURL = baseURL
 // 中间件 拦截请求
-/* axios.interceptors.response.use((response) => {
-  if (errorStatus.includes(response.status)) {
-    router.push({
-      path: '/'
-    })
-  }
-  return response;
-}, (error) => {
-  if (error) {
-    router.push({
-      path: '/'
-    })
-    return ''
-  }
-  return ''
-}) */
+axios.interceptors.request.use(config => {
+  const token = Cookies.get('ivyelite-token');
+	if(token){
+		config.headers.Authorization = 'Bearer ' + token;
+	}
+	return config;
+})
 
 // 导出axios配置组件
 export default {
-  get (url) {
+  get (url,data) {
     return axios({
       method: 'GET',
-      url
+      url,
+      params: data
     })
   },
   post (url, data) {

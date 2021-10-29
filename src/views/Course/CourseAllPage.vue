@@ -64,6 +64,7 @@
 							column
 							active-class="green--text text--accent-4"
 							mandatory
+							@change="typeFilter()"
 						>
 							<v-chip
 								filter
@@ -82,12 +83,6 @@
 								outlined
 							>
 								GMAT
-							</v-chip>
-							<v-chip
-								filter
-								outlined
-							>
-								Math
 							</v-chip>
 						</v-chip-group>
 					</v-card-text>
@@ -108,10 +103,11 @@
 								v-for="(item, i) in searching"
 								:key="i"
 								ripple
+								class="ma-4"
 								@click="() => {}"
 							>
 								<v-img
-									:src="item.image"
+									:src="item.cover_url"
 									class="mr-4"
 									max-width="164"
 								></v-img>
@@ -119,10 +115,10 @@
 								<v-list-item-content>
 									<span
 										class="text-uppercase font-weight-regular text-caption"
-										v-text="item.category"
+										v-text="item.summary"
 									></span>
 
-									<div v-text="item.title"></div>
+									<div v-text="item.name"></div>
 								</v-list-item-content>
 							</v-list-item>
 						</v-list>
@@ -134,58 +130,36 @@
 </template>
 
 <script>
+	import courseApi from '../../api/courseApi'
   export default {
     data: () => ({
 			classStatus: 0,
 			classType: 0,
-
-			items: [
-        {
-          image: 'https://cdn-images-1.medium.com/max/1024/1*9C9hLji68wV373tk8okLYA.jpeg',
-          title: 'TBI’s 5 Best: SF Mocktails to Finish Dry January Strong',
-          status: 'Travel',
-          category: 'Drinks',
-
-        },
-        {
-          image: 'https://cdn-images-1.medium.com/max/1024/1*9C9hLji68wV373tk8okLYA.jpeg',
-          title: 'PWAs on iOS 12.2 beta: the good, the bad, and the “not sure yet if good”',
-          status: 'Technology',
-          category: 'Phones',
-        },
-        {
-          image: 'https://cdn-images-1.medium.com/max/1024/1*9C9hLji68wV373tk8okLYA.jpeg',
-          title: 'How to Get Media Mentions for Your Business',
-          status: 'Media',
-          category: 'Social',
-        },
-        {
-          image: 'https://cdn-images-1.medium.com/max/1024/1*9C9hLji68wV373tk8okLYA.jpeg',
-          title: 'The Pitfalls Of Outsourcing Self-Awareness To Artificial Intelligence',
-          status: 'Technology',
-          category: 'Military',
-        },
-        {
-          image: 'https://cdn-images-1.medium.com/max/1024/1*9C9hLji68wV373tk8okLYA.jpeg',
-          title: 'Degrees of Freedom and Sudoko',
-          status: 'Travel',
-          category: 'Social',
-        },
-      ],
+			courses: [],
 		}),
 
 		methods: {
+			typeFilter: function(){
+				//this.searching = 
+			},
 
+			getAllCourses: function(){
+				courseApi.getAllCourses().then( (res) => {
+          if (res.data.code === 200) {
+						this.courses = res.data.data;
+					}
+        })
+			}
 		},
 
 		computed: {
       searching () {
-        if (!this.search) return this.items
+        if (!this.search) return this.courses
 
         const search = this.search.toLowerCase()
 
-        return this.items.filter(item => {
-          const text = item.title.toLowerCase()
+        return this.courses.filter(item => {
+          const text = item.name.toLowerCase()
 
           return text.indexOf(search) > -1
         })
@@ -193,7 +167,7 @@
     },
 
 		mounted: function(){
-			
+			this.getAllCourses();
 		}
 	}
 </script>

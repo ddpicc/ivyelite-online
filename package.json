@@ -6,7 +6,7 @@
     "one": "./scripts/one.js"
   },
   "scripts": {
-    "serve": "pm2 startOrRestart ./server/pm2config.json && vue-cli-service serve",
+    "serve": "pm2 startOrRestart ./server/pm2config.json --watch && vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -16,11 +16,12 @@
     "commander": "^8.2.0",
     "core-js": "^3.6.5",
     "figlet": "^1.5.2",
+    "js-cookie": "^3.0.1",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
-    "koa-mysql-session": "^0.0.2",
+    "koa-jwt": "^4.0.3",
     "koa-router": "^10.1.1",
-    "koa-session-minimal": "^4.0.1",
     "koa2-cors": "^2.0.6",
     "md5": "^2.3.0",
     "mysql": "^2.18.1",

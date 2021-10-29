@@ -29,7 +29,7 @@ export const constantRouterMap = [
       {path: '', name: '首页', component: () => import('../views/HomePage.vue')},
       {path: 'login', name: '登录', component: () => import('../views/login/LoginPage.vue')},
       {path: 'course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
-      {path: 'myprofile//profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
+      {path: 'myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
       {path: 'myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue')},
       {path: '*', redirect: '/' }
     ]

@@ -1,24 +1,10 @@
 const Koa = require('koa')
 const koaBody = require('koa-body')
-const session = require('koa-session-minimal')
-const MysqlStore = require('koa-mysql-session')
 const config = require('./config/db.js')
 const cors = require('koa2-cors')
+const koajwt = require('koa-jwt')
 const app = new Koa()
 
-// session存储配置
-const sessionMysqlConfig= {
-  user: config.database.USERNAME,
-  password: config.database.PASSWORD,
-  database: config.database.DATABASE,
-  host: config.database.HOST,
-}
-
-// 配置session中间件
-app.use(session({
-  key: 'USER_SID',
-  store: new MysqlStore(sessionMysqlConfig)
-}))
 
 //路由白名单
 const origin = []// 允许来自所有域名请求
@@ -39,12 +25,31 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'content-type', 'X-PINGOTHER'],
 }))
 
-app.use(koaBody({
-  formLimit: '1mb'
-}))
+app.use(koaBody());
+
+// 中间件对token进行验证
+app.use(async (ctx, next) => {
+  return next().catch((err) => {
+    if (err.status === 401) {
+      ctx.status = 401;
+      ctx.body = {
+        code: 401,
+        msg: 'Request fail, protected resource, use Authorization header to get access'
+      }
+    } else {
+      throw err;
+    }
+  })
+})
+
+app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
+  // 登录接口不需要验证
+  path: [/^\/userApi\/signin/]
+}));
 
 //  路由
-app.use(require('./routers/signin.js').routes())
+app.use(require('./routers/userRouter.js').routes())
+app.use(require('./routers/courseRouter.js').routes())
 
 
 app.listen(config.port)

@@ -8,21 +8,6 @@ table.map(val => {
   sql.createTable(val)
 })
 
-// 增加模块
-exports.insertPart = (value) => {
-  let _sql = "insert into part set name=?,dis=?,url=?,who=?,pid=?,new_time=?"
-  return query(_sql, value)
-}
-// 寻找所有模块
-exports.findAllPart = () => {
-  let _sql = `select * from part;`
-  return query(_sql)
-}
-// 删除模块
-exports.DeletePart = (id) => {
-  let _sql = `delete from part where id="${id}";`
-  return query(_sql)
-}
 // 注册用户
 exports.insertData = ( value ) => {
   let _sql = "insert into users set name=?,pass=?,moment=?;"
@@ -34,8 +19,13 @@ exports.deleteUserData = ( name ) => {
   return query( _sql )
 }
 // 查找用户
-exports.findUserData = ( name ) => {
-  let _sql = `select * from users where name="${name}";`
+exports.findUserByEmail = ( email ) => {
+  let _sql = `select * from users where email="${email}";`
+  return query( _sql )
+}
+// 通过PID查找用户信息
+exports.getUserInfoByPid = ( pid ) => {
+  let _sql = `select * from users where pid="${pid}";`
   return query( _sql )
 }
 // 通过名字查找用户

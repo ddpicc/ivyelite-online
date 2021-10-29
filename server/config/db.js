@@ -3,7 +3,7 @@ const config = {
 	port: 3000,
 	// 数据库配置
 	database: {
-		DATABASE: 'nodesql',
+		DATABASE: 'ivyelite',
 		USERNAME: 'root',
 		PASSWORD: 'CuiQian1988',
 		PORT: '3306',
