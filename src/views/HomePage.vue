@@ -147,6 +147,7 @@
     methods: {
       reserve: function(){
         //alert(this.$store.state.user.name)
+        console.log(this.$ZoomKit.version())
       },
 
       getAllCourses: function(){

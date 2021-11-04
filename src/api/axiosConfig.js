@@ -1,9 +1,6 @@
-import Vue from 'vue'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 //import router from '../router'
-
-Vue.prototype.axios = axios
 
 let baseURL
 // 错误状态码 有返回错误直接进行操作

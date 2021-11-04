@@ -20,7 +20,7 @@
 								v-for="(item, i) in searching"
 								:key="i"
 								ripple
-								@click="() => {}"
+								@click="prepareCourse()"
 							>
 								<v-img
 									:src="item.image"
@@ -92,7 +92,9 @@
 		},
 
 		methods: {
-
+      prepareCourse: function() {
+        this.$router.push({ path: '/course/prepare' });
+      },
 		},
 
 		computed: {

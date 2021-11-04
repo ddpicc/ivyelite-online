@@ -1,19 +1,156 @@
-/api/signin
-/api/signin
-用户名或密码错误!
-/api/signin
-/api/signin
-用户名或密码错误!
-/api/signin
-/api/signin
-用户名或密码错误!
-/api/signin
-/api/signin
-用户名或密码错误!
 listening on port 3000
-/api/signin
-/api/signin
-用户名或密码错误!
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/auth/get_sdk_token
+/auth/get_sdk_token
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
 listening on port 3000
 listening on port 3000
 listening on port 3000
@@ -22,13 +159,42 @@ listening on port 3000
 listening on port 3000
 /userApi/signin
 /userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
 listening on port 3000
 /userApi/signin
 /userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
 listening on port 3000
 /userApi/signin
 /userApi/signin
-用户名或密码错误!
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
 listening on port 3000
 listening on port 3000
 listening on port 3000
@@ -38,103 +204,45 @@ listening on port 3000
 /userApi/signin
 /userApi/signin
 登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
 /userApi/signin
 /userApi/signin
 登录成功
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-用户名或密码错误!
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
 /courseApi/getAllCourses
 /courseApi/getAllCourses
 /userApi/signin
 /userApi/signin
 登录成功
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
 /courseApi/getAllCourses
 /courseApi/getAllCourses
 listening on port 3000
 listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
 listening on port 3000
 listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
 /courseApi/getAllCourses
 /courseApi/getAllCourses
 listening on port 3000
@@ -146,682 +254,31 @@ listening on port 3000
 listening on port 3000
 listening on port 3000
 listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/roomkit/auth/get_sdk_token
+/eduCloud/room/create
+/roomkit/auth/get_sdk_token
+/eduCloud/room/create
+listening on port 3000
+/roomkit/auth/get_sdk_token
+/roomkit/auth/get_sdk_token
+listening on port 3000
+/roomkit/auth/get_sdk_token
+/roomkit/auth/get_sdk_token
+/userApi/signin
+/userApi/signin
+登录成功
+/userApi/getinfo?pid=325671
+/userApi/getinfo?pid=325671
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/roomkit/auth/get_sdk_token
+/roomkit/auth/get_sdk_token
 listening on port 3000
 listening on port 3000

@@ -156,8 +156,7 @@
             this.snackbar = true;
             this.notification = '用户名或密码错误';
             this.snackbarColor = 'red';
-          }
-          
+          }          
         })
       },
 
