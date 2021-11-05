@@ -5,35 +5,27 @@ import axios from 'axios'
 
 axios.defaults.timeout = 15000;
 
-function get (url,data) {
-  return axios({
-    method: 'GET',
-    url,
-    params: data
-  })
-};
-
-function post (url, data) {
-	return axios({
-		method: 'POST',
-		url,
-		data
-	})
-};
 
 export default {
-	createCourse: async function(subject,room_type,begin_timestamp,duration,product_id,host,attendees,secret_id,sdk_token){
-		const createClassResult = await post('/eduCloud/room/create', {
-			subject: subject,
-			room_type: room_type,
-			begin_timestamp: begin_timestamp,
-			duration: duration,
-			product_id: product_id,
-			host: host,
-			attendees: attendees,
-			secret_id: secret_id,
-			sdk_token: sdk_token
+	createClass: async function(params){
+		return new Promise ((resolve, reject) => {
+			axios.post('/eduCloud/room/create',params).then( res => {
+				resolve(res.data);
+			}).catch( err => {
+				console.log(err);
+				reject(err);
+			})
 		})
-		return createClassResult.data;
+	},
+
+	getClassList: async function(params){
+		return new Promise ((resolve, reject) => {
+			axios.post('/eduCloud/room/query',params).then( res => {
+				resolve(res.data);
+			}).catch( err => {
+				console.log(err);
+				reject(err);
+			})
+		})
 	}
 }

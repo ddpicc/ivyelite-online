@@ -24,8 +24,8 @@ exports.findUserByEmail = ( email ) => {
   return query( _sql )
 }
 // 通过PID查找用户信息
-exports.getUserInfoByPid = ( pid ) => {
-  let _sql = `select * from users where pid="${pid}";`
+exports.getUserInfoByUid = ( uid ) => {
+  let _sql = `select * from users where uid="${uid}";`
   return query( _sql )
 }
 // 通过名字查找用户

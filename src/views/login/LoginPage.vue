@@ -120,7 +120,13 @@
 </template>
 
 <script>
+  let redirectUrl
+  const whiteList = ['/login']
   export default {
+    beforeRouteEnter(to, from, next) {
+      redirectUrl = from.fullPath;
+      next();
+    },
     data () {
       return {
         loginEmail: '',
@@ -151,7 +157,8 @@
             this.snackbar = true;
             this.notification = '登录成功';
             this.snackbarColor = 'green';
-            this.$router.push({ path: '/' });
+            let url = whiteList.indexOf(redirectUrl) === -1? redirectUrl : '/';
+            this.$router.push({ path: url });
           }else if(res == 'login fail'){
             this.snackbar = true;
             this.notification = '用户名或密码错误';

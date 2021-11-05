@@ -4,7 +4,7 @@ let users =
 		name VARCHAR(100) COMMENT '用户昵称',
 		email VARCHAR(50) NOT NULL COMMENT '邮箱',
 		pass VARCHAR(50) NOT NULL COMMENT '密码',
-		pid VARCHAR(20) NOT NULL COMMENT '唯一ID',
+		uid VARCHAR(20) NOT NULL COMMENT '唯一ID',
 		phone VARCHAR(20) COMMENT '电话',
 		sex VARCHAR(5) COMMENT '性别',
 		education VARCHAR(6) COMMENT '学历',
@@ -26,4 +26,16 @@ let courses =
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users, courses]
+let user_courses =
+	`create table if not exists user_courses(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		user_id INT UNSIGNED NOT NULL,
+		course_id INT UNSIGNED NOT NULL,
+		isStudent INT UNSIGNED DEFAULT 1,
+		isTeacher INT UNSIGNED DEFAULT 0,
+		PRIMARY KEY ( id ),
+    FOREIGN KEY(user_id) REFERENCES users(id),
+		FOREIGN KEY(course_id) REFERENCES courses(id)
+	);`
+
+module.exports = [users, courses,user_courses]

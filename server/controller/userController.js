@@ -35,9 +35,9 @@ exports.postSignup = async ctx => {
 	}
 }
 
-exports.getUserInfoByPid = async ctx => {
-	let {pid} = ctx.request.query
-	await userModel.getUserInfoByPid(pid).then( (res) => {
+exports.getUserInfoByUid = async ctx => {
+	let {uid} = ctx.request.query
+	await userModel.getUserInfoByUid(uid).then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',

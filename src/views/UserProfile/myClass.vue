@@ -3,15 +3,14 @@
     fill-height
   >
     <v-row justify="center">
-			<v-col cols="3">
+			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="8">
+      <v-col cols="7">
         <v-card>
 					<v-card-text>
 						<v-tabs>
 							<v-tab>正在上课</v-tab>
-							<v-tab>即将开课</v-tab>
 							<v-tab>已结课</v-tab>
 						</v-tabs>
 						<v-divider class="mb-4"></v-divider>

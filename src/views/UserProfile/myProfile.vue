@@ -3,10 +3,10 @@
     fill-height
   >
     <v-row justify="center">
-			<v-col cols="3">
+			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="8">
+      <v-col cols="7">
         <v-card>
 					<v-card-title class="text-h6">
             个人信息

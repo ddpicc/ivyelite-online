@@ -1,29 +1,5 @@
 listening on port 3000
 listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
 /courseApi/getAllCourses
 /userApi/signin
 /userApi/signin
@@ -31,129 +7,6 @@ listening on port 3000
 /userApi/getinfo?pid=325671
 /userApi/getinfo?pid=325671
 /courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/auth/get_sdk_token
-/auth/get_sdk_token
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
 listening on port 3000
 listening on port 3000
 listening on port 3000
@@ -163,122 +16,101 @@ listening on port 3000
 /userApi/getinfo?pid=325671
 /userApi/getinfo?pid=325671
 /courseApi/getAllCourses
-/courseApi/getAllCourses
 listening on port 3000
 /userApi/signin
 /userApi/signin
 登录成功
 /userApi/getinfo?pid=325671
 /userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
+select * from users where uid="undefined";
 /courseApi/getAllCourses
 listening on port 3000
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/userApi/signin
-/userApi/signin
-用户名或密码错误!
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/courseApi/getAllCourses
-/courseApi/getAllCourses
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
-/courseApi/getAllCourses
 /courseApi/getAllCourses
 /userApi/signin
 /userApi/signin
 登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
+/userApi/getinfo?uid=325671
+/userApi/getinfo?uid=325671
+select * from users where uid="325671";
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/getinfo?uid=325671
+/userApi/getinfo?uid=325671
+select * from users where uid="325671";
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/getinfo?uid=325671
+/userApi/getinfo?uid=325671
+select * from users where uid="325671";
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+/userApi/getinfo?uid=325671
+/userApi/getinfo?uid=325671
+select * from users where uid="325671";
+/courseApi/getAllCourses
+/courseApi/getAllCourses
 /courseApi/getAllCourses
 /courseApi/getAllCourses
 listening on port 3000
 listening on port 3000
 listening on port 3000
 listening on port 3000
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+/courseApi/getAllCourses
+listening on port 3000
 /courseApi/getAllCourses
 /courseApi/getAllCourses
 listening on port 3000
 listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-listening on port 3000
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
 /courseApi/getAllCourses
 /courseApi/getAllCourses
-/roomkit/auth/get_sdk_token
-/eduCloud/room/create
-/roomkit/auth/get_sdk_token
-/eduCloud/room/create
+/userApi/getinfo?uid=325671
+/userApi/getinfo?uid=325671
+/courseApi/getAllCourses
 listening on port 3000
-/roomkit/auth/get_sdk_token
-/roomkit/auth/get_sdk_token
+/courseApi/getAllCourses
 listening on port 3000
-/roomkit/auth/get_sdk_token
-/roomkit/auth/get_sdk_token
-/userApi/signin
-/userApi/signin
-登录成功
-/userApi/getinfo?pid=325671
-/userApi/getinfo?pid=325671
+listening on port 3000
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+listening on port 3000
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+listening on port 3000
+/courseApi/getAllCourses
+listening on port 3000
+/courseApi/getAllCourses
+listening on port 3000
 /courseApi/getAllCourses
 /courseApi/getAllCourses
-/roomkit/auth/get_sdk_token
-/roomkit/auth/get_sdk_token
 listening on port 3000
+/courseApi/getAllCourses
+listening on port 3000
+listening on port 3000
+listening on port 3000
+/courseApi/findOneCourseById?id=1
+/courseApi/findOneCourseById?id=1
+listening on port 3000
+/courseApi/findOneCourseById?id=1
+/courseApi/getAllCourses
+/courseApi/findOneCourseById?id=1
+/courseApi/findOneCourseById?id=1
 listening on port 3000

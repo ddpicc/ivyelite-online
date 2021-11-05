@@ -29,12 +29,17 @@ export const constantRouterMap = [
       {path: '', name: '首页', component: () => import('../views/HomePage.vue')},
       {path: 'login', name: '登录', component: () => import('../views/login/LoginPage.vue')},
       {path: 'course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
+      {path: 'course/explore', name: '探索课程', component: () => import('../views/Course/CourseOnePage.vue')},
       {path: 'myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
       {path: 'myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue')},
-      {path: 'course/prepare', name: '准备课程', component: () => import('../views/Course/PrepareCourse.vue')},
+      {path: 'myprofile/discuss', name: '我的讨论', component: () => import('../views/UserProfile/myDiscuss.vue')},
+      {path: 'myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
+      {path: 'course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareClass.vue')},
+      {path: 'course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue')},
+      {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
       {path: '*', redirect: '/' }
     ]
-  },
+  }
 ]
 // Create a new router
 const router = new Router({

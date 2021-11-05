@@ -29,8 +29,8 @@ module.exports = {
         pathRewrite: {
           '^/eduCloud': ''
         }
-      },
-  }
+      }, 
+    }
   },
   lintOnSave: false,
     

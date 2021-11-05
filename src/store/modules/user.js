@@ -7,7 +7,7 @@ import md5 from 'md5'
 const state = () => ({
 	name: '',
 	roles: [],
-	pid: '',
+	uid: Cookies.get('ivyelite-uid'),
 	token: '',
 })
 
@@ -22,8 +22,9 @@ const actions = {
 		return new Promise(resolve => {
 			commit('SET_NAME', '');
 			commit('SET_ROLES', '');
-			commit('SET_TOKEN', '');
+			commit('SET_UID', '');
 			Cookies.remove('ivyelite-token');
+			Cookies.remove('ivyelite-uid');
 			resolve();
 		});
 	},
@@ -36,8 +37,8 @@ const actions = {
 				const data = res.data
 				if (data.code === 200) {
 					Cookies.set('ivyelite-token', data.token);
-					commit('SET_TOKEN', data.token);
-					commit('SET_PID', data.data[0].pid);
+					Cookies.set('ivyelite-uid', data.data[0].uid);
+					commit('SET_UID', data.data[0].uid);
 					resolve('login success');
 				}else{
 					resolve('login fail');
@@ -51,7 +52,7 @@ const actions = {
 	// 获取用户信息
 	GetInfo({ commit, state }) {
 		return new Promise((resolve, reject) => {
-			userApi.getInfo(state.pid).then(response => {
+			userApi.getInfo(state.uid).then(response => {
 				const data = response.data
 				//获取用户权限并存储roles
 				if (data.data[0].roles && data.data[0].roles.length > 0) {
@@ -76,11 +77,8 @@ const mutations = {
 	SET_ROLES: (state, roles) => {
 		state.roles = roles;
 	},
-	SET_PID: (state, pid) => {
-		state.pid = pid;
-	},
-	SET_TOKEN: (state, token) => {
-		state.token = token;
+	SET_UID: (state, uid) => {
+		state.uid = uid;
 	},
 }
 

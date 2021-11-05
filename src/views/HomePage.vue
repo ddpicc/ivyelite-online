@@ -37,7 +37,7 @@
         <h2 class="font-weight-bold mb-3 white--text">热门课程</h2>
         <v-row>
           <v-col
-            v-for="({ cover_url, name, summary }, i) in courses"
+            v-for="({ cover_url, name, summary, id }, i) in courses"
             :key="i"
             cols="12"
             md="3"
@@ -87,33 +87,13 @@
                 <div>{{summary}}</div>
               </v-card-text>
 
-              <v-divider class="mx-4"></v-divider>
-
-              <v-card-title>Tonight's availability</v-card-title>
-
-              <v-card-text>
-                <v-chip-group
-                  v-model="selection"
-                  active-class="deep-purple accent-4 white--text"
-                  column
-                >
-                  <v-chip>5:30PM</v-chip>
-
-                  <v-chip>7:30PM</v-chip>
-
-                  <v-chip>8:00PM</v-chip>
-
-                  <v-chip>9:00PM</v-chip>
-                </v-chip-group>
-              </v-card-text>
-
               <v-card-actions>
                 <v-btn
                   color="deep-purple lighten-2"
                   text
-                  @click="reserve"
+                  @click="explore(id)"
                 >
-                  预约
+                  探索
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -145,9 +125,8 @@
     }),
 
     methods: {
-      reserve: function(){
-        //alert(this.$store.state.user.name)
-        console.log(this.$ZoomKit.version())
+      explore: function(id){
+        this.$router.push({ path: '/course/explore',query: {courseId: id}})        
       },
 
       getAllCourses: function(){
