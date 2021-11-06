@@ -53,6 +53,7 @@
         { text: '购买记录', icon: 'mdi-star', to: '/myprofile/invoice' },
         { text: '新建课程', icon: 'mdi-star', to: '/course/create' },
         { text: '个人资料', icon: 'mdi-history', to: '/myprofile/profile' },
+        { text: '我的课程(老师)', icon: 'mdi-folder', to: '/myprofile/teacherclass'},        
       ],
     }),
   }

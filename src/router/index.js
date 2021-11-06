@@ -32,6 +32,7 @@ export const constantRouterMap = [
       {path: 'course/explore', name: '探索课程', component: () => import('../views/Course/CourseOnePage.vue')},
       {path: 'myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
       {path: 'myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue')},
+      {path: 'myprofile/teacherclass', name: '我的课程', component: () => import('../views/UserProfile/teacherClass.vue')},
       {path: 'myprofile/discuss', name: '我的讨论', component: () => import('../views/UserProfile/myDiscuss.vue')},
       {path: 'myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
       {path: 'course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareClass.vue')},

@@ -73,15 +73,38 @@
 				</v-card>		
 			</v-col>
 		</v-row>
+		<v-snackbar
+			v-model="snackbar"
+			:color="snackbarColor"
+			timeout="3000"
+			top
+			dark
+		>
+			<v-icon
+				color="white"
+				class="mr-3"
+			>
+				mdi-bell-plus
+			</v-icon>
+			{{notification}}
+			<v-btn
+				icon
+				@click="snackbar = false"
+			>
+				<v-icon>
+					mdi-close-circle
+				</v-icon>
+			</v-btn>
+		</v-snackbar>
 	</v-container>
 </template>
 
 <script>
 	import roomKitApi from '../../api/roomKitApi'
-	import eduCloudApi from '../../api/eduCloudKitApi'
 	export default {
 		data: () => ({
 			courseTitle: '',
+			courseId: null,
 			switch1: true,
 			recent: [
 				{
@@ -95,47 +118,29 @@
 				},				
 			],
 			theClass: null,
+			snackbar: false,
+      snackbarColor: '',
+      notification: '',
 		}),
 
 		methods: {
 			createClass: async function(){
-				let token;
-				if(this.$store.state.roomkit.sdk_token){
-					token = this.$store.state.roomkit.sdk_token;
-				}else{
-					let tokenRes = await roomKitApi.getSDKToken();
-					token = tokenRes.data.sdk_token;
-				}
-
-				let createClassParams = {
-					uid: 12313,
-					subject: 'test 汽车',
-					begin_timestamp: new Date().getTime() + 1000 * 600,
-					duration: 30,
-					pid: 1511,
-					host: {
-						uid: 12313
-					},
-					attendees: [
-						{
-							uid: 12313
-						}
-					],
-					secret_id: 2000049,
-					sdk_token: token,
-					verify_type: 3,
-					device_id: roomKitApi.getDeviceId()
-				}
-				const classResult = await eduCloudApi.createClass(createClassParams);
-				if(classResult.ret.code != 0){
-					//创建房间失败
-				}else{
-					this.getClass();
-				}
+				const subject = this.courseTitle;
+				const room_type = 1;
+				const duration = 90;
+				const host = {
+					uid: this.$store.state.user.uid
+				};
+				
+				roomKitApi.createClass(subject, room_type, duration, host).then( (res) => {
+          if (res.data.code === 200) {
+						let createResult = res.data.data;
+					}
+        })
 			},
 
 			getClass: async function(){
-				let token;
+				/* let token;
 				if(this.$store.state.roomkit.sdk_token){
 					token = this.$store.state.roomkit.sdk_token;
 				}else{
@@ -153,7 +158,7 @@
 					verify_type: 3,
 				}
 				const classResult = await eduCloudApi.getClassList(getClassParams);
-				this.theClass = classResult.data.room_list[0]
+				this.theClass = classResult.data.room_list[0] */
 				//this.theClass = Object.assign({},classResult.data.room_list[0]);
 			},
 
@@ -163,7 +168,21 @@
 		},
 
 		mounted: function(){
-			this.getClass();
+			if(!this.courseId){
+				this.snackbar = true;
+				this.notification = '你还没有选择课程，请先选择一个课程';
+				this.snackbarColor = 'red';
+				setTimeout( () => {this.$router.push({path: '/myprofile/teacherclass'});}, 3000);
+			}else{
+				this.getClass();
+			}			
+		},
+
+		created() {
+			if(this.$route.query.courseId){
+        this.courseId = this.$route.query.courseId;
+				this.courseTitle = this.$route.query.courseTitle;
+      }
 		}
 	}
 </script>

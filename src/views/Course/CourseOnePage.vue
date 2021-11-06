@@ -54,11 +54,35 @@
         </v-row>
       </v-container>
     </section>
+    <v-snackbar
+			v-model="snackbar"
+			:color="snackbarColor"
+			timeout="3000"
+			top
+			dark
+		>
+			<v-icon
+				color="white"
+				class="mr-3"
+			>
+				mdi-bell-plus
+			</v-icon>
+			{{notification}}
+			<v-btn
+				icon
+				@click="snackbar = false"
+			>
+				<v-icon>
+					mdi-close-circle
+				</v-icon>
+			</v-btn>
+		</v-snackbar>
   </div>
 </template>
 
 <script>
   import courseApi from '../../api/courseApi'
+  import relationApi from '../../api/relationApi'
   export default {
     data: () => ({
       selection: '',
@@ -66,6 +90,9 @@
         name: null,
       },
       courseId: null,
+      snackbar: false,
+      snackbarColor: '',
+      notification: '',
     }),
 
     methods: {
@@ -73,12 +100,31 @@
         courseApi.findOneCourseById(this.courseId).then( (res) => {
           if (res.data.code === 200) {
 						this.course = res.data.data[0];
-					}
+					}else{
+            this.snackbar = true;
+            this.notification = '读取课程错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
         })
       },
 
       reserveCourse: function(){
-        this.$router.push({path: '/course/prepare'})
+        if(!this.$store.state.user.uid){
+          this.$router.push({path: '/login'});
+        }else{
+          relationApi.setUserCourseRelation(this.$store.state.user.uid, this.courseId, 1, 0).then( (res) => {
+            if (res.data.code === 200) {
+              this.snackbar = true;
+              this.notification = '加入成功';
+              this.snackbarColor = 'green';
+              this.$router.push({path: '/myprofile/class'});
+            }else{
+              this.snackbar = true;
+              this.notification = '发生错误，请重试或联系管理员';
+              this.snackbarColor = 'red';
+            }
+          })
+        }        
       }
     },
 

@@ -10,6 +10,7 @@
         <v-card>
 					<v-card-text>
 						购买记录
+            <v-btn @click="test()">test roomkit</v-btn>
 					</v-card-text>
         </v-card>
       </v-col>
@@ -18,7 +19,8 @@
 </template>
 
 <script>
-	import profileLeft from "../../components/ProfileLeft.vue"  
+	import profileLeft from "../../components/ProfileLeft.vue"
+  import classApi from '../../api/roomKitApi'
   export default {
     components: {	profileLeft	},
 
@@ -27,7 +29,9 @@
 		}),
 
 		methods: {
-
+      test: function(){
+        classApi.testRoomkit()
+      }
 		},
 
 		computed: {

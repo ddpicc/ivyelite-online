@@ -19,6 +19,7 @@
 								v-for="(item, i) in searching"
 								:key="i"
 								ripple
+								@click="prepareCourse(item)"
 							>
 								<v-img
 									:src="item.cover_url"
@@ -56,8 +57,8 @@
 		},
 
 		methods: {
-      prepareCourse: function() {
-        this.$router.push({ path: '/course/prepare' });
+      prepareCourse: function(item) {
+        this.$router.push({ path: '/course/prepare', query: {courseTitle: item.name, courseId: item.id} });
       },
 
       getUserCourses: function(){
