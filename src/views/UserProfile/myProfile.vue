@@ -116,7 +116,7 @@
 								</v-col>
 
 								<v-col cols="6" class="d-flex">
-									<v-subheader>语音</v-subheader>
+									<v-subheader>语言</v-subheader>
 									<v-menu
 										open-on-hover
 										bottom
@@ -185,20 +185,6 @@
 				alert('change phone')
 			},
 		},
-
-		computed: {
-      searching () {
-        if (!this.search) return this.items
-
-        const search = this.search.toLowerCase()
-
-        return this.items.filter(item => {
-          const text = item.title.toLowerCase()
-
-          return text.indexOf(search) > -1
-        })
-      },
-    },
 
 		mounted: function(){
 			

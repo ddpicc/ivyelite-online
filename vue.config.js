@@ -8,10 +8,6 @@ module.exports = {
       warnings: false,
       errors: false
     },
-
-    proxy: {
-
-    }
   },
   lintOnSave: false,
     

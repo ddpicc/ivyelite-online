@@ -41,7 +41,7 @@
 						<v-subheader>设置</v-subheader>
 						<v-list-item>
 							<v-list-item-content>
-								<v-list-item-title>课堂名称 : </v-list-item-title>
+								<v-list-item-title>课堂名称 : {{classSubject}}</v-list-item-title>
 								
 							</v-list-item-content>
 							<v-list-item-icon>
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-	import roomKitApi from '../../api/roomKitApi'
+	import classRoomApi from '../../api/classRoomApi'
 	export default {
 		data: () => ({
 			courseTitle: '',
@@ -118,6 +118,7 @@
 				},				
 			],
 			theClass: null,
+			classSubject: '',
 			snackbar: false,
       snackbarColor: '',
       notification: '',
@@ -125,41 +126,56 @@
 
 		methods: {
 			createClass: async function(){
-				const subject = this.courseTitle;
+				//check if there is already one class and it is not closed
+				//only one class for the course at the save time
+				const subject = this.classSubject;
 				const room_type = 1;
 				const duration = 90;
 				const host = {
-					uid: this.$store.state.user.uid
+					uid: Number(this.$store.state.user.uid)
 				};
 				
-				roomKitApi.createClass(subject, room_type, duration, host).then( (res) => {
+				classRoomApi.createClass(subject, room_type, duration, host).then( (res) => {
           if (res.data.code === 200) {
-						let createResult = res.data.data;
+						let roomkitResult = res.data.data;
+						console.log(roomkitResult)
+						//把房间信息存入数据库
+						classRoomApi.saveRoom(this.courseId, subject, roomkitResult.room_id, roomkitResult.begin_timestamp, 1).then( (res) => {
+							if (res.data.code === 200) {
+								this.snackbar = true;
+								this.notification = '成功';
+								this.snackbarColor = 'green';
+								this.theClass = {
+									subject: subject,
+									room_id: roomkitResult.room_id
+								}
+							}else{
+								this.snackbar = true;
+								this.notification = '发生错误，请重试或联系管理员';
+								this.snackbarColor = 'red';
+							}
+						})
 					}
         })
 			},
 
-			getClass: async function(){
-				/* let token;
-				if(this.$store.state.roomkit.sdk_token){
-					token = this.$store.state.roomkit.sdk_token;
-				}else{
-					let tokenRes = await roomKitApi.getSDKToken();
-					token = tokenRes.data.sdk_token;
-				}
+			getClass: function(){
+				classRoomApi.searchRoomByCourseId(this.courseId).then( (res) => {
+					if (res.data.code === 200) {
+						if(res.data.data.length > 0){
+							this.theClass = res.data.data[0];
+							this.classSubject = this.theClass.subject;
+						}else{
+							this.classSubject = this.courseTitle + ' ' + new Date().toLocaleDateString();
+						}
+						
 
-				let getClassParams = {
-					begin_timestamp: new Date().getTime() - 12 * 60 * 60 * 1000,
-					device_id: roomKitApi.getDeviceId(),
-					uid: 12313,
-					sdk_token: token,
-					secret_id: 2000049,
-					status: 3,
-					verify_type: 3,
-				}
-				const classResult = await eduCloudApi.getClassList(getClassParams);
-				this.theClass = classResult.data.room_list[0] */
-				//this.theClass = Object.assign({},classResult.data.room_list[0]);
+					}else{
+						this.snackbar = true;
+						this.notification = '发生错误，请重试或联系管理员';
+						this.snackbarColor = 'red';
+					}
+				})
 			},
 
 			attendClass: function(){

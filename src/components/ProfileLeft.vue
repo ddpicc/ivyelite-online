@@ -12,7 +12,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              John Leider
+              {{$store.state.user.name}}
               <v-icon>mdi-pencil</v-icon>
             </v-list-item-title>
           </v-list-item-content>

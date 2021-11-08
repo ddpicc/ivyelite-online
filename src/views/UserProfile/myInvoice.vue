@@ -20,7 +20,7 @@
 
 <script>
 	import profileLeft from "../../components/ProfileLeft.vue"
-  import classApi from '../../api/roomKitApi'
+  import classApi from '../../api/classRoomApi'
   export default {
     components: {	profileLeft	},
 
@@ -30,7 +30,7 @@
 
 		methods: {
       test: function(){
-        classApi.testRoomkit()
+        
       }
 		},
 

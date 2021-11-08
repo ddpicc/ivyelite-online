@@ -50,7 +50,7 @@ app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
 //  路由
 app.use(require('./routers/userRouter.js').routes())
 app.use(require('./routers/courseRouter.js').routes())
-app.use(require('./routers/roomkitRouter.js').routes())
+app.use(require('./routers/classRoomRouter.js').routes())
 app.use(require('./routers/relationRouter.js').routes())
 
 

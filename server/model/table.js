@@ -38,4 +38,16 @@ let user_courses =
 		FOREIGN KEY(course_id) REFERENCES courses(id)
 	);`
 
-module.exports = [users, courses,user_courses]
+	let room =
+	`create table if not exists room(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		course_id INT UNSIGNED NOT NULL,
+		subject TEXT NOT NULL COMMENT '房间主题',
+		room_id INT UNSIGNED NOT NULL,
+		begin_timestamp BIGINT,
+		room_type INT NOT NULL DEFAULT 1,
+		password VARCHAR(30),
+		PRIMARY KEY ( id )
+	);`
+
+module.exports = [users, courses,user_courses,room]

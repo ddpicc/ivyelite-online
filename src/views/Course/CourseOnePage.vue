@@ -115,7 +115,7 @@
           relationApi.setUserCourseRelation(this.$store.state.user.uid, this.courseId, 1, 0).then( (res) => {
             if (res.data.code === 200) {
               this.snackbar = true;
-              this.notification = '加入成功';
+              this.notification = '选课成功';
               this.snackbarColor = 'green';
               this.$router.push({path: '/myprofile/class'});
             }else{
