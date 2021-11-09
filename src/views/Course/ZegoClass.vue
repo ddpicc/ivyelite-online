@@ -5,7 +5,7 @@
 <script>
 import { ZegoRoomKit } from '../../plugins/zegoroomkit_edu_web/ZegoRoomKit'
 import classRoomApi from '../../api/classRoomApi'
-const zg;
+var zg = null;
 export default {
 	data: () => ({
 		urlParams: null,
@@ -13,78 +13,142 @@ export default {
 	}),
 
 	methods: {
-		init: function(){			
-			// 快速加入时的摄像头麦克风设置 默认true
-			const mic = this.urlParams.get('m') === '1' ? false : true;
-			const camera = this.urlParams.get('c') === '1' ? false : true;
+		init: function(){
+			zg = new ZegoRoomKit();
+			//初始化配置信息
+			zg.init({
+				secretID: Number(process.env.VUE_APP_ROOMKIT_SECRETID)
+			})
+			// 快速加入时的摄像头麦克风设置 默认trueß
+			const mic = this.urlParams.m === '1' ? false : true;
+			const camera = this.urlParams.c === '1' ? false : true;
 			// 自定义标题
-			const title = this.urlParams.get('title');
+			const title = this.urlParams.title;
 			// 隐藏主持人结束房间按钮
 			const isEndRoomButtonHidden = 
-				this.urlParams.get('isEndRoomButtonHidden') ===	'true' ? true : false;
+				this.urlParams.isEndRoomButtonHidden ===	'true' ? true : false;
 			// 隐藏房间人数
 			const isMemberCountHidden = 
-				this.urlParams.get('isMemberCountHidden') ===	'true' ? true : false;
+				this.urlParams.isMemberCountHidden ===	'true' ? true : false;
 			// 隐藏设备检测流程
 			const isMemberEquipmentInspectionHidden =
-				this.urlParams.get('isMemberEquipmentInspectionHidden') === 'true' ? true : false;
+				this.urlParams.isMemberEquipmentInspectionHidden === 'true' ? true : false;
 			// 隐藏进房消息
 			const isMemberJoinRoomMessageHidden = 
-				urlParams.get('isMemberJoinRoomMessageHidden') === 'true' ? true : false;
+				this.urlParams.isMemberJoinRoomMessageHidden === 'true' ? true : false;
 			// 隐藏退房消息
 			const isMemberLeaveRoomMessageHidden = 
-				urlParams.get('isMemberLeaveRoomMessageHidden') ===	'true' ? true : false;
+				this.urlParams.isMemberLeaveRoomMessageHidden ===	'true' ? true : false;
 			const isVideoViewAutoHidden =
-					urlParams.get('isVideoViewAutoHidden') === 'true' ? true : false;
+				this.urlParams.isVideoViewAutoHidden === 'true' ? true : false;
 			// 隐藏企业云盘文件
 			const isCompanyFilesHidden = 
-				urlParams.get('isCompanyFilesHidden') === 'true' ? true : false;
+				this.urlParams.isCompanyFilesHidden === 'true' ? true : false;
 			// 是否固定展示进退房消息
 			const isFixedInOutMessage =
-				urlParams.get('isFixedInOutMessage') === 'true' ? true : false;
+				this.urlParams.isFixedInOutMessage === 'true' ? true : false;
 			// 是否开启笔锋
-			const enableHandwriting = urlParams.get('enableHandwriting') === 'true' ? true : false;
+			const enableHandwriting = this.urlParams.enableHandwriting === 'true' ? true : false;
+			const uiConfig = {
+				isEndRoomButtonHidden,
+				isMemberCountHidden,
+				isMemberEquipmentInspectionHidden,
+				isMemberJoinRoomMessageHidden,
+				isMemberLeaveRoomMessageHidden,
+				isVideoViewAutoHidden,
+				isCompanyFilesHidden,
+				isFixedInOutMessage,
+				enableHandwriting
+			}
 			zg.roomSettings().setIsMicrophoneOnWhenJoiningRoom(mic);
 			zg.roomSettings().setIsCameraOnWhenJoiningRoom(camera);
+			this.joinRoom(title, uiConfig)
 		},
 
-		joinRoom: async function(){
+		joinRoom: async function(title, uiConfig){
+			try {
+				const userId = this.$store.state.user.uid;
+				const token = await this.getSDKToken(userId);
+				let info = null;
+				const beginTimestamp = this.urlParams.beginTimestamp
+				const roomType = Number(this.urlParams.roomType);
+				info = await classRoomApi.getClassInfoFromEduCloud(this.urlParams.room_id);
+				if (info && roomType !== info.data.room_type) {
+						// 房间类型不同时房间标题置空 房间标题应从房间内中获取 
+						info.data.subject = ''
+				}
+				/* zg.inRoomService().setUserParameter({
+						avatarUrl: 'https://img2.baidu.com/it/u=325567737,3478266281&fm=26&fmt=auto&gp=0.jpg',
+						customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
+				})
+				zg.inRoomService().setRoomParameter({
+						subject: title || (info && info.data.subject),
+						beginTimestamp: (beginTimestamp && Number(beginTimestamp)) || info.data && info.data.beginTimestamp,
+						// hostNickname: 'wwww'
+				})
+				//zg.inRoomService().setUIConfig(uiConfig)
 
+				zg.setAdvancedConfig({
+						domain: 'https://roomkit-api.zego.im',
+				}) */
+            const res = await zg.inRoomService().joinRoomWithConfig({
+                userID: Number(this.$store.state.user.uid),
+                userName: this.$store.state.user.name,
+                roomID: this.urlParams.room_id,
+                token: token,
+                role: Number(this.urlParams.role),
+                productID: Number(process.env.VUE_APP_ROOMKIT_PRODUCTID),
+            }, 'app')
+        } catch (err) {
+            // 加入课堂失败
+            if (err.error === 4020009) {
+                //toast.error('房间助教已满')
+            } else if (err.error === 4020008) {
+                //toast.error('房间学生已满')
+            } else if (err.error === 4020010) {
+                //toast.error('老师已存在')
+            } else {
+							console.log('errrrrrrr')
+                //toast.error(lang.room_join_failed + ':' + err.error) // 加入房间失败
+            }
+
+            setTimeout(() => {
+                window.history.back()
+            }, 3000)
+            throw err;
+        }
 		},
 
-		getSDKToken: function(){
-			if (this.$cookies.getItem(`sdkToken-${userId}`)) {
-      	resolve(this.$cookies.getItem(`sdkToken-${userId}`));
-    	}
+		getSDKToken: function(userId){
 			const device_id = ZegoRoomKit.deviceID();
 			return new Promise ((resolve, reject) => {
-				classRoomApi.getSDKToken(device_id).then( res => {
-					if(res.data.code === 200){
-						cookies.setItem(
-								`sdkToken-${userId}`,
-								res.data.data.sdkToken,
-								new Date(new Date().getTime() + (res.data.data.expiresIn - 60 * 60 * 3) * 1000),
-						);
-						resolve(res.data.data.sdkToken);
-					}else{
-						reject(res.data.ret.message);
-					}
-				})
+				if (this.$Cookies.get(`sdkToken-${userId}`)) {
+					resolve(this.$Cookies.get(`sdkToken-${userId}`));
+				}else{
+					classRoomApi.getSDKToken(device_id).then( res => {
+						if(res.data.code === 200){
+							this.$Cookies.set(
+									`sdkToken-${userId}`,
+									res.data.data.sdk_token,
+									new Date(new Date().getTime() + (res.data.data.expires_in - 60 * 60 * 3) * 1000),
+							);
+							resolve(res.data.data.sdk_token);
+						}else{
+							reject(res.data.ret.message);
+						}
+					})
+				}				
 			})
 		},
 	},
 
 	mounted: function(){
+		//alert(this.urlParams.room)
 		this.init();
 	},
 
 	created() {
 		this.urlParams = this.$route.query
-		const zg = new ZegoRoomKit();
-		//初始化配置信息
-		zg.init({
-			secretID: process.env.VUE_APP_ROOMKIT_SECRETID
-		})
 	},
 	
 }

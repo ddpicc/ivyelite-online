@@ -31,7 +31,7 @@
 					<v-card-subtitle>{{theClass.room_id}}</v-card-subtitle>
 
 					<v-card-actions>
-						<v-btn @click="attendClass()" text>
+						<v-btn @click="attendClass(theClass.room_id,theClass.begin_timestamp)" text>
 							加入课堂
 						</v-btn>
 					</v-card-actions>
@@ -151,7 +151,7 @@
 								}
 							}else{
 								this.snackbar = true;
-								this.notification = '发生错误，请重试或联系管理员';
+								this.notification = '发生错误，请重试或联系管理员'; 
 								this.snackbarColor = 'red';
 							}
 						})
@@ -178,8 +178,13 @@
 				})
 			},
 
-			attendClass: function(){
-				
+			attendClass: function(room_id,begin_timestamp){
+				let urlParams = {
+					room_id: room_id,
+					role: 1,
+					begin_timestamp: begin_timestamp,
+				}
+				this.$router.push({path: '/zegoClass', query: urlParams});
 			}
 		},
 

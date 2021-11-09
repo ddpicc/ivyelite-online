@@ -12,8 +12,16 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
-              {{$store.state.user.name}}
-              <v-icon>mdi-pencil</v-icon>
+              <div v-if="!editInfo">
+                {{$store.state.user.name}}
+                <v-icon @click="editName()">mdi-pencil</v-icon>
+              </div>
+              <v-text-field
+                v-if="editInfo"
+                dense
+                outlined
+                v-model="userName"
+              ></v-text-field>
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -47,6 +55,7 @@
 <script>
   export default {
     data: () => ({
+      editInfo: false,
       links: [
         { text: '我的课程', icon: 'mdi-folder', to: '/myprofile/class'},
         { text: '我的讨论', icon: 'mdi-account-multiple', to: '/myprofile/discuss' },
@@ -56,5 +65,11 @@
         { text: '我的课程(老师)', icon: 'mdi-folder', to: '/myprofile/teacherclass'},        
       ],
     }),
+
+    methods: {
+      editName: function(){
+        this.editInfo = true;
+      },
+    }
   }
 </script>

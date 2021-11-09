@@ -81,8 +81,8 @@ exports.getSDKToken = async ctx => {
         platform: 64,
       },
       sign: sign,
-      secret_id: SecretID,
-      device_id: deviceId,
+      secret_id: Number(process.env.VUE_APP_ROOMKIT_SECRETID),
+      device_id: device_id,
       timestamp: timestamp,
     }
   })
