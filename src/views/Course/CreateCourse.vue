@@ -6,19 +6,19 @@
 			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="7">
+      <v-col cols="6">
         <v-card>
 					<v-card-text>
             <v-row>
-              <v-col cols="9">
+              <v-col cols="8">
                 <v-subheader>名称</v-subheader>
                 <v-card-title>
-                  <span v-if="!editMode" v-text="course.name"></span>
-                  <v-text-field outlined dense v-if="editMode"></v-text-field>
+                  <span v-if="!editMode" v-text="theCourse.name"></span>
+                  <v-text-field outlined dense v-model="demoCourseTitle" v-if="editMode"></v-text-field>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-subheader>简介</v-subheader>
-                <div v-if="!editMode" v-text="course.summary"></div>
+                <div v-if="!editMode" v-text="theCourse.summary"></div>
                 <div v-if="editMode">
                   <!-- Use the component in the right place of the template -->
                   <tiptap-vuetify
@@ -29,7 +29,7 @@
                 </div>
                 <v-divider></v-divider>
                 <v-subheader>详情</v-subheader>
-                <div v-if="!editMode" v-text="course.description"></div>
+                <div v-if="!editMode" v-text="theCourse.description"></div>
                 <div v-if="editMode">
                   <!-- Use the component in the right place of the template -->
                   <tiptap-vuetify
@@ -42,12 +42,12 @@
               <v-divider
                 vertical
               ></v-divider>
-              <v-col cols="3">
+              <v-col cols="4">
                 <v-expansion-panels accordion multiple v-model="panel">
                   <v-expansion-panel>
                     <v-expansion-panel-header>编辑课程</v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <v-btn block dense color="blue" @click="editClick()">编辑</v-btn>
+                      <v-btn block dense color="blue" @click="editClick()">{{editBtnTitle}}</v-btn>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                   <v-expansion-panel>
@@ -63,9 +63,6 @@
                             v-for="(item, i) in items"
                             :key="i"
                           >
-                            <v-list-item-icon>
-                              <v-icon v-text="item.icon"></v-icon>
-                            </v-list-item-icon>
                             <v-list-item-content>
                               <v-list-item-title v-text="item.text"></v-list-item-title>
                             </v-list-item-content>
@@ -79,6 +76,50 @@
             </v-row>
 					</v-card-text>
         </v-card>
+        <v-dialog max-width="500" v-model="chooseDateTimeDialog">
+          <v-card>
+            <v-col cols="12">
+              <v-date-picker
+                v-model="pickDate"
+                full-width
+                color="green lighten-1"
+              ></v-date-picker>
+            </v-col>
+            <v-col cols="12" justify="center">
+              <v-row justify="center">
+                <v-col cols="6">
+                  <v-select
+                  :items="hours"
+                  label="Hours"
+                  v-model="pickHour"
+                  solo
+                ></v-select>
+                </v-col>
+                <v-col cols="6">
+                  <v-select
+                  :items="minitus"
+                  v-model="pickMinute"
+                  label="Minutes"
+                  solo
+                ></v-select>
+                </v-col>
+              </v-row>
+            </v-col>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="primary"
+                text
+                @click="dialog = false"
+              >
+                确定
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -86,13 +127,14 @@
 
 <script>
 	import profileLeft from "../../components/ProfileLeft.vue"
+  import courseApi from '../../api/courseApi'
   import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList, ListItem, Link, Blockquote, HardBreak, HorizontalRule, History } from 'tiptap-vuetify'
   export default {
     components: { profileLeft, TiptapVuetify },
     data: () => ({
-			panel: [0],
+			panel: [0,1],
       editMode: false,
-      course: {
+      theCourse: {
         name: null,
         summary: null,
         description: null,
@@ -118,13 +160,25 @@
         Paragraph,
         HardBreak
       ],
+      demoCourseTitle: 'This is a Demo Title',
       demoSummary: '<p>This is a Demo Summary</p>',
       demoDescription: '<p><b>This is a Demo Description</b></p>',
       items: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
+        { text: '11/11/2021 3:26pm'},
+        { text: 'Audience' },
+        { text: 'Conversions'},
       ],
+      courseId: null,
+      selectedItem: '',
+      editBtnTitle: '编辑',
+
+      chooseDateTimeDialog: false,
+      pickDate: '',
+      pickHour: '',
+      pickMinute: '',
+      hours: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+      minitus: ['00','10','20','30','40','50'],
+      
 		}),
 
 		methods: {
@@ -132,23 +186,53 @@
         if(this.editMode == false){
           //开始编辑
           this.editMode = true;
+          this.editBtnTitle = '保存';
         }else{
           //保存
           this.editMode = false;
+          if(this.courseId){
+            //update
+          }else{
+            //insert
+          }
         }        
       },
 
       addTime: function(){
-
+        this.chooseDateTimeDialog = true;
       },
+
+      getCourse: function(){
+				courseApi.findOneCourseById(this.courseId).then( (res) => {
+					if (res.data.code === 200) {
+						if(res.data.data.length > 0){
+							this.theCourse = res.data.data[0];
+              this.demoCourseTitle = this.theCourse.name;
+              this.demoSummary = this.theCourse.summary;
+              this.demoDescription = this.theCourse.description;
+						}
+					}else{
+						this.snackbar = true;
+						this.notification = '发生错误，请重试或联系管理员';
+						this.snackbarColor = 'red';
+					}
+				})
+			},
 		},
 
-		computed: {
-      
-    },
-
 		mounted: function(){
-			
+			if(!this.courseId){
+        this.editMode = true;
+        this.editBtnTitle = '保存';
+			}else{
+				this.getCourse();
+			}			
+		},
+
+		created() {
+			if(this.$route.query.courseId){
+        this.courseId = this.$route.query.courseId;
+      }
 		}
 	}
 </script>

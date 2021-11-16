@@ -6,49 +6,100 @@
 			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="7">
+      <v-col cols="6">
         <v-card>
 					<v-card-text>
-						<v-tabs>
+						<v-tabs v-model="tab">
 							<v-tab>正在上课</v-tab>
 							<v-tab>已结课</v-tab>
 						</v-tabs>
 						<v-divider class="mb-4"></v-divider>
-						<v-list three-line>
-							<v-list-item
-								v-for="(item, i) in searching"
-								:key="i"
-								ripple
-							>
-								<v-img
-									:src="item.cover_url"
-									class="ma-2"
-									max-width="164"
-								></v-img>
+						<v-tabs-items v-model="tab">
+      				<v-tab-item>
+								<v-card
+									color="#1F7087"
+									class="mt-2"
+									dark
+									v-for="(item, i) in searching"
+									:key="i"
+								>
+									<div class="d-flex flex-no-wrap justify-space-between">
+										<div>
+											<v-card-title
+												class="text-h5"
+												v-text="item.name"
+											></v-card-title>
 
-								<v-list-item-content>
-									<span
-										class="text-uppercase font-weight-regular text-caption"
-										v-text="item.summary"
-									></span>
+											<v-card-subtitle v-text="item.summary"></v-card-subtitle>
 
-									<div v-text="item.name"></div>
-								</v-list-item-content>
-							</v-list-item>
-						</v-list>
+											<v-card-actions>
+												<v-btn
+													class="ml-2 mt-2"
+													outlined
+													rounded
+													small
+													@click="joinClass(item.id)"
+												>
+													加入课堂
+												</v-btn>
+											</v-card-actions>
+										</div>
+										<v-avatar
+										class="ma-3"
+										size="125"
+										tile
+									>
+										<v-img :src="item.cover_url"></v-img>
+									</v-avatar>
+									</div>
+								</v-card>
+							</v-tab-item>
+							<v-tab-item>
+								fasa
+							</v-tab-item>
+						</v-tabs-items>
 					</v-card-text>
         </v-card>
       </v-col>
     </v-row>
+		<v-snackbar
+			v-model="snackbar"
+			:color="snackbarColor"
+			timeout="3000"
+			top
+			dark
+		>
+			<v-icon
+				color="white"
+				class="mr-3"
+			>
+				mdi-bell-plus
+			</v-icon>
+			{{notification}}
+			<v-btn
+				icon
+				@click="snackbar = false"
+			>
+				<v-icon>
+					mdi-close-circle
+				</v-icon>
+			</v-btn>
+		</v-snackbar>
   </v-container>
 </template>
 
 <script>
 	import profileLeft from "../../components/ProfileLeft.vue"
   import relationApi from '../../api/relationApi'
+	import classRoomApi from '../../api/classRoomApi'
   export default {
     data: () => ({
 			coursesList: [],
+			tab: null,
+			theClass: null,
+			snackbar: false,
+      snackbarColor: '',
+      notification: '',
 		}),
 
 		components: {
@@ -56,8 +107,30 @@
 		},
 
 		methods: {
-      prepareCourse: function() {
-        this.$router.push({ path: '/course/prepare' });
+      joinClass: function(id) {
+				//get room id
+				classRoomApi.searchRoomByCourseId(id).then( (res) => {
+					if (res.data.code === 200) {
+						if(res.data.data.length > 0){     //有对应的房间
+							this.theClass = res.data.data[0];
+							let urlParams = {
+								room_id: this.theClass.room_id,
+								role: 2,
+								begin_timestamp: this.theClass.begin_timestamp,
+							}
+							this.$router.push({path: '/zegoClass', query: urlParams});
+						}else{
+							//还没有创建房间
+							this.snackbar = true;
+							this.notification = '目前还没开课';
+							this.snackbarColor = 'green';
+						}
+					}else{
+						this.snackbar = true;
+						this.notification = '发生错误，请重试或联系管理员';
+						this.snackbarColor = 'red';
+					}
+				})
       },
 
       getUserCourses: function(){

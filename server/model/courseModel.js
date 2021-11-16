@@ -13,3 +13,9 @@ exports.findOneCourseById = ( id ) => {
   let _sql = `select * from courses where id="${id}";`
   return query( _sql )
 }
+
+//更新课程描述信息
+exports.updateCourseInfo = ( value ) => {
+	let _sql = "update courses set name=?,cover_url=?,summary=?,description=?,time_arrange=?,status=?;"
+	return query( _sql, value)
+}

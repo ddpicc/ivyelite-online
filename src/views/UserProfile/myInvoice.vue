@@ -6,11 +6,11 @@
 			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="7">
+      <v-col cols="6">
         <v-card>
 					<v-card-text>
 						购买记录
-            <v-btn @click="test()">test roomkit</v-btn>
+            
 					</v-card-text>
         </v-card>
       </v-col>

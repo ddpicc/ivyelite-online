@@ -11,3 +11,8 @@ exports.searchRoomInfoFromDb = ( course_id ) => {
 	let _sql = `select * from room where course_id="${course_id}";`
 	return query( _sql)
 }
+
+exports.deleteRoomFromDb = ( id ) => {
+	let _sql = `delete from room where id="${id}";`
+	return query( _sql)
+}

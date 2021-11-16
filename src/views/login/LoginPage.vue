@@ -76,15 +76,15 @@
                 </v-tabs-items>
                 
                   <v-card-actions>
-                    <v-btn block color="grey" @click.stop="loginClick">登录</v-btn>
+                    <v-btn block color="blue" @click.stop="loginClick">登录</v-btn>
                   </v-card-actions>
                   <v-row>
                     <v-col cols="6">
                       还没有帐号？
-                      <router-link to="register" style="color:red">免费注册</router-link>
+                      <router-link to="/register" style="color:red">免费注册</router-link>
                     </v-col>
                     <v-col cols="6" class="d-inline-flex justify-end">
-                      <router-link to="forgetPass" style="color:red">忘记密码</router-link>   
+                      <router-link to="/forgetPass" style="color:red">忘记密码</router-link>   
                     </v-col>
                   </v-row>
               </v-card-text>
@@ -166,10 +166,6 @@
           }          
         })
       },
-
-      register: function(){
-        
-      }
     }
   }
 </script>

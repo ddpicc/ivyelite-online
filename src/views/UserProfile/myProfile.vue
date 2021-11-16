@@ -6,11 +6,11 @@
 			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="7">
+      <v-col cols="6">
         <v-card>
 					<v-card-title class="text-h6">
             个人信息
-						<v-btn plain @click="editBtnClick()">编辑</v-btn>
+						<v-btn plain @click="editBtnClick()">{{editBtnTitle}}</v-btn>
           </v-card-title>
 					<v-card-text>
 						<v-form>
@@ -29,25 +29,27 @@
 								<v-col cols="6" class="d-flex">
 									<v-subheader>性别</v-subheader>
 									<v-subheader v-if="!editInfo">{{userSex}}</v-subheader>
-									<v-text-field
+									<v-select
 										v-if="editInfo"
 										solo
 										dense
 										label="输入性别"
 										v-model="userSex"
-									></v-text-field>
+										:items="sexList" 
+									></v-select>
 								</v-col>
 
 								<v-col cols="6" class="d-flex">
 									<v-subheader>学历</v-subheader>
 									<v-subheader v-if="!editInfo">{{userEducation}}</v-subheader>
-									<v-text-field
+									<v-select
 										v-if="editInfo"
 										solo
 										dense
 										label="输入学历"
 										v-model="userEducation"
-									></v-text-field>
+										:items="educationList"
+									></v-select>
 								</v-col>
 								<v-col cols="6" class="d-flex">
 									<v-subheader>学校/公司</v-subheader>
@@ -64,13 +66,29 @@
 								<v-col cols="6" class="d-flex">
 									<v-subheader>生日</v-subheader>
 									<v-subheader v-if="!editInfo">{{userBirth}}</v-subheader>
-									<v-text-field
+									<v-menu
 										v-if="editInfo"
-										solo
-										dense
-										label="输入生日"
-										v-model="userBirth"
-									></v-text-field>
+										v-model="birthMenu"
+										:close-on-content-click="false"
+										:nudge-right="40"
+										transition="scale-transition"
+										offset-y
+										min-width="auto"
+									>
+										<template v-slot:activator="{ on, attrs }">
+											<v-text-field
+												v-model="userBirth"
+												label="选择生日"
+												readonly
+												v-bind="attrs"
+												v-on="on"
+											></v-text-field>
+										</template>
+										<v-date-picker
+											v-model="userBirth"
+											@input="birthMenu = false"
+										></v-date-picker>
+									</v-menu>
 								</v-col>
 								<v-col cols="6" class="d-flex">
 									<v-subheader>地区</v-subheader>
@@ -79,9 +97,8 @@
 										v-if="editInfo"
 										solo
 										dense
-										label="输入密码1"
-										type="password"
-										v-model="password"
+										label="输入地区"
+										v-model="userArea"
 									></v-text-field>
 								</v-col>
 							</v-row>
@@ -146,18 +163,48 @@
         </v-card>
       </v-col>
     </v-row>
+
+		<v-snackbar
+			v-model="snackbar"
+			:color="snackbarColor"
+			timeout="3000"
+			top
+			dark
+		>
+			<v-icon
+				color="white"
+				class="mr-3"
+			>
+				mdi-bell-plus
+			</v-icon>
+			{{notification}}
+			<v-btn
+				icon
+				@click="snackbar = false"
+			>
+				<v-icon>
+					mdi-close-circle
+				</v-icon>
+			</v-btn>
+		</v-snackbar>
   </v-container>
 </template>
 
 <script>
 	import profileLeft from "../../components/ProfileLeft.vue"
+	import userApi from '../../api/userApi'
   export default {
     data: () => ({
 			editInfo: false,
+			editBtnTitle: '编辑',
+
 			userName: '',
+			sexList: ['男','女'],
 			userSex: '',
 			userEducation: '',
+			educationList: ['本科','研究生','博士'],
 			userSchool: '',
+			birthMenu: false,
 			userBirth: '',
 			userArea: '',
 
@@ -174,6 +221,10 @@
 					title: 'English'
 				}
 			],
+
+			snackbar: false,
+      snackbarColor: '',
+      notification: '',
 		}),
 
 		components: {
@@ -184,10 +235,56 @@
 			changePhone: function(){
 				alert('change phone')
 			},
+
+			editBtnClick: function(){
+				if(this.editInfo == false){
+					this.editInfo = true;
+					this.editBtnTitle = '保存';
+				}else{
+					this.editInfo = false;
+					this.editBtnTitle = '编辑';
+					//save to db
+					userApi.updateUserProfile(this.userName,this.userSex,this.userEducation,this.userSchool,this.userBirth,this.userArea).then(res => {
+						if(res.data.code === 200) {
+							this.snackbar = true;
+            	this.notification = '更新成功';
+            	this.snackbarColor = 'green';
+						}else{
+							this.snackbar = true;
+            	this.notification = '发生错误，请重试或联系管理员';
+            	this.snackbarColor = 'red';
+						}
+					})					
+				}
+				
+			},
+			
+			getUserInfo: function(){
+				userApi.getInfo(this.$store.state.user.uid).then(res => {
+					if (res.data.code === 200) {
+            this.userName = res.data.data[0].name;
+						this.userSex = ''
+						this.userEducation = ''
+						this.userSchool = ''
+						this.userBirth = ''
+						this.userArea = ''
+
+						this.accountID = res.data.data[0].uid;
+						this.phoneNM = ''
+						this.email = res.data.data[0].email;
+						this.password = '********';
+						this.language = ''
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+				})
+			}
 		},
 
 		mounted: function(){
-			
+			this.getUserInfo()
 		}
 	}
 </script>

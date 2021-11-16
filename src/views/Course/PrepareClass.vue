@@ -22,6 +22,7 @@
                 top
                 right
                 fab
+								@click="deleteCurrentClass(theClass)"
               >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
@@ -128,6 +129,12 @@
 			createClass: async function(){
 				//check if there is already one class and it is not closed
 				//only one class for the course at the save time
+				if(this.theClass){
+					this.snackbar = true;
+					this.notification = '已经存在一个课堂，请先删除现有的课堂之后再创建新的课堂'; 
+					this.snackbarColor = 'red';
+					return;
+				}
 				const subject = this.classSubject;
 				const room_type = 1;
 				const duration = 90;
@@ -178,11 +185,38 @@
 				})
 			},
 
+			deleteCurrentClass: function(theClass){
+				classRoomApi.deleteRoomFromDb(theClass.id).then( (res) => {
+					if (res.data.code === 200) {
+						this.snackbar = true;
+						this.notification = '删除成功';
+						this.snackbarColor = 'green';
+						this.getClass();
+						//从educloud删除课堂
+					}else{
+						this.snackbar = true;
+						this.notification = '发生错误，请重试或联系管理员';
+						this.snackbarColor = 'red';
+					}
+				})
+			},
+
 			attendClass: function(room_id,begin_timestamp){
 				let urlParams = {
 					room_id: room_id,
 					role: 1,
 					begin_timestamp: begin_timestamp,
+					mic: true,
+					camera: true,
+					isEndRoomButtonHidden: false,
+					isMemberCountHidden: false,
+					isMemberEquipmentInspectionHidden: false,
+					isMemberJoinRoomMessageHidden: false,
+					isMemberLeaveRoomMessageHidden: false,
+					isVideoViewAutoHidden: false,
+					isCompanyFilesHidden: false,
+					isFixedInOutMessage: false,
+					enableHandwriting: true,
 				}
 				this.$router.push({path: '/zegoClass', query: urlParams});
 			}

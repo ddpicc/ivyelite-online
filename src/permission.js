@@ -13,7 +13,7 @@ function hasPermission(roles, to) {
     return true
   }
 }
-const whiteList = ['/login', '/','/course/all','/course/explore'] // 不重定向白名单
+const whiteList = ['/login', '/','/course/all','/course/explore','/register'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   if (store.state.user.uid) { // 路由守卫
     if (to.path === '/login') {

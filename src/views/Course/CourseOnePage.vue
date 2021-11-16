@@ -48,6 +48,7 @@
             >
               <v-card-text>
                 <h2 class="font-weight-bold mb-3">课程介绍</h2>
+                <p v-text="course.description"></p>
               </v-card-text>
             </v-card>
           </v-col>

@@ -11,10 +11,10 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 //check if the token is expired, if expired, re get token
 function tokenExpired(loadFromLocal) {
   let request_time = JSON.parse(loadFromLocal).request_time;
-  if(Math.floor(new Date().getTime()/1000) - request_time < 86400){
-    return true;
-  }else{
+  if(Math.floor(new Date().getTime()/1000) - request_time < 3600){
     return false;
+  }else{
+    return true;
   }
 }
 
@@ -23,7 +23,7 @@ function getAccessToken() {
   const tryToken = localStorage.getItem('token-info');
   if(!tryToken || tokenExpired(tryToken)){
     const nonce = 'ivyelite';
-    const expireSecond = Math.floor(new Date().getTime()/1000) + 7200;
+    const expireSecond = Math.floor(new Date().getTime()/1000) + 3600;
     const hashStr = `${process.env.VUE_APP_ROOMKIT_SECRETID}${process.env.VUE_APP_ROOMKIT_SECRETKEY}${nonce}${expireSecond}`;
     const hash = md5(hashStr);
     const appendUrl = 'auth/get_access_token';
@@ -162,8 +162,6 @@ exports.getClassInfo = async ctx => {
 			message: res.data
 		}
   }
-
-
 }
 
 //save the room information to db
@@ -187,6 +185,24 @@ exports.saveRoomInfoToDb = async ctx => {
 exports.searchRoomInfoFromDb = async ctx => {
   let {course_id} = ctx.request.query
 	await classRoomModel.searchRoomInfoFromDb(course_id).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+//save the room information to db
+exports.deleteRoomFromDb = async ctx => {
+	let { id } = ctx.request.query;
+	await classRoomModel.deleteRoomFromDb(id).then(res => {
 		ctx.body = {
 			code: 200,
       message: '成功',

@@ -6,4 +6,5 @@ export default {
   saveRoom: (course_id, subject, room_id, begin_timestamp, room_type, password) => api.post(`/classroom/saveRoom`, {course_id, subject, room_id, begin_timestamp, room_type, password}),
   searchRoomByCourseId: (course_id) => api.get(`/classroom/searchRoomByCourseId`, {course_id}),
   getSDKToken: (device_id) => api.post(`/roomkit/getSDKToken`, {device_id}),
+  deleteRoomFromDb: (id) => api.delete(`/classroom/deleteRoomFromDb`, {id}),
 }

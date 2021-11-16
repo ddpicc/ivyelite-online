@@ -80,11 +80,9 @@
                   </div>
                 </v-row>
 
-                <div class="my-4 text-subtitle-1">
-                  $150
-                </div>
 
-                <div>{{summary}}</div>
+
+                <div class="mt-4 text-subtitle-1">{{summary.substr(0,20)}}</div>
               </v-card-text>
 
               <v-card-actions>
@@ -111,6 +109,27 @@
 				</div>
       </v-container>
     </section>
+    <!-- <section>
+      <v-container>
+        <h2 class="font-weight-bold mt-3 mb-3 white--text">为什么选择常青藤在线</h2>
+        <h3 class="font-weight-bold mb-3 white--text">『常青藤在线是常青藤精英教育发起建立的面向未来在线学习平台，为学习者提供从高校课程到实战技能的在线教育服务』</h3>
+        <v-row justify="center">
+          <v-col
+            v-for="({ title, content }, i) in des"
+            :key="i"
+            cols="14"
+            md="3"
+          >
+            <v-card
+              class="mx-auto"
+            >
+              <v-card-title v-html="title"></v-card-title>
+              <v-card-text v-html="content"></v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section> -->
   </div>
 </template>
 
@@ -122,6 +141,20 @@
     data: () => ({
       selection: '',
       courses: [],
+      des: [
+        {
+          title: '致力于提供优质课程',
+          content: ''
+        },
+        {
+          title: '致力于提供优质课程',
+          content: ''
+        },
+        {
+          title: '致力于提供优质课程',
+          content: ''
+        }
+      ]
     }),
 
     methods: {

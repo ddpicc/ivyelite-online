@@ -3,9 +3,8 @@
 </template>
 
 <script>
-import { ZegoRoomKit } from '../../plugins/zegoroomkit_edu_web/ZegoRoomKit'
+import { ZegoRoomKit } from '../../../public/ZegoRoomKit'
 import classRoomApi from '../../api/classRoomApi'
-var zg = null;
 export default {
 	data: () => ({
 		urlParams: null,
@@ -14,14 +13,14 @@ export default {
 
 	methods: {
 		init: function(){
-			zg = new ZegoRoomKit();
+			const zg = new ZegoRoomKit();
 			//初始化配置信息
 			zg.init({
 				secretID: Number(process.env.VUE_APP_ROOMKIT_SECRETID)
 			})
 			// 快速加入时的摄像头麦克风设置 默认trueß
-			const mic = this.urlParams.m === '1' ? false : true;
-			const camera = this.urlParams.c === '1' ? false : true;
+			const mic = this.urlParams.mic === '1' ? false : true;
+			const camera = this.urlParams.camera === '1' ? false : true;
 			// 自定义标题
 			const title = this.urlParams.title;
 			// 隐藏主持人结束房间按钮
@@ -62,10 +61,10 @@ export default {
 			}
 			zg.roomSettings().setIsMicrophoneOnWhenJoiningRoom(mic);
 			zg.roomSettings().setIsCameraOnWhenJoiningRoom(camera);
-			this.joinRoom(title, uiConfig)
+			this.joinRoom(zg, title, uiConfig)
 		},
 
-		joinRoom: async function(title, uiConfig){
+		joinRoom: async function(zg, title, uiConfig){
 			try {
 				const userId = this.$store.state.user.uid;
 				const token = await this.getSDKToken(userId);
@@ -77,7 +76,7 @@ export default {
 						// 房间类型不同时房间标题置空 房间标题应从房间内中获取 
 						info.data.subject = ''
 				}
-				/* zg.inRoomService().setUserParameter({
+				zg.inRoomService().setUserParameter({
 						avatarUrl: 'https://img2.baidu.com/it/u=325567737,3478266281&fm=26&fmt=auto&gp=0.jpg',
 						customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
 				})
@@ -86,37 +85,64 @@ export default {
 						beginTimestamp: (beginTimestamp && Number(beginTimestamp)) || info.data && info.data.beginTimestamp,
 						// hostNickname: 'wwww'
 				})
-				//zg.inRoomService().setUIConfig(uiConfig)
+				zg.inRoomService().setUIConfig(uiConfig)
 
 				zg.setAdvancedConfig({
 						domain: 'https://roomkit-api.zego.im',
-				}) */
-            const res = await zg.inRoomService().joinRoomWithConfig({
-                userID: Number(this.$store.state.user.uid),
-                userName: this.$store.state.user.name,
-                roomID: this.urlParams.room_id,
-                token: token,
-                role: Number(this.urlParams.role),
-                productID: Number(process.env.VUE_APP_ROOMKIT_PRODUCTID),
-            }, 'app')
-        } catch (err) {
-            // 加入课堂失败
-            if (err.error === 4020009) {
-                //toast.error('房间助教已满')
-            } else if (err.error === 4020008) {
-                //toast.error('房间学生已满')
-            } else if (err.error === 4020010) {
-                //toast.error('老师已存在')
-            } else {
-							console.log('errrrrrrr')
-                //toast.error(lang.room_join_failed + ':' + err.error) // 加入房间失败
-            }
+				})
 
-            setTimeout(() => {
-                window.history.back()
-            }, 3000)
-            throw err;
-        }
+				const res = await zg.inRoomService().joinRoomWithConfig({
+						userID: Number(this.$store.state.user.uid),
+						userName: this.$store.state.user.name,
+						roomID: this.urlParams.room_id,
+						token: token,
+						role: Number(this.urlParams.role),
+						productID: Number(process.env.VUE_APP_ROOMKIT_PRODUCTID),
+				}, 'app')
+      } catch (err) {
+				// 加入课堂失败
+				if (err.error === 4020009) {
+						//toast.error('房间助教已满')
+				} else if (err.error === 4020008) {
+						//toast.error('房间学生已满')
+				} else if (err.error === 4020010) {
+						//toast.error('老师已存在')
+				} else {
+					console.log('errrrrrrr')
+						//toast.error(lang.room_join_failed + ':' + err.error) // 加入房间失败
+				}
+
+				setTimeout(() => {
+						window.history.back()
+				}, 3000)
+				throw err;
+			}
+
+			// 监听结束房间事件
+			zg.on('endRoom', () => {
+					console.log('------endRoom-------')
+			})
+			// 监听离开房间事件
+			zg.on('leaveRoom', () => {
+					console.log('------leaveRoom-------')
+					window.location.replace('./login.html');
+			})
+			// 监听被踢出房间事件
+			zg.on('kickedOutOfRoom', () => {
+					console.log('------kickedOutOfRoom-------')
+					// window.history.back()
+					// window.location.replace('about:blank');
+					window.location.replace('./login.html');
+			})
+			zg.on('receiveCustomMessage', (data) => {
+					console.log('data', data);
+			})
+			zg.on('messageEventNotify', (event, messageInfo) => {
+					console.log('messageEventNotify', event, messageInfo);
+			})
+			zg.on('capturedAudioData', (data, dataLength) => {
+					// console.log('pcm',dataLength)
+			})
 		},
 
 		getSDKToken: function(userId){
@@ -145,6 +171,8 @@ export default {
 	mounted: function(){
 		//alert(this.urlParams.room)
 		this.init();
+
+		
 	},
 
 	created() {

@@ -36,6 +36,14 @@ export default {
       data
     })
   },
+  delete (url,data) {
+    url = `${baseURL}${url}`
+    return axios({
+      method: 'DELETE',
+      url,
+      params: data
+    })
+  },
   all (arr) {
     return Promise.all(arr)
   }

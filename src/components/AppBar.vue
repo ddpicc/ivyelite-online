@@ -114,13 +114,9 @@
       },
 
       logout: function(){
-        //alert(this.$store.state.user.name)
-        /* e.preventDefault();
-        this.$store.dispatch('user/FedLogOut').then(() => {
-          this.$router.push({ path: '/login' });
-        }).catch(err => {
-          this.$message.error(err);
-        }); */
+        this.$store.dispatch('user/LogOut').then(() => {
+          this.$router.push({ path: '/' });
+        })
       },
 
       jumpHome: function(){

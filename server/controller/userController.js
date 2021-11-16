@@ -1,6 +1,23 @@
 const userModel = require('../model/userModel.js')
 const jsonwebtoken = require('jsonwebtoken')
 
+exports.updateUserName = async ctx => {
+	let { name, uid } = ctx.request.body;
+	await userModel.updateUserName([name, uid]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
 exports.postSignin = async ctx => {
 	let { email, password } = ctx.request.body;
 	await userModel.findUserByEmail(email).then(result => {
@@ -38,6 +55,23 @@ exports.postSignup = async ctx => {
 exports.getUserInfoByUid = async ctx => {
 	let {uid} = ctx.request.query
 	await userModel.getUserInfoByUid(uid).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.updateUserProfile = async ctx => {
+	let { name, sex, education, school, birth, area, uid } = ctx.request.body;
+	await userModel.updateUserName([name, sex, education, school, birth, area, uid]).then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',
