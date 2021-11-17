@@ -32,7 +32,7 @@
 					<v-card-subtitle>{{theClass.room_id}}</v-card-subtitle>
 
 					<v-card-actions>
-						<v-btn @click="attendClass(theClass.room_id,theClass.begin_timestamp)" text>
+						<v-btn @click="attendClass(theClass.id,theClass.room_id,theClass.begin_timestamp)" text>
 							加入课堂
 						</v-btn>
 					</v-card-actions>
@@ -147,12 +147,18 @@
 						let roomkitResult = res.data.data;
 						console.log(roomkitResult)
 						//把房间信息存入数据库
-						classRoomApi.saveRoom(this.courseId, subject, roomkitResult.room_id, roomkitResult.begin_timestamp, 1).then( (res) => {
+						classRoomApi.saveRoom(this.courseId, subject, roomkitResult.room_id, roomkitResult.begin_timestamp, 1,'','进行中').then( (res) => {
 							if (res.data.code === 200) {
 								this.snackbar = true;
 								this.notification = '成功';
 								this.snackbarColor = 'green';
 								this.theClass = {
+									id: res.data.data.insertId,
+									course_id: this.course_id,
+									begin_timestamp: roomkitResult.begin_timestamp,
+									password: '',
+									room_type: 1,
+									status: '进行中',
 									subject: subject,
 									room_id: roomkitResult.room_id
 								}
@@ -167,13 +173,14 @@
 			},
 
 			getClass: function(){
-				classRoomApi.searchRoomByCourseId(this.courseId).then( (res) => {
+				classRoomApi.searchRoomByCourseId(this.courseId, '进行中').then( (res) => {
 					if (res.data.code === 200) {
 						if(res.data.data.length > 0){
 							this.theClass = res.data.data[0];
 							this.classSubject = this.theClass.subject;
 						}else{
 							this.classSubject = this.courseTitle + ' ' + new Date().toLocaleDateString();
+							this.theClass = null;
 						}
 						
 
@@ -201,8 +208,9 @@
 				})
 			},
 
-			attendClass: function(room_id,begin_timestamp){
+			attendClass: function(id,room_id,begin_timestamp){
 				let urlParams = {
+					id: id,
 					room_id: room_id,
 					role: 1,
 					begin_timestamp: begin_timestamp,

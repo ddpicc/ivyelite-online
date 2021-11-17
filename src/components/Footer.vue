@@ -9,6 +9,7 @@
             class="ma-3"
             color="white"
             plain
+            href="https://www.ivyelite.net/about-us-media"
           >
             媒体关注
           </v-btn>
@@ -17,6 +18,7 @@
             class="ma-3"
             color="white"
             plain
+            href="https://www.ivyelite.net/about-us-join"
           >
             加入我们
           </v-btn>
@@ -32,7 +34,7 @@
             class="ma-3"
             color="white"
             plain
-            href="https://www.ivyelite.net/about-us-deploy/n/"
+            href="https://www.ivyelite.net/about-us-deploy"
           >
             联系我们
           </v-btn>
@@ -44,7 +46,7 @@
             网站条款
           </v-btn>
         </v-col>
-        <v-col cols="12"  class="d-flex justify-center">
+        <v-col cols="12" class="d-flex justify-center white--text">
           All Rights Reserved | Powered by Ivyelite Inc.
         </v-col>
       </v-row>

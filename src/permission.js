@@ -3,12 +3,13 @@ import store from './store'
 
 
 // 过滤符合条件的路由-可根据自己业务做调整-根据参数 to 做信息判定，如果符合条件，则前往相应页面，否则前往404 
-function hasPermission(roles, to) {
-  if (roles.indexOf('admin') >= 0) {
+function hasPermission(role, to) {
+  //console.log(to.meta.role)
+  if (role.indexOf('admin') >= 0) {
     return true // admin permission passed directly
   }
   if (to.meta.roles) {
-    return roles.some(role => to.meta.roles.indexOf(role) >= 0)
+    return to.meta.roles.indexOf(role) >= 0
   } else {
     return true
   }
@@ -21,8 +22,8 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.state.user.roles.length === 0) { // 如果权限roles为空，则重新获取用户信息，更新roles
         store.dispatch('user/GetInfo').then( () => { // 拉取用户信息
-          const roles = store.state.user.roles
-          store.dispatch('permission/GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
+          const role = store.state.user.roles
+          store.dispatch('permission/GenerateRoutes', { role }).then(() => { // 根据roles权限生成可访问的路由表
             router.addRoutes(store.state.permission.addRouters) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
           })

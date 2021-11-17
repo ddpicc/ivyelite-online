@@ -14,7 +14,7 @@ exports.updateUserName = ( value ) => {
   return query( _sql, value )
 }
 // 查找用户
-exports.findUserByEmail = ( email ) => {
+exports.findUserByEmail = ( email ) => { 
   let _sql = `select * from users where email="${email}";`
   return query( _sql )
 }
@@ -28,13 +28,13 @@ exports.updateUserProfile = ( value ) => {
   let _sql = "update users set name=?,sex=?,education=?,school=?,birth=?,area=? where uid=?;"
   return query( _sql, value )
 }
-// 通过名字查找用户数量判断是否已经存在
-exports.findDataCountByName =  ( name ) => {
-  let _sql = `select count(*) as count from users where name="${name}";`
+// 通过uid查找用户数量判断是否已经存在
+exports.findDataCountByUid =  ( uid ) => {
+  let _sql = `select count(*) as count from users where uid="${uid}";`
   return query( _sql)
 }
 // 注册时添加用户
 exports.insertUser = ( value ) => {
-	let _sql = "insert into users set course_id=?,subject=?,room_id=?,begin_timestamp=?,room_type=?,password=?;"
+	let _sql = "insert into users set email=?,password=?,uid=?;"
 	return query( _sql, value)
 }

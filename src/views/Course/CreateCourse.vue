@@ -6,7 +6,7 @@
 			<v-col cols="2">
 				<profile-left></profile-left>
 			</v-col>
-      <v-col cols="6">
+      <v-col cols="7">
         <v-card>
 					<v-card-text>
             <v-row>
@@ -17,17 +17,12 @@
                   <v-text-field outlined dense v-model="demoCourseTitle" v-if="editMode"></v-text-field>
                 </v-card-title>
                 <v-divider></v-divider>
+
                 <v-subheader>简介</v-subheader>
                 <div v-if="!editMode" v-text="theCourse.summary"></div>
-                <div v-if="editMode">
-                  <!-- Use the component in the right place of the template -->
-                  <tiptap-vuetify
-                    min-height="100"
-                    v-model="demoSummary"
-                    :extensions="extensions"
-                  />
-                </div>
+                <v-text-field outlined dense v-model="demoSummary" v-if="editMode"></v-text-field>
                 <v-divider></v-divider>
+
                 <v-subheader>详情</v-subheader>
                 <div v-if="!editMode" v-text="theCourse.description"></div>
                 <div v-if="editMode">
@@ -35,6 +30,18 @@
                   <tiptap-vuetify
                     min-height="300"
                     v-model="demoDescription"
+                    :extensions="extensions"
+                  />
+                </div>
+                <v-divider></v-divider>
+                
+                <v-subheader>时间安排</v-subheader>
+                <div v-if="!editMode" v-text="theCourse.time_arrange"></div>
+                <div v-if="editMode">
+                  <!-- Use the component in the right place of the template -->
+                  <tiptap-vuetify
+                    min-height="200"
+                    v-model="demoTimeSchedule"
                     :extensions="extensions"
                   />
                 </div>
@@ -51,24 +58,21 @@
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                   <v-expansion-panel>
-                    <v-expansion-panel-header>时间安排</v-expansion-panel-header>
+                    <v-expansion-panel-header>封面图片</v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <v-btn block dense color="blue" @click="addTime()">添加</v-btn>
-                      <v-list rounded dense>
-                        <v-list-item-group
-                          v-model="selectedItem"
-                          color="primary"
-                        >
-                          <v-list-item
-                            v-for="(item, i) in items"
-                            :key="i"
-                          >
-                            <v-list-item-content>
-                              <v-list-item-title v-text="item.text"></v-list-item-title>
-                            </v-list-item-content>
-                          </v-list-item>
-                        </v-list-item-group>
-                      </v-list>
+                      <v-img :src="theCourse.cover_url"></v-img>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                  <v-expansion-panel>
+                    <v-expansion-panel-header>课程状态</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <v-select
+                        solo
+                        dense
+                        label="改变课程状态"
+                        v-model="courseStatus"
+                        :items="statusList"
+                      ></v-select>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -76,50 +80,6 @@
             </v-row>
 					</v-card-text>
         </v-card>
-        <v-dialog max-width="500" v-model="chooseDateTimeDialog">
-          <v-card>
-            <v-col cols="12">
-              <v-date-picker
-                v-model="pickDate"
-                full-width
-                color="green lighten-1"
-              ></v-date-picker>
-            </v-col>
-            <v-col cols="12" justify="center">
-              <v-row justify="center">
-                <v-col cols="6">
-                  <v-select
-                  :items="hours"
-                  label="Hours"
-                  v-model="pickHour"
-                  solo
-                ></v-select>
-                </v-col>
-                <v-col cols="6">
-                  <v-select
-                  :items="minitus"
-                  v-model="pickMinute"
-                  label="Minutes"
-                  solo
-                ></v-select>
-                </v-col>
-              </v-row>
-            </v-col>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="primary"
-                text
-                @click="dialog = false"
-              >
-                确定
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -161,23 +121,13 @@
         HardBreak
       ],
       demoCourseTitle: 'This is a Demo Title',
-      demoSummary: '<p>This is a Demo Summary</p>',
+      demoSummary: 'This is a Demo Summary',
       demoDescription: '<p><b>This is a Demo Description</b></p>',
-      items: [
-        { text: '11/11/2021 3:26pm'},
-        { text: 'Audience' },
-        { text: 'Conversions'},
-      ],
+      demoTimeSchedule: '<p>11/17/2021  06:00 pm</p><p>11/23/2021  05:00 pm</p>',
       courseId: null,
-      selectedItem: '',
       editBtnTitle: '编辑',
-
-      chooseDateTimeDialog: false,
-      pickDate: '',
-      pickHour: '',
-      pickMinute: '',
-      hours: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
-      minitus: ['00','10','20','30','40','50'],
+      courseStatus: '即将开课',
+      statusList: ['即将开课','正在上课','已结课'],
       
 		}),
 
@@ -196,10 +146,6 @@
             //insert
           }
         }        
-      },
-
-      addTime: function(){
-        this.chooseDateTimeDialog = true;
       },
 
       getCourse: function(){

@@ -31,15 +31,6 @@ export const constantRouterMap = [
       {path: '/register', name: '注册', component: () => import('../views/login/RegisterPage.vue')},
       {path: 'course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
       {path: 'course/explore', name: '探索课程', component: () => import('../views/Course/CourseOnePage.vue')},
-      {path: 'myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
-      {path: 'myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue')},
-      {path: 'myprofile/teacherclass', name: '我的课程', component: () => import('../views/UserProfile/teacherClass.vue')},
-      {path: 'myprofile/discuss', name: '我的讨论', component: () => import('../views/UserProfile/myDiscuss.vue')},
-      {path: 'myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
-      {path: 'course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareClass.vue')},
-      {path: 'course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue')},
-      {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
-      {path: '*', redirect: '/' }
     ]
   }
 ]
@@ -62,7 +53,21 @@ const router = new Router({
 
 //用户类型:  admin, operator, default, premium, batch user, 
 export const asyncRouterMap = [
-
+  {
+    path: '',
+    component: () => import('../Full.vue'),
+    children: [
+      {path: 'myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
+      {path: 'myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue'), meta: {roles: ['student']}},
+      {path: 'myprofile/teacherclass', name: '课程', component: () => import('../views/UserProfile/teacherClass.vue'), meta: {roles: ['teacher'] }},
+      {path: 'myprofile/discuss', name: '我的讨论', component: () => import('../views/UserProfile/myDiscuss.vue')},
+      {path: 'myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
+      {path: 'course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareClass.vue')},
+      {path: 'course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue'), meta: {roles: ['teacher','admin']}},
+      {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
+      {path: '*', redirect: '/' }
+    ]
+  }
 ]
 
 Vue.use(Meta)

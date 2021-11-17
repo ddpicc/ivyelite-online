@@ -11,7 +11,7 @@ let users =
 		school VARCHAR(50) COMMENT '学校',
 		birth DATE COMMENT '生日',
 		language VARCHAR(5) COMMENT '语言',
-		register_time DATETIME COMMENT '注册时间',
+		register_time BIGINT COMMENT '注册时间timestamp',
 		roles VARCHAR(20) NOT NULL DEFAULT 'user' COMMENT '用户类型',
 		PRIMARY KEY ( id )
 	);`

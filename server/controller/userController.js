@@ -29,7 +29,7 @@ exports.postSignin = async ctx => {
 				token: jsonwebtoken.sign(
 					{email: res[0].email, id: res[0].id},
 					'Ivyelite Token',
-					{expiresIn: '1h'}
+					{expiresIn: '6h'}
 				),
 				data: res,
 			}
@@ -72,6 +72,40 @@ exports.getUserInfoByUid = async ctx => {
 exports.updateUserProfile = async ctx => {
 	let { name, sex, education, school, birth, area, uid } = ctx.request.body;
 	await userModel.updateUserName([name, sex, education, school, birth, area, uid]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.findDataCountByUid = async ctx => {
+	let {uid} = ctx.request.query
+	await userModel.findDataCountByUid(uid).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.insertUser = async ctx => {
+	let { email, password, uid } = ctx.request.body;
+	await userModel.insertUser(email, password, uid).then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',

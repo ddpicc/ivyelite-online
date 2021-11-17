@@ -140,11 +140,11 @@ exports.getClassInfo = async ctx => {
 	let token = await getAccessToken();
   let {room_id} = ctx.request.query;
   const appendUrl = 'room/get';
-  console.log('get roomkit room by room id')
+  console.log('get roomkit room by room id' + room_id)
   let res = await axios({
-    method: 'GET',
+    method: 'POST',
     url: `${process.env.VUE_APP_EDUCLOUD_BASEURL}${appendUrl}`,
-    params: {
+    data: {
       room_id: room_id,
       secret_id: Number(process.env.VUE_APP_ROOMKIT_SECRETID),
       access_token: token,
@@ -166,8 +166,8 @@ exports.getClassInfo = async ctx => {
 
 //save the room information to db
 exports.saveRoomInfoToDb = async ctx => {
-	let { course_id, subject, room_id, begin_timestamp, room_type, password } = ctx.request.body;
-	await classRoomModel.saveRoomInfoToDb([course_id, subject, room_id, begin_timestamp, room_type, password]).then(res => {
+	let { course_id, subject, room_id, begin_timestamp, room_type, password, status } = ctx.request.body;
+	await classRoomModel.saveRoomInfoToDb([course_id, subject, room_id, begin_timestamp, room_type, password, status]).then(res => {
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -183,8 +183,10 @@ exports.saveRoomInfoToDb = async ctx => {
 }
 
 exports.searchRoomInfoFromDb = async ctx => {
-  let {course_id} = ctx.request.query
-	await classRoomModel.searchRoomInfoFromDb(course_id).then( (res) => {
+  let {course_id, status} = ctx.request.query
+	await classRoomModel.searchRoomInfoFromDb(course_id, status).then( (res) => {
+    //check if the room is expired
+    //default duration is 90 mins
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -217,5 +219,22 @@ exports.deleteRoomFromDb = async ctx => {
 	})
 }
 
+
+exports.updateRoomStatus = async ctx => {
+	let { status, id } = ctx.request.body;
+	await classRoomModel.updateRoomStatus([status, id]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
 
 

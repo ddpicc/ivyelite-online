@@ -121,7 +121,7 @@
 
 <script>
   let redirectUrl
-  const whiteList = ['/login']
+  const whiteList = ['/login','/register']
   export default {
     beforeRouteEnter(to, from, next) {
       redirectUrl = from.fullPath;

@@ -212,7 +212,7 @@
 			phoneNM: '',
 			email: '',
 			password: '',
-			language: '',
+			language: '中文',
 			languages: [
 				{
 					title: '中文'

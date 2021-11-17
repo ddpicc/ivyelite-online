@@ -109,34 +109,31 @@
 				</div>
       </v-container>
     </section>
-    <!-- <section>
+    <section>
       <v-container>
-        <h2 class="font-weight-bold mt-3 mb-3 white--text">为什么选择常青藤在线</h2>
-        <h3 class="font-weight-bold mb-3 white--text">『常青藤在线是常青藤精英教育发起建立的面向未来在线学习平台，为学习者提供从高校课程到实战技能的在线教育服务』</h3>
-        <v-row justify="center">
-          <v-col
-            v-for="({ title, content }, i) in des"
-            :key="i"
-            cols="14"
-            md="3"
-          >
-            <v-card
-              class="mx-auto"
-            >
-              <v-card-title v-html="title"></v-card-title>
-              <v-card-text v-html="content"></v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
+        <h2 class="font-weight-bold mt-5 mb-3 white--text">为什么选择常青藤在线?</h2>
+        <h3 class="font-weight-bold mt-3 mb-5 white--text">『常青藤在线是常青藤精英教育发起建立的面向未来在线学习平台，为学习者提供从高校课程到实战技能的在线教育服务』</h3>
+        <v-row class="mt-10 mb-5">
+        <v-col
+          v-for="card in cards"
+          :key="card.title"
+          cols="12"
+          md="4"
+        >
+          <base-info-card v-bind="card" />
+        </v-col>
+      </v-row>
       </v-container>
-    </section> -->
+    </section>
   </div>
 </template>
 
 <script>
   import courseApi from '../api/courseApi'
+  import BaseInfoCard from "../components/InfoCard.vue"
   export default {
     name: 'HomePage',
+    components: { BaseInfoCard },
 
     data: () => ({
       selection: '',
@@ -154,12 +151,32 @@
           title: '致力于提供优质课程',
           content: ''
         }
-      ]
+      ],
+      cards: [
+        {
+          title: 'Grow your Revenue',
+          subtitle: 'Best Productivity',
+          text: 'Similique sunt in culpa qui officia deserunt mollitia animi, id est laborut dolorum fuga.harum quidem rerum facilis estexpedita distinctio.',
+          callout: '01',
+        },
+        {
+          title: 'Affordable Prices',
+          subtitle: 'Special Offers',
+          text: 'Similique sunt in culpa qui officia deserunt mollitia animi, id est laborut dolorum fuga.harum quidem rerum facilis estexpedita distinctio.',
+          callout: '02',
+        },
+        {
+          title: 'Target Setting',
+          subtitle: 'Income Flow',
+          text: 'Similique sunt in culpa qui officia deserunt mollitia animi, id est laborut dolorum fuga.harum quidem rerum facilis estexpedita distinctio.',
+          callout: '03',
+        },
+      ],
     }),
 
     methods: {
       explore: function(id){
-        this.$router.push({ path: '/course/explore',query: {courseId: id}})        
+        this.$router.push({ path: '/course/explore',query: {courseId: id}})
       },
 
       getAllCourses: function(){

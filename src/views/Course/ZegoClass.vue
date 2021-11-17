@@ -120,12 +120,13 @@ export default {
 
 			// 监听结束房间事件
 			zg.on('endRoom', () => {
-					console.log('------endRoom-------')
+				console.log('------endRoom-------')
+				classRoomApi.updateRoomStatus('已结束',this.urlParams.id);
 			})
 			// 监听离开房间事件
 			zg.on('leaveRoom', () => {
-					console.log('------leaveRoom-------')
-					window.location.replace('./login.html');
+				console.log('------leaveRoom-------')
+				window.location.replace('./');
 			})
 			// 监听被踢出房间事件
 			zg.on('kickedOutOfRoom', () => {

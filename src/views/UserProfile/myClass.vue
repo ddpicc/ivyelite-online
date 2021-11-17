@@ -38,6 +38,15 @@
 													outlined
 													rounded
 													small
+													@click="explore(item.id)"
+												>
+													查看课程
+												</v-btn>
+												<v-btn
+													class="ml-2 mt-2"
+													outlined
+													rounded
+													small
 													@click="joinClass(item.id)"
 												>
 													加入课堂
@@ -107,9 +116,13 @@
 		},
 
 		methods: {
+			explore: function(id){
+        this.$router.push({ path: '/course/explore',query: {courseId: id}})
+      },
+			
       joinClass: function(id) {
 				//get room id
-				classRoomApi.searchRoomByCourseId(id).then( (res) => {
+				classRoomApi.searchRoomByCourseId(id,'进行中').then( (res) => {
 					if (res.data.code === 200) {
 						if(res.data.data.length > 0){     //有对应的房间
 							this.theClass = res.data.data[0];

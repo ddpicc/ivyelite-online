@@ -76,6 +76,9 @@
 </template>
 
 <script>
+  import {randChar} from '../../plugins/helpFunc'
+  import userApi from '../../api/userApi'
+  import md5 from 'md5'
   export default {
     data () {
       return {
@@ -100,8 +103,40 @@
     methods: {
       registerClick: async function(){
         let uid = await this.getUseableUid();
-        let md5Password = md5(this.password);
+        let md5Pass = md5(this.password);
+        userApi.insertUser(this.registerEmail, md5Pass, uid).then(res => {
+          if (res.data.code === 200) {
+            this.snackbar = true;
+            this.notification = '注册成功';
+            this.snackbarColor = 'green';
+            this.$router.push({path: '/login'});
+            //发送验证邮件链接
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
       },
+
+      getUseableUid: function(){
+        var uid = randChar(8,'0123456789');
+        return new Promise(( resolve, reject) => {
+          userApi.findDataCountByUid(uid).then(res => {
+            if (res.data.code === 200) {
+              if(res.data.data[0].count === 0){
+                resolve(uid);
+              }else{
+                this.getUseableUid();
+              }
+            }else{
+              reject('发生错误，请重试或联系管理员');
+            }
+				  })
+        })
+      }
+
+      
 
     }
   }

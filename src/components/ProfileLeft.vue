@@ -76,6 +76,14 @@
 <script>
   import VueCoreImageUpload from 'vue-core-image-upload'
   import userApi from '../api/userApi'
+  const allLinks = [
+    { text: '我的课程', icon: 'mdi-playlist-star', to: '/myprofile/class', roles: ['student']},
+    { text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
+    { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice' },
+    { text: '新建课程', icon: 'mdi-star', to: '/course/create', roles: ['teacher']},
+    { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
+    { text: '我的课程', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher']}
+  ]
   export default {
     components: {
       'vue-core-image-upload': VueCoreImageUpload,
@@ -85,14 +93,7 @@
       userName: '',
       changeAvatarDialog: false,
       src: 'http://img1.vued.vanthink.cn/vued0a233185b6027244f9d43e653227439a.png',
-      links: [
-        { text: '我的课程', icon: 'mdi-playlist-star', to: '/myprofile/class'},
-        { text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
-        { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice' },
-        { text: '新建课程', icon: 'mdi-star', to: '/course/create' },
-        { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
-        { text: '我的课程(老师)', icon: 'mdi-folder', to: '/myprofile/teacherclass'},        
-      ],
+      links: [],
     }),
 
     methods: {
@@ -120,7 +121,15 @@
       imageuploaded: function(){
 
       },
-    }
+    },
+
+    mounted: function() {
+      allLinks.forEach(element => {
+        if(this.$store.state.user.roles.indexOf('admin') >= 0 || !element.roles || element.roles.indexOf(this.$store.state.user.roles) >=0 ){
+          this.links.push(element);
+        }
+      });
+		}
   }
 </script>
 
