@@ -90,17 +90,6 @@
 										></v-date-picker>
 									</v-menu>
 								</v-col>
-								<v-col cols="6" class="d-flex">
-									<v-subheader>地区</v-subheader>
-									<v-subheader v-if="!editInfo">{{userArea}}</v-subheader>
-									<v-text-field
-										v-if="editInfo"
-										solo
-										dense
-										label="输入地区"
-										v-model="userArea"
-									></v-text-field>
-								</v-col>
 							</v-row>
 						</v-form>
 					</v-card-text>
@@ -132,7 +121,7 @@
 									<v-subheader @click="changePhone" class="blue--text">修改密码</v-subheader>
 								</v-col>
 
-								<v-col cols="6" class="d-flex">
+								<!-- <v-col cols="6" class="d-flex">
 									<v-subheader>语言</v-subheader>
 									<v-menu
 										open-on-hover
@@ -156,7 +145,7 @@
 											</v-list-item>
 										</v-list>
 									</v-menu>
-								</v-col>
+								</v-col> -->
 							</v-row>
 						</v-form>
 					</v-card-text>
@@ -202,17 +191,16 @@
 			sexList: ['男','女'],
 			userSex: '',
 			userEducation: '',
-			educationList: ['本科','研究生','博士'],
+			educationList: ['高中','本科','研究生','博士'],
 			userSchool: '',
 			birthMenu: false,
 			userBirth: '',
-			userArea: '',
 
 			accountID: '',
 			phoneNM: '',
 			email: '',
 			password: '',
-			language: '中文',
+			/* language: '中文',
 			languages: [
 				{
 					title: '中文'
@@ -220,7 +208,7 @@
 				{
 					title: 'English'
 				}
-			],
+			], */
 
 			snackbar: false,
       snackbarColor: '',
@@ -244,7 +232,7 @@
 					this.editInfo = false;
 					this.editBtnTitle = '编辑';
 					//save to db
-					userApi.updateUserProfile(this.userName,this.userSex,this.userEducation,this.userSchool,this.userBirth,this.userArea).then(res => {
+					userApi.updateUserProfile(this.userName,this.userSex,this.userEducation,this.userSchool,this.userBirth,this.$store.state.user.uid).then(res => {
 						if(res.data.code === 200) {
 							this.snackbar = true;
             	this.notification = '更新成功';
@@ -263,17 +251,15 @@
 				userApi.getInfo(this.$store.state.user.uid).then(res => {
 					if (res.data.code === 200) {
             this.userName = res.data.data[0].name;
-						this.userSex = ''
-						this.userEducation = ''
-						this.userSchool = ''
-						this.userBirth = ''
-						this.userArea = ''
+						this.userSex = res.data.data[0].sex;
+						this.userEducation = res.data.data[0].education;
+						this.userSchool = res.data.data[0].school;
+						this.userBirth = res.data.data[0].birth;
 
 						this.accountID = res.data.data[0].uid;
 						this.phoneNM = ''
 						this.email = res.data.data[0].email;
 						this.password = '********';
-						this.language = ''
           }else{
             this.snackbar = true;
             this.notification = '发生错误，请重试或联系管理员';

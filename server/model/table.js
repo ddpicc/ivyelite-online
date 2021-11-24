@@ -12,7 +12,8 @@ let users =
 		birth DATE COMMENT '生日',
 		language VARCHAR(5) COMMENT '语言',
 		register_time BIGINT COMMENT '注册时间timestamp',
-		roles VARCHAR(20) NOT NULL DEFAULT 'user' COMMENT '用户类型',
+		roles VARCHAR(20) NOT NULL DEFAULT 'student' COMMENT '用户类型',
+		avatar_url TEXT,
 		PRIMARY KEY ( id )
 	);`
 

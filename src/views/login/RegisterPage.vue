@@ -16,7 +16,9 @@
           >
             <v-card flat class="elevation-12">
               <v-card-text>
-                <v-form>
+                <v-form
+                 ref="registerForm"
+                 lazy-validation>
                   <v-text-field
                     solo
                     label="输入邮箱"
@@ -39,7 +41,7 @@
                     @keyup.enter.native="registerClick"
                   ></v-text-field>
                 </v-form>
-                注册即代表阅读并同意《服务协议和隐私政策》
+                注册即代表阅读并同意《服务协议和隐私政策
                 <v-card-actions>
                   <v-btn block color="blue" @click.stop="registerClick">注册</v-btn>
                 </v-card-actions>
@@ -102,21 +104,38 @@
 
     methods: {
       registerClick: async function(){
-        let uid = await this.getUseableUid();
-        let md5Pass = md5(this.password);
-        userApi.insertUser(this.registerEmail, md5Pass, uid).then(res => {
-          if (res.data.code === 200) {
-            this.snackbar = true;
-            this.notification = '注册成功';
-            this.snackbarColor = 'green';
-            this.$router.push({path: '/login'});
-            //发送验证邮件链接
-          }else{
-            this.snackbar = true;
-            this.notification = '发生错误，请重试或联系管理员';
-            this.snackbarColor = 'red';
-          }
-        })
+        if(this.$refs.registerForm.validate()){
+          //看是不是8位数
+          let uid = await this.getUseableUid();
+          let md5Pass = md5(this.password);
+          userApi.findCountByEmail(email).then( (res) => {
+            if (res.data.code === 200) {
+              if(res.data.data[0].count === 0){
+                userApi.insertUser(this.registerEmail, md5Pass, uid).then(res => {
+                  if (res.data.code === 200) {
+                    this.snackbar = true;
+                    this.notification = '注册成功';
+                    this.snackbarColor = 'green';
+                    
+                    //发送验证邮件链接
+                  }else{
+                    this.snackbar = true;
+                    this.notification = '发生错误，请重试或联系管理员';
+                    this.snackbarColor = 'red';
+                  }
+                })
+              }else{
+                this.snackbar = true;
+                this.notification = '这个邮箱已被注册，请直接登录';
+                this.snackbarColor = 'red';
+              }
+            }else{
+              this.snackbar = true;
+              this.notification = '发生错误，请重试或联系管理员';
+              this.snackbarColor = 'red';
+            }          
+          })
+        }
       },
 
       getUseableUid: function(){

@@ -1,5 +1,7 @@
 const userModel = require('../model/userModel.js')
 const jsonwebtoken = require('jsonwebtoken')
+const mail_util = require('../utils/nodemailer')
+const qiniu_util = require('../utils/qiniuUpload')
 
 exports.updateUserName = async ctx => {
 	let { name, uid } = ctx.request.body;
@@ -46,12 +48,6 @@ exports.postSignin = async ctx => {
 	})
 }
 
-exports.postSignup = async ctx => {
-	ctx.body = {
-		msg: 'test signup'
-	}
-}
-
 exports.getUserInfoByUid = async ctx => {
 	let {uid} = ctx.request.query
 	await userModel.getUserInfoByUid(uid).then( (res) => {
@@ -70,8 +66,8 @@ exports.getUserInfoByUid = async ctx => {
 }
 
 exports.updateUserProfile = async ctx => {
-	let { name, sex, education, school, birth, area, uid } = ctx.request.body;
-	await userModel.updateUserName([name, sex, education, school, birth, area, uid]).then( (res) => {
+	let { name, sex, education, school, birth, uid } = ctx.request.body;
+	await userModel.updateUserProfile([name, sex, education, school, birth, uid]).then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -105,7 +101,9 @@ exports.findDataCountByUid = async ctx => {
 
 exports.insertUser = async ctx => {
 	let { email, password, uid } = ctx.request.body;
-	await userModel.insertUser(email, password, uid).then( (res) => {
+	let defaultName = '用户'
+	await userModel.insertUser([defaultName, email, password, uid]).then( (res) => {
+		console.log(res)
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -118,4 +116,46 @@ exports.insertUser = async ctx => {
 			message: '失败'
 		}
 	})
+}
+
+exports.findCountByEmail = async ctx => {
+	let {email} = ctx.request.query
+	await userModel.findCountByEmail(email).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.sendMail = async ctx => {
+	let {email} = ctx.request.query
+	await userModel.findCountByEmail(email).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.getQiniuToken = async ctx => {
+	ctx.body = {
+		code: 200,
+		message: '成功',
+		data: qiniu_util.generateUploadToken(),
+	}
 }

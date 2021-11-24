@@ -14,4 +14,8 @@ exports.findCourseByUser = ( user_uid ) => {
 	return query( _sql)
 }
 
-
+// 插入user和课程关系
+exports.isCourseReserved = ( user_uid, course_id ) => {
+	let _sql = `select count(*) as count from user_courses where user_uid="${user_uid}" and course_id="${course_id}";`
+	return query( _sql)
+}

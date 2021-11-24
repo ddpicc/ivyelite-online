@@ -77,8 +77,8 @@ export default {
 						info.data.subject = ''
 				}
 				zg.inRoomService().setUserParameter({
-						avatarUrl: 'https://img2.baidu.com/it/u=325567737,3478266281&fm=26&fmt=auto&gp=0.jpg',
-						customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
+					avatarUrl: 'https://img2.baidu.com/it/u=325567737,3478266281&fm=26&fmt=auto&gp=0.jpg',
+						//customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
 				})
 				zg.inRoomService().setRoomParameter({
 						subject: title || (info && info.data.subject),
@@ -108,7 +108,7 @@ export default {
 				} else if (err.error === 4020010) {
 						//toast.error('老师已存在')
 				} else {
-					console.log('errrrrrrr')
+					console.log('error')
 						//toast.error(lang.room_join_failed + ':' + err.error) // 加入房间失败
 				}
 
@@ -122,6 +122,7 @@ export default {
 			zg.on('endRoom', () => {
 				console.log('------endRoom-------')
 				classRoomApi.updateRoomStatus('已结束',this.urlParams.id);
+				setTimeout( () => {this.$router.push({path: '/myprofile/profile'});}, 3000);
 			})
 			// 监听离开房间事件
 			zg.on('leaveRoom', () => {
@@ -133,7 +134,7 @@ export default {
 					console.log('------kickedOutOfRoom-------')
 					// window.history.back()
 					// window.location.replace('about:blank');
-					window.location.replace('./login.html');
+					this.$router.push({path: '/login'});
 			})
 			zg.on('receiveCustomMessage', (data) => {
 					console.log('data', data);

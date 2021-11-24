@@ -2,7 +2,8 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 //import router from '../router'
 
-let baseURL = 'http://localhost:3000'
+let baseURL = process.env.NODE_ENV === 'production' ? '//online.ivyelite.net' : 'http://localhost:3000'
+
 // 错误状态码 有返回错误直接进行操作
 //const errorStatus = [401, 500, 502, 504]
 

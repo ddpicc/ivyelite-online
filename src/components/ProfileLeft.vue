@@ -8,7 +8,7 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-img @click="changeAvatar()" src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+            <v-img @click="changeAvatar()" :src="avatar_url"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
@@ -51,34 +51,27 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-dialog id="imgDialog" width="500" v-model="changeAvatarDialog">
-      <v-card class="d-flex justify-center">
-        <div>
-          <v-avatar size="88">
-            <img
-              src="https://cdn.vuetifyjs.com/images/john.png"
-              alt="John"
-            >
-          </v-avatar>
-          <vue-core-image-upload 
-            class="btn btn-primary"
-            :crop="false"
-            @imageuploaded="imageuploaded"
-            :max-file-size="5242880"
-            url="http://101.198.151.190/api/upload.php" >
-          </vue-core-image-upload>
-        </div>
-      </v-card>
-    </v-dialog>
+          
+    <my-upload field="img"
+      @crop-success="cropSuccess"
+      @crop-upload-success="cropUploadSuccess"
+      @crop-upload-fail="cropUploadFail"
+      v-model="imgUploadShow"
+      url="https://upload-na0.qiniup.com/putb64/-1/"
+      :params="params"
+      :headers="headers"
+      img-format="png">
+    </my-upload>
+
   </v-card>
 </template>
 
 <script>
-  import VueCoreImageUpload from 'vue-core-image-upload'
   import userApi from '../api/userApi'
+  import myUpload from 'vue-image-crop-upload/upload-2.vue';
   const allLinks = [
     { text: '我的课程', icon: 'mdi-playlist-star', to: '/myprofile/class', roles: ['student']},
-    { text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
+    //{ text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
     { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice' },
     { text: '新建课程', icon: 'mdi-star', to: '/course/create', roles: ['teacher']},
     { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
@@ -86,16 +79,18 @@
   ]
   export default {
     components: {
-      'vue-core-image-upload': VueCoreImageUpload,
-    },
+			myUpload
+		},
     data: () => ({
       editInfo: false,
       userName: '',
-      changeAvatarDialog: false,
-      src: 'http://img1.vued.vanthink.cn/vued0a233185b6027244f9d43e653227439a.png',
+      imgUploadShow: false,
       links: [],
+      avatar_url: 'https://cdn.vuetifyjs.com/images/john.png',
+			params: {},
+			headers: {},
     }),
-
+//https://cdn.vuetifyjs.com/images/john.png
     methods: {
       editName: function(){
         this.editInfo = true;
@@ -115,12 +110,53 @@
       },
 
       changeAvatar: function(){
-        this.changeAvatarDialog = true;
+        this.imgUploadShow = true;
+        userApi.getQiniuToken().then(res => {
+          if (res.data.code === 200) {
+            this.headers = {
+              'Content-Type': 'application/octet-stream',
+              'Authorization': 'UpToken ' + res.data.data,
+            };
+            
+          }else{
+
+          }
+        })
       },
 
-      imageuploaded: function(){
-
-      },
+      /**
+			 * crop success
+			 *
+			 * [param] imgDataUrl
+			 * [param] field
+			 */
+			cropSuccess(imgDataUrl, field){
+				console.log('-------- crop success --------');
+				this.avatar_url = imgDataUrl;
+        this.$set(this.params,'img_url',imgDataUrl.replace(/^.*?base64,/, ''))
+			},
+			/**
+			 * upload success
+			 *
+			 * [param] jsonData   服务器返回数据，已进行json转码
+			 * [param] field
+			 */
+			cropUploadSuccess(jsonData, field){
+				console.log('-------- upload success --------');
+				console.log(jsonData);
+				console.log('field: ' + field);
+			},
+			/**
+			 * upload fail
+			 *
+			 * [param] status    server api return error status, like 500
+			 * [param] field
+			 */
+			cropUploadFail(status, field){
+				console.log('-------- upload fail --------');
+				console.log(status);
+				console.log('field: ' + field);
+			}
     },
 
     mounted: function() {

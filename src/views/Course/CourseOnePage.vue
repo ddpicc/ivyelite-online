@@ -31,7 +31,7 @@
                   offset="8"
                   align-self="end"
                 >
-                  <v-btn color="blue" @click="reserveCourse()">加入学习</v-btn>
+                  <v-btn color="blue" @click="reserveCourse()">{{bannerTitle}}</v-btn>
                 </v-col>
               </v-row>
             </v-container>
@@ -49,6 +49,9 @@
               <v-card-text>
                 <h2 class="font-weight-bold mb-3">课程介绍</h2>
                 <p v-text="course.description"></p>
+                <v-divider class="mt-5 mb-5"></v-divider>
+                <h2 class="font-weight-bold mb-3">时间安排</h2>
+                <p v-text="course.time_arrange"></p>
               </v-card-text>
             </v-card>
           </v-col>
@@ -91,6 +94,7 @@
         name: null,
       },
       courseId: null,
+      bannerTitle: '加入学习',
       snackbar: false,
       snackbarColor: '',
       notification: '',
@@ -113,6 +117,7 @@
         if(!this.$store.state.user.uid){
           this.$router.push({path: '/login'});
         }else{
+          //用户已经登录
           relationApi.setUserCourseRelation(this.$store.state.user.uid, this.courseId, 1, 0).then( (res) => {
             if (res.data.code === 200) {
               this.snackbar = true;
@@ -126,11 +131,31 @@
             }
           })
         }        
+      },
+
+      setBannerTitle: function(){
+        relationApi.isCourseReserved(this.$store.state.user.uid, this.courseId).then( (res) => {
+          if (res.data.code === 200) {
+            if(res.data.data[0].count === 0){
+              this.bannerTitle = '加入学习';
+            }else{
+              this.bannerTitle - '加入课堂';
+            }
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
       }
     },
 
     mounted: function(){
-      this.getCourseInfo()
+      this.getCourseInfo();
+      if(this.$store.state.user.uid){
+        this.setBannerTitle();
+      }
+      
 		},
 
     created: function(){

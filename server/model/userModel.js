@@ -25,7 +25,7 @@ exports.getUserInfoByUid = ( uid ) => {
 }
 // 更新用户profile信息
 exports.updateUserProfile = ( value ) => {
-  let _sql = "update users set name=?,sex=?,education=?,school=?,birth=?,area=? where uid=?;"
+  let _sql = "update users set name=?,sex=?,education=?,school=?,birth=? where uid=?;"
   return query( _sql, value )
 }
 // 通过uid查找用户数量判断是否已经存在
@@ -35,6 +35,12 @@ exports.findDataCountByUid =  ( uid ) => {
 }
 // 注册时添加用户
 exports.insertUser = ( value ) => {
-	let _sql = "insert into users set email=?,password=?,uid=?;"
+	let _sql = "insert into users set name = ?, email=?,pass=?,uid=?;"
 	return query( _sql, value)
+}
+
+// 通过用户email和passord查找用户数量判断该用户是否已经注册
+exports.findCountByEmail = ( email ) => {
+  let _sql = `select count(*) as count from users where email="${email}";`
+  return query(_sql)
 }
