@@ -10,4 +10,5 @@ export default {
   insertUser: (email, password, uid) => api.post(`/userApi/insertUser`, { email, password, uid}),
   findCountByEmail: (email) => api.get('/userApi/findCountByEmail', {email}),
   getQiniuToken: () => api.get('/userApi/getQiniuToken', {}),
+  updateUserAvatar: (avatar_url, uid) => api.post(`/userApi/updateUserAvatar`, {avatar_url, uid}),
 }

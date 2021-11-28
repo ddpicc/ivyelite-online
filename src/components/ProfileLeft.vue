@@ -86,7 +86,7 @@
       userName: '',
       imgUploadShow: false,
       links: [],
-      avatar_url: 'https://cdn.vuetifyjs.com/images/john.png',
+      avatar_url: '',
 			params: {},
 			headers: {},
     }),
@@ -144,7 +144,17 @@
 			cropUploadSuccess(jsonData, field){
 				console.log('-------- upload success --------');
 				console.log(jsonData);
-				console.log('field: ' + field);
+        userApi.updateUserAvatar(jsonData.key,this.$store.state.user.uid).then( res => {
+          if (res.data.code === 200) {
+            this.snackbar = true;
+            this.notification = '上传成功';
+            this.snackbarColor = 'green';
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
 			},
 			/**
 			 * upload fail
@@ -165,6 +175,7 @@
           this.links.push(element);
         }
       });
+      this.avatar_url = `${process.env.VUE_APP_IMAGE_BASEURL}${this.$store.state.user.avatar_url}`
 		}
   }
 </script>

@@ -1,5 +1,7 @@
 # ivyelite-online
 
+使用即构线上教育解决方案，搭建简易在线教育平台
+Use nodejs koa2, vuetify
 ## Project setup
 ```
 yarn install

@@ -43,3 +43,8 @@ exports.findCountByEmail = ( email ) => {
   let _sql = `select count(*) as count from users where email="${email}";`
   return query(_sql)
 }
+// 更新用户名字
+exports.updateUserAvatar = ( value ) => {
+  let _sql = "update users set avatar_url=? where uid=?;"
+  return query( _sql, value )
+}

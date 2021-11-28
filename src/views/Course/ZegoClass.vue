@@ -77,7 +77,7 @@ export default {
 						info.data.subject = ''
 				}
 				zg.inRoomService().setUserParameter({
-					avatarUrl: 'https://img2.baidu.com/it/u=325567737,3478266281&fm=26&fmt=auto&gp=0.jpg',
+					avatarUrl: `${process.env.VUE_APP_IMAGE_BASEURL}${this.$store.state.user.avatar_url}`,
 						//customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
 				})
 				zg.inRoomService().setRoomParameter({
@@ -122,7 +122,7 @@ export default {
 			zg.on('endRoom', () => {
 				console.log('------endRoom-------')
 				classRoomApi.updateRoomStatus('已结束',this.urlParams.id);
-				setTimeout( () => {this.$router.push({path: '/myprofile/profile'});}, 3000);
+				window.location.replace('./');
 			})
 			// 监听离开房间事件
 			zg.on('leaveRoom', () => {

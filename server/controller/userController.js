@@ -159,3 +159,20 @@ exports.getQiniuToken = async ctx => {
 		data: qiniu_util.generateUploadToken(),
 	}
 }
+
+exports.updateUserAvatar = async ctx => {
+	let { avatar_url, uid } = ctx.request.body;
+	await userModel.updateUserAvatar([avatar_url, uid]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}

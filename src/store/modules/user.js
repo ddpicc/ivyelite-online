@@ -9,6 +9,7 @@ const state = () => ({
 	roles: [],
 	uid: Cookies.get('ivyelite-uid'),
 	token: '',
+	avatar_url: '',
 })
 
 const getters = {
@@ -23,6 +24,7 @@ const actions = {
 			commit('SET_NAME', '');
 			commit('SET_ROLES', '');
 			commit('SET_UID', '');
+			commit('SET_AVATAR', '');
 			Cookies.remove('ivyelite-token');
 			Cookies.remove('ivyelite-uid');
 			resolve();
@@ -61,6 +63,7 @@ const actions = {
 					reject('getInfo: roles must be a non-null array !')
 				}
 				commit('SET_NAME', data.data[0].name)
+				commit('SET_AVATAR',data.data[0].avatar_url)
 				resolve(response)
 			}).catch(error => {
 				reject(error)
@@ -80,6 +83,9 @@ const mutations = {
 	SET_UID: (state, uid) => {
 		state.uid = uid;
 	},
+	SET_AVATAR: (state, avatar_url) => {
+		state.avatar_url = avatar_url;
+	}
 }
 
 export default {

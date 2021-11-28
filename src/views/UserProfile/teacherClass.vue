@@ -106,7 +106,8 @@
 			},
 
 			editCourse: function(item) {
-				this.$router.push({ path: '/course/create', query: {courseId: item.id}});
+				//this.$router.push({ path: '/course/create', query: {courseId: item.id}});
+				alert(process.env.QINIU_SECRETKEY)
 			}
 		},
 
