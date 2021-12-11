@@ -175,7 +175,11 @@
           this.links.push(element);
         }
       });
-      this.avatar_url = `${process.env.VUE_APP_IMAGE_BASEURL}${this.$store.state.user.avatar_url}`
+      if(!this.$store.state.user.avatar_url){
+        this.avatar_url = 'https://cdn.vuetifyjs.com/images/john.jpg';
+      }else{
+        this.avatar_url = `${process.env.VUE_APP_IMAGE_BASEURL}${this.$store.state.user.avatar_url}`
+      }     
 		}
   }
 </script>

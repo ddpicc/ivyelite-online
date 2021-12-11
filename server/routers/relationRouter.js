@@ -1,9 +1,9 @@
 const router = require('koa-router')();
 const controller = require('../controller/relationController')
 
-router.post('/relationApi/setUserCourseRelation', controller.setUserCourseRelation)
-router.get('/relationApi/findCourseByUser', controller.findCourseByUser)
-router.get('/relationApi/isCourseReserved', controller.isCourseReserved)
+router.post('/relationApi/setUserClassRelation', controller.setUserClassRelation)
+router.get('/relationApi/findClasseseByUser', controller.findClasseseByUser)
+router.get('/relationApi/isClassReserved', controller.isClassReserved)
 
 
 module.exports = router

@@ -1,85 +1,88 @@
 <template>
-  <v-container
-    fill-height
-  >
-    <v-row justify="center">
-			<v-col cols="2">
-				<profile-left></profile-left>
-			</v-col>
-      <v-col cols="7">
-        <v-card>
-					<v-card-text>
-            <v-row>
-              <v-col cols="8">
-                <v-subheader>名称</v-subheader>
-                <v-card-title>
-                  <span v-if="!editMode" v-text="theCourse.name"></span>
-                  <v-text-field outlined dense v-model="demoCourseTitle" v-if="editMode"></v-text-field>
-                </v-card-title>
-                <v-divider></v-divider>
+  <v-container fluid >
+		<v-row justify="center">
+			<v-col cols="10">
+				<div class="py-md-12 py-sm-8 py-4"></div>
+				<v-row justify="center">
+					<v-col cols="3">
+						<profile-left></profile-left>
+					</v-col>
+          <v-col cols="9">
+            <v-card>
+              <v-card-text>
+                <v-row>
+                  <v-col cols="8">
+                    <v-subheader>名称</v-subheader>
+                    <v-card-title>
+                      <span v-if="!editMode" v-text="theCourse.name"></span>
+                      <v-text-field outlined dense v-model="demoCourseTitle" v-if="editMode"></v-text-field>
+                    </v-card-title>
+                    <v-divider></v-divider>
 
-                <v-subheader>简介</v-subheader>
-                <div v-if="!editMode" v-text="theCourse.summary"></div>
-                <v-text-field outlined dense v-model="demoSummary" v-if="editMode"></v-text-field>
-                <v-divider></v-divider>
+                    <v-subheader>简介</v-subheader>
+                    <div v-if="!editMode" v-text="theCourse.summary"></div>
+                    <v-text-field outlined dense v-model="demoSummary" v-if="editMode"></v-text-field>
+                    <v-divider></v-divider>
 
-                <v-subheader>详情</v-subheader>
-                <div v-if="!editMode" v-text="theCourse.description"></div>
-                <div v-if="editMode">
-                  <!-- Use the component in the right place of the template -->
-                  <tiptap-vuetify
-                    min-height="300"
-                    v-model="demoDescription"
-                    :extensions="extensions"
-                  />
-                </div>
-                <v-divider></v-divider>
-                
-                <v-subheader>时间安排</v-subheader>
-                <div v-if="!editMode" v-text="theCourse.time_arrange"></div>
-                <div v-if="editMode">
-                  <!-- Use the component in the right place of the template -->
-                  <tiptap-vuetify
-                    min-height="200"
-                    v-model="demoTimeSchedule"
-                    :extensions="extensions"
-                  />
-                </div>
-              </v-col>
-              <v-divider
-                vertical
-              ></v-divider>
-              <v-col cols="4">
-                <v-expansion-panels accordion multiple v-model="panel">
-                  <v-expansion-panel>
-                    <v-expansion-panel-header>编辑课程</v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      <v-btn block dense color="blue" @click="editClick()">{{editBtnTitle}}</v-btn>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                  <v-expansion-panel>
-                    <v-expansion-panel-header>封面图片</v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      <v-img :src="theCourse.cover_url"></v-img>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                  <v-expansion-panel>
-                    <v-expansion-panel-header>课程状态</v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      <v-select
-                        solo
-                        dense
-                        label="改变课程状态"
-                        v-model="courseStatus"
-                        :items="statusList"
-                      ></v-select>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-expansion-panels>
-              </v-col>
-            </v-row>
-					</v-card-text>
-        </v-card>
+                    <v-subheader>详情</v-subheader>
+                    <div v-if="!editMode" v-text="theCourse.description"></div>
+                    <div v-if="editMode">
+                      <!-- Use the component in the right place of the template -->
+                      <tiptap-vuetify
+                        min-height="300"
+                        v-model="demoDescription"
+                        :extensions="extensions"
+                      />
+                    </div>
+                    <v-divider></v-divider>
+                    
+                    <v-subheader>时间安排</v-subheader>
+                    <div v-if="!editMode" v-text="theCourse.time_arrange"></div>
+                    <div v-if="editMode">
+                      <!-- Use the component in the right place of the template -->
+                      <tiptap-vuetify
+                        min-height="200"
+                        v-model="demoTimeSchedule"
+                        :extensions="extensions"
+                      />
+                    </div>
+                  </v-col>
+                  <v-divider
+                    vertical
+                  ></v-divider>
+                  <v-col cols="4">
+                    <v-expansion-panels accordion multiple v-model="panel">
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>编辑课程</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <v-btn block dense color="blue" @click="editClick()">{{editBtnTitle}}</v-btn>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>封面图片</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <v-img :src="theCourse.cover_url"></v-img>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>课程状态</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <v-select
+                            solo
+                            dense
+                            label="改变课程状态"
+                            v-model="courseStatus"
+                            :items="statusList"
+                          ></v-select>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                    </v-expansion-panels>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>

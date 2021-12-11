@@ -23,7 +23,7 @@ axios.interceptors.response.use(res => {
   // 请求成功对响应数据做处理
   if(res.data.code == 401){
     console.log('affff')
-    window.location.href='/login'
+    //window.location.href='/login'
     return res;
   }else{
     return res
@@ -35,10 +35,10 @@ axios.interceptors.response.use(res => {
     // 对得到的状态码的处理，具体的设置视自己的情况而定
     case 401:
       console.log('未登录')
-      window.location.href='/'
+      this.$router.push({path: '/login'});
       break
     case 404:
-      window.location.href='/'
+      console.log('404')
       break
     case 405:
       console.log('不支持的方法')

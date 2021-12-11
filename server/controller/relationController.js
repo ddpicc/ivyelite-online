@@ -1,8 +1,8 @@
 const relationModel = require('../model/relationModel')
 
-exports.setUserCourseRelation = async ctx => {
-	let { user_uid, course_id, isStudent, isTeacher } = ctx.request.body;
-	await relationModel.setUserCourseRelation([user_uid, course_id, isStudent, isTeacher]).then(res => {
+exports.setUserClassRelation = async ctx => {
+	let { user_uid, class_id, isStudent, isTeacher } = ctx.request.body;
+	await relationModel.setUserClassRelation([user_uid, class_id, isStudent, isTeacher]).then(res => {
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -17,9 +17,9 @@ exports.setUserCourseRelation = async ctx => {
 	})
 }
 
-exports.findCourseByUser = async ctx => {
+exports.findClasseseByUser = async ctx => {
 	let {user_uid} = ctx.request.query
-	await relationModel.findCourseByUser(user_uid).then( (res) => {
+	await relationModel.findClasseseByUser(user_uid).then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -34,9 +34,9 @@ exports.findCourseByUser = async ctx => {
 	})
 }
 
-exports.isCourseReserved = async ctx => {
-	let {user_uid, course_id} = ctx.request.query
-	await relationModel.isCourseReserved(user_uid, course_id).then( res => {
+exports.isClassReserved = async ctx => {
+	let {user_uid, class_id} = ctx.request.query
+	await relationModel.isClassReserved(user_uid, class_id).then( res => {
 		ctx.body = {
 			code: 200,
 			message: '成功',

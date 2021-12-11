@@ -16,77 +16,42 @@
           >
             <v-card flat class="elevation-12">
               <v-card-text>
-                <v-tabs fixed-tabs v-model="tab">
-                  <v-tab>邮箱登录</v-tab>
-                  <v-tab>手机登录</v-tab>
-                </v-tabs>
-                <v-tabs-items v-model="tab">
-                  <v-tab-item>
-                    <v-card class="mt-6" flat>
-                      <v-form>
-                        <v-text-field
-                          solo
-                          label="输入邮箱"
-                          :rules="emailRules"
-                          v-model="loginEmail"
-                        ></v-text-field>
-                        <v-text-field
-                          solo
-                          label="输入密码"
-                          :rules="[v => !!v || 'Password is required']"
-                          type="password"
-                          v-model="password"
-                          @keyup.enter.native="loginClick"
-                        ></v-text-field>
-                      </v-form>
-                    </v-card>
-                  </v-tab-item>
-                  <v-tab-item>
-                    <v-card class="mt-6" flat>
-                      <v-form>
-                        <v-row class="d-flex flex-row">
-                          <v-col id="nopaddingrightcol" cols="3"> 
-                            <v-select
-                              :items="phonePrefixs"
-                              v-model="phonePrefix"
-                              solo
-                            ></v-select>
-                          </v-col>
-                          <v-col id="nopaddingleftcol" cols="9">
-                            <v-text-field
-                              solo
-                              label="输入手机"
-                              :rules="[v => !!v || 'Phone number is required']"
-                              v-model="loginPhone"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-
-                        <v-text-field
-                          solo
-                          label="输入密码"
-                          :rules="[v => !!v || 'Password is required']"
-                          type="password"
-                          v-model="password"
-                          @keyup.enter.native="loginClick"
-                        ></v-text-field>
-                      </v-form>
-                    </v-card>
-                  </v-tab-item>
-                </v-tabs-items>
+                <v-img
+                  contain
+                  max-height="70px"
+                  position="left left"
+                  src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
+                  @click.stop="jumpHome"
+                ></v-img>  
+                <v-form class="mt-8">
+                  <v-text-field
+                    solo
+                    label="输入邮箱"
+                    :rules="emailRules"
+                    v-model="loginEmail"
+                  ></v-text-field>
+                  <v-text-field
+                    solo
+                    label="输入密码"
+                    :rules="[v => !!v || 'Password is required']"
+                    type="password"
+                    v-model="password"
+                    @keyup.enter.native="loginClick"
+                  ></v-text-field>
+                </v-form>                  
                 
-                  <v-card-actions>
-                    <v-btn block color="blue" @click.stop="loginClick">登录</v-btn>
-                  </v-card-actions>
-                  <v-row>
-                    <v-col cols="6">
-                      还没有帐号？
-                      <router-link to="/register" style="color:red">免费注册</router-link>
-                    </v-col>
-                    <v-col cols="6" class="d-inline-flex justify-end">
-                      <router-link to="/forgetPass" style="color:red">忘记密码</router-link>   
-                    </v-col>
-                  </v-row>
+                <v-card-actions>
+                  <v-btn block color="blue" @click.stop="loginClick">登录</v-btn>
+                </v-card-actions>
+                <v-row>
+                  <v-col cols="6">
+                    还没有帐号？
+                    <router-link to="/register" style="color:red">免费注册</router-link>
+                  </v-col>
+                  <v-col cols="6" class="d-inline-flex justify-end">
+                    <router-link to="/forgetPass" style="color:red">忘记密码</router-link>   
+                  </v-col>
+                </v-row>
               </v-card-text>
             </v-card>
           </v-col>
@@ -131,14 +96,10 @@
       return {
         loginEmail: '',
         password: '',
-        loginPhone: '',
-        tab: null,
         emailRules: [
           v => !!v || 'E-mail is required',
           //v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
         ],
-        phonePrefixs: ['+1','+86'],
-        phonePrefix: '+1',
 
         snackbar: false,
         snackbarColor: '',
@@ -169,13 +130,3 @@
     }
   }
 </script>
-
-<style scoped>
- #nopaddingleftcol{
-   padding-left: 0;
- }
-
- #nopaddingrightcol{
-   padding-right: 0;
- }
-</style>

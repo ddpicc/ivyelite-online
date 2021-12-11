@@ -35,7 +35,7 @@ exports.findDataCountByUid =  ( uid ) => {
 }
 // 注册时添加用户
 exports.insertUser = ( value ) => {
-	let _sql = "insert into users set name = ?, email=?,pass=?,uid=?;"
+	let _sql = "insert into users set name=?,email=?,pass=?,uid=?;"
 	return query( _sql, value)
 }
 // 通过用户email和passord查找用户数量判断该用户是否已经注册

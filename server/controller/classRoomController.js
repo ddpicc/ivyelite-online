@@ -101,7 +101,7 @@ exports.getSDKToken = async ctx => {
 }
 
 //create a class room from roomkit edu cloud
-exports.createClass = async ctx => {
+exports.createRoom = async ctx => {
 	let token = await getAccessToken();
   let { subject, room_type, duration, host, settings } = ctx.request.body;
   const appendUrl = 'room/create';
@@ -136,7 +136,7 @@ exports.createClass = async ctx => {
 }
 
 //get class room informationfrom roomkit edu cloud
-exports.getClassInfo = async ctx => {
+exports.getRoomInfo = async ctx => {
 	let token = await getAccessToken();
   let {room_id} = ctx.request.query;
   const appendUrl = 'room/get';

@@ -3,8 +3,8 @@
     id="core-footer"
     color="#222628"
   >
-      <v-row class="d-flex" height="107px">
-        <v-col cols="12" class="d-flex justify-center">
+      <v-row justify="center">
+        <v-col cols="10">
           <v-btn
             class="ma-3"
             color="white"
@@ -22,14 +22,6 @@
           >
             加入我们
           </v-btn>
-          <v-img
-            class="pt-12"
-            contain
-            max-height="90px"
-            max-width="500"
-            src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
-            @click.stop="jumpHome"
-          ></v-img>
           <v-btn
             class="ma-3"
             color="white"
@@ -46,8 +38,10 @@
             网站条款
           </v-btn>
         </v-col>
-        <v-col cols="12" class="d-flex justify-center white--text">
-          All Rights Reserved | Powered by Ivyelite Inc.
+        <v-col cols="10">
+          <div class="white--text ml-6">
+            All Rights Reserved | Powered by Ivyelite Inc.
+          </div>
         </v-col>
       </v-row>
   </v-footer>
@@ -70,10 +64,6 @@
 <style>
 #core-footer {
   z-index: 0;
-  padding: 80px 0 30px;
-}
-
-#inside {
-  height: 107px;
+  padding: 30px 0 30px;
 }
 </style>

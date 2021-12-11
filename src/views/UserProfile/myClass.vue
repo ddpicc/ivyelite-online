@@ -1,76 +1,79 @@
 <template>
-  <v-container
-    fill-height
-  >
-    <v-row justify="center">
-			<v-col cols="2">
-				<profile-left></profile-left>
+  <v-container fluid >
+		<v-row justify="center">
+			<v-col cols="10">
+				<div class="py-md-12 py-sm-8 py-4"></div>
+				<v-row justify="center">
+					<v-col cols="3">
+						<profile-left></profile-left>
+					</v-col>
+					<v-col cols="9">
+						<v-card>
+							<v-card-text>
+								<v-tabs v-model="tab">
+									<v-tab>正在上课</v-tab>
+									<v-tab>已结课</v-tab>
+								</v-tabs>
+								<v-divider class="mb-4"></v-divider>
+								<v-tabs-items v-model="tab">
+									<v-tab-item>
+										<v-card
+											color="#1F7087"
+											class="mt-2"
+											dark
+											v-for="(item, i) in searching"
+											:key="i"
+										>
+											<div class="d-flex flex-no-wrap justify-space-between">
+												<div>
+													<v-card-title
+														class="text-h5"
+														v-text="item.name"
+													></v-card-title>
+
+													<v-card-subtitle v-text="item.summary"></v-card-subtitle>
+
+													<v-card-actions>
+														<v-btn
+															class="ml-2 mt-2"
+															outlined
+															rounded
+															small
+															@click="explore(item.id)"
+														>
+															查看课程
+														</v-btn>
+														<v-btn
+															class="ml-2 mt-2"
+															outlined
+															rounded
+															small
+															@click="joinClass(item.id)"
+														>
+															加入课堂
+														</v-btn>
+													</v-card-actions>
+												</div>
+												<v-avatar
+												class="ma-3"
+												size="125"
+												tile
+											>
+												<v-img :src="item.cover_url"></v-img>
+											</v-avatar>
+											</div>
+										</v-card>
+									</v-tab-item>
+									<v-tab-item>
+										
+									</v-tab-item>
+								</v-tabs-items>
+							</v-card-text>
+						</v-card>
+					</v-col>
+				</v-row>
 			</v-col>
-      <v-col cols="6">
-        <v-card>
-					<v-card-text>
-						<v-tabs v-model="tab">
-							<v-tab>正在上课</v-tab>
-							<v-tab>已结课</v-tab>
-						</v-tabs>
-						<v-divider class="mb-4"></v-divider>
-						<v-tabs-items v-model="tab">
-      				<v-tab-item>
-								<v-card
-									color="#1F7087"
-									class="mt-2"
-									dark
-									v-for="(item, i) in searching"
-									:key="i"
-								>
-									<div class="d-flex flex-no-wrap justify-space-between">
-										<div>
-											<v-card-title
-												class="text-h5"
-												v-text="item.name"
-											></v-card-title>
-
-											<v-card-subtitle v-text="item.summary"></v-card-subtitle>
-
-											<v-card-actions>
-												<v-btn
-													class="ml-2 mt-2"
-													outlined
-													rounded
-													small
-													@click="explore(item.id)"
-												>
-													查看课程
-												</v-btn>
-												<v-btn
-													class="ml-2 mt-2"
-													outlined
-													rounded
-													small
-													@click="joinClass(item.id)"
-												>
-													加入课堂
-												</v-btn>
-											</v-card-actions>
-										</div>
-										<v-avatar
-										class="ma-3"
-										size="125"
-										tile
-									>
-										<v-img :src="item.cover_url"></v-img>
-									</v-avatar>
-									</div>
-								</v-card>
-							</v-tab-item>
-							<v-tab-item>
-								
-							</v-tab-item>
-						</v-tabs-items>
-					</v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+		</v-row>
 		<v-snackbar
 			v-model="snackbar"
 			:color="snackbarColor"
@@ -147,7 +150,7 @@
       },
 
       getUserCourses: function(){
-				relationApi.findCourseByUser(this.$store.state.user.uid).then( (res) => {
+				relationApi.findClasseseByUser(this.$store.state.user.uid).then( (res) => {
           if (res.data.code === 200) {
             this.coursesList = res.data.data;
           }else{
@@ -156,6 +159,10 @@
             this.snackbarColor = 'red';
           }
         })
+			},
+
+			gotoCheckout: function(){
+				this.$router.push({ path: '/payment/checkout' })
 			}
 		},
 

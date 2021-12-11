@@ -135,23 +135,6 @@ exports.findCountByEmail = async ctx => {
 	})
 }
 
-exports.sendMail = async ctx => {
-	let {email} = ctx.request.query
-	await userModel.findCountByEmail(email).then( (res) => {
-		ctx.body = {
-			code: 200,
-      message: '成功',
-      data: res
-		}
-	}).catch(err => {
-		console.log(err)
-		ctx.body = {
-			code: 500,
-			message: '失败'
-		}
-	})
-}
-
 exports.getQiniuToken = async ctx => {
 	ctx.body = {
 		code: 200,

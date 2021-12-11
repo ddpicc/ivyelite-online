@@ -142,7 +142,7 @@
 					uid: Number(this.$store.state.user.uid)
 				};
 				
-				classRoomApi.createClass(subject, room_type, duration, host).then( (res) => {
+				classRoomApi.createRoom(subject, room_type, duration, host).then( (res) => {
           if (res.data.code === 200) {
 						let roomkitResult = res.data.data;
 						console.log(roomkitResult)

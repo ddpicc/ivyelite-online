@@ -24,21 +24,37 @@ let courses =
 		cover_url TEXT COMMENT '封面图片',
 		summary VARCHAR(50) COMMENT '简介',
 		description TEXT COMMENT '详细描述',
-		time_arrange TEXT COMMENT '上课时间',
 		status VARCHAR(20) NOT NULL COMMENT '状态',
 		PRIMARY KEY ( id )
 	);`
 
-let user_courses =
-	`create table if not exists user_courses(
+
+let classes =
+	`create table if not exists classes(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		name VARCHAR(20) NOT NULL COMMENT '课堂名称',
+		cover_url TEXT COMMENT '封面图片',
+		classCount VARCHAR(50) COMMENT '课时',
+		description TEXT COMMENT '详细描述',
+		time_arrange TEXT COMMENT '上课时间',
+		status VARCHAR(20) NOT NULL COMMENT '状态',
+		course_id INT UNSIGNED NOT NULL,
+		comment TEXT COMMENT '备注',
+		stripe_api_id TEXT COMMENT 'Stripe支付api id',
+		amount FLOAT COMMENT '售价', 
+		PRIMARY KEY ( id )
+	);`
+
+let user_class =
+	`create table if not exists user_class(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_uid INT UNSIGNED NOT NULL,
-		course_id INT UNSIGNED NOT NULL,
+		class_id INT UNSIGNED NOT NULL,
 		isStudent INT UNSIGNED DEFAULT 1,
 		isTeacher INT UNSIGNED DEFAULT 0,
 		PRIMARY KEY ( id ),
     FOREIGN KEY(user_uid) REFERENCES users(uid),
-		FOREIGN KEY(course_id) REFERENCES courses(id)
+		FOREIGN KEY(class_id) REFERENCES classes(id)
 	);`
 
 	let room =
@@ -54,4 +70,4 @@ let user_courses =
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users, courses,user_courses,room]
+module.exports = [users,courses,classes,user_class,room]

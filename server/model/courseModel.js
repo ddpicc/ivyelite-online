@@ -19,3 +19,15 @@ exports.updateCourseInfo = ( value ) => {
 	let _sql = "update courses set name=?,cover_url=?,summary=?,description=?,time_arrange=?,status=?;"
 	return query( _sql, value)
 }
+
+//根据课程id查找该课程下的所有课堂
+exports.getClassesbyCourseId = ( course_id ) => {
+	let _sql = `select * from classes where course_id="${course_id}";`
+	return query( _sql)
+}
+
+// 通过id查找课堂信息
+exports.findOneClassById = ( id ) => {
+  let _sql = `select * from classes where id="${id}";`
+  return query(_sql)
+}

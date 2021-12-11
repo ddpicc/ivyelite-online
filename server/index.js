@@ -1,5 +1,5 @@
 const Koa = require('koa')
-const koaBody = require('koa-body')
+const BodyParser = require('koa-bodyparser')
 const config = require('./config/db.js')
 const cors = require('koa2-cors')
 const koajwt = require('koa-jwt')
@@ -25,7 +25,7 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'content-type', 'X-PINGOTHER'],
 }))
 
-app.use(koaBody());
+app.use(BodyParser());
 
 // 中间件对token进行验证
 app.use(async (ctx, next) => {
@@ -44,7 +44,7 @@ app.use(async (ctx, next) => {
 
 app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
   // 登录接口不需要验证
-  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,/^\/userApi\/findDataCountByUid/]
+  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,/^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/payment\/webhook/]
 }));
 
 //  路由
@@ -52,6 +52,7 @@ app.use(require('./routers/userRouter.js').routes())
 app.use(require('./routers/courseRouter.js').routes())
 app.use(require('./routers/classRoomRouter.js').routes())
 app.use(require('./routers/relationRouter.js').routes())
+app.use(require('./routers/paymentRouter.js').routes())
 
 
 app.listen(config.port)

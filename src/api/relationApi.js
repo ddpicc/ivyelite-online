@@ -1,7 +1,7 @@
 import api from './axiosConfig'
 
 export default {
-  setUserCourseRelation: (user_uid, course_id, isStudent, isTeacher) => api.post(`/relationApi/setUserCourseRelation`, { user_uid, course_id, isStudent, isTeacher}),
-  findCourseByUser: (user_uid) => api.get(`/relationApi/findCourseByUser`, {user_uid}),
-  isCourseReserved: (user_uid, course_id) => api.get(`/relationApi/isCourseReserved`, {user_uid, course_id}),
+  setUserClassRelation: (user_uid, class_id, isStudent, isTeacher) => api.post(`/relationApi/setUserClassRelation`, { user_uid, class_id, isStudent, isTeacher}),
+  findClasseseByUser: (user_uid) => api.get(`/relationApi/findClasseseByUser`, {user_uid}),
+  isClassReserved: (user_uid, class_id) => api.get(`/relationApi/isClassReserved`, {user_uid, class_id}),
 }

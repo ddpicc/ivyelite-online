@@ -16,7 +16,14 @@
           >
             <v-card flat class="elevation-12">
               <v-card-text>
-                <v-form
+                <v-img
+                  contain
+                  max-height="70px"
+                  position="left left"
+                  src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
+                  @click.stop="jumpHome"
+                ></v-img>  
+                <v-form class="mt-8"
                  ref="registerForm"
                  lazy-validation>
                   <v-text-field
@@ -108,7 +115,7 @@
           //看是不是8位数
           let uid = await this.getUseableUid();
           let md5Pass = md5(this.password);
-          userApi.findCountByEmail(email).then( (res) => {
+          userApi.findCountByEmail(this.registerEmail).then( (res) => {
             if (res.data.code === 200) {
               if(res.data.data[0].count === 0){
                 userApi.insertUser(this.registerEmail, md5Pass, uid).then(res => {

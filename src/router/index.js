@@ -29,8 +29,8 @@ export const constantRouterMap = [
       {path: '', name: '首页', component: () => import('../views/HomePage.vue')},
       {path: '/login', name: '登录', component: () => import('../views/login/LoginPage.vue')},
       {path: '/register', name: '注册', component: () => import('../views/login/RegisterPage.vue')},
-      {path: 'course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
-      {path: 'course/explore', name: '探索课程', component: () => import('../views/Course/CourseOnePage.vue')},
+      {path: '/course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
+      {path: '/course/explore', name: '课程详情', component: () => import('../views/Course/CourseOnePage.vue')},
     ]
   }
 ]
@@ -65,6 +65,9 @@ export const asyncRouterMap = [
       {path: 'course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareClass.vue')},
       {path: 'course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue'), meta: {roles: ['teacher','admin']}},
       {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
+      {path: '/payment/checkout', name: 'Checkout', component: () => import('../views/Payment/checkout.vue')},
+      {path: '/payment/success', name: '支付成功', component: () => import('../views/Payment/success.vue')},
+      {path: '/payment/cancel', name: '支付取消', component: () => import('../views/Payment/cancel.vue')},
       {path: '*', redirect: '/' }
     ]
   }

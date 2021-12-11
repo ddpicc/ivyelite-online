@@ -1,5 +1,5 @@
 <template>
-  <v-content class="background">
+  <v-content>
     <div id="core-view">
       <v-fade-transition mode="out-in">
         <router-view />

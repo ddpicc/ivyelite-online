@@ -3,14 +3,13 @@
     id="core-app-bar"
     absolute
     app
-    color="#222628"
     flat
-    height="110"
+    style="height: 7vh"
   >
     <v-toolbar-title class="tertiary--text font-weight-light align-self-left">
       <v-img
         contain
-        max-height="90px"
+        max-height="7vh"
         position="left left"
         src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
         @click.stop="jumpHome"
@@ -27,7 +26,6 @@
         <v-btn
           v-if="!verifyLogin()"
           class="ma-1"
-          color="white"
           plain
           to="/login"
         >
@@ -41,7 +39,6 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="white"
               plain
               v-bind="attrs"
               v-on="on"

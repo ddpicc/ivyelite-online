@@ -71,7 +71,7 @@ export default {
 				let info = null;
 				const beginTimestamp = this.urlParams.beginTimestamp
 				const roomType = Number(this.urlParams.roomType);
-				info = await classRoomApi.getClassInfoFromEduCloud(this.urlParams.room_id);
+				info = await classRoomApi.getRoomInfofoFromEduCloud(this.urlParams.room_id);
 				if (info && roomType !== info.data.room_type) {
 						// 房间类型不同时房间标题置空 房间标题应从房间内中获取 
 						info.data.subject = ''
