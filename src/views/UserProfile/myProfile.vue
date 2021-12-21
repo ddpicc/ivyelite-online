@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid >
+  <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
-			<v-col cols="10">
+			<v-col cols="12">
 				<div class="py-md-12 py-sm-8 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
@@ -16,7 +16,7 @@
 							<v-card-text>
 								<v-form>
 									<v-row>
-										<v-col cols="6" class="d-flex">
+										<v-col cols="12" sm="6" class="d-flex">
 											<v-subheader>姓名</v-subheader>
 											<v-subheader v-if="!editInfo">{{userName}}</v-subheader>
 											<v-text-field
@@ -27,7 +27,7 @@
 												v-model="userName"
 											></v-text-field>
 										</v-col>
-										<v-col cols="6" class="d-flex">
+										<v-col cols="12" sm="6" class="d-flex">
 											<v-subheader>性别</v-subheader>
 											<v-subheader v-if="!editInfo">{{userSex}}</v-subheader>
 											<v-select
@@ -40,7 +40,7 @@
 											></v-select>
 										</v-col>
 
-										<v-col cols="6" class="d-flex">
+										<v-col cols="12" sm="6" class="d-flex">
 											<v-subheader>学历</v-subheader>
 											<v-subheader v-if="!editInfo">{{userEducation}}</v-subheader>
 											<v-select
@@ -52,7 +52,7 @@
 												:items="educationList"
 											></v-select>
 										</v-col>
-										<v-col cols="6" class="d-flex">
+										<v-col cols="12" sm="6" class="d-flex">
 											<v-subheader>学校/公司</v-subheader>
 											<v-subheader v-if="!editInfo">{{userSchool}}</v-subheader>
 											<v-text-field
@@ -64,7 +64,7 @@
 											></v-text-field>
 										</v-col>
 
-										<v-col cols="6" class="d-flex">
+										<v-col cols="12" sm="6" class="d-flex">
 											<v-subheader>生日</v-subheader>
 											<v-subheader v-if="!editInfo">{{userBirth}}</v-subheader>
 											<v-menu
@@ -237,6 +237,7 @@
 					//save to db
 					userApi.updateUserProfile(this.userName,this.userSex,this.userEducation,this.userSchool,this.userBirth,this.$store.state.user.uid).then(res => {
 						if(res.data.code === 200) {
+							this.$store.commit('user/SET_NAME', this.userName);
 							this.snackbar = true;
             	this.notification = '更新成功';
             	this.snackbarColor = 'green';
@@ -274,6 +275,14 @@
 
 		mounted: function(){
 			this.getUserInfo()
+		},
+
+		watch: {
+			"$store.state.user.name": {
+				handler: function(){
+					this.getUserInfo()
+				}
+			}
 		}
 	}
 </script>

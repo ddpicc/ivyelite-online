@@ -152,6 +152,7 @@
 								this.snackbar = true;
 								this.notification = '成功';
 								this.snackbarColor = 'green';
+								this.$socket.emit('classcreated', 'Class begin!')	
 								this.theClass = {
 									id: res.data.data.insertId,
 									course_id: this.course_id,

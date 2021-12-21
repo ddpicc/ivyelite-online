@@ -15,11 +15,11 @@
       id="online"
       class="lighten-3"
     >
-      <div class="py-16"></div>
+      <div class="py-md-16 py-sm-8 py-4"></div>
 
-      <v-container fluid >
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <v-row>
               <v-col>
                 <div class="text-center">
@@ -42,7 +42,7 @@
               >
                 <v-card>
                   <v-img
-                    :src="cover_url"
+                    src="../assets/course/gmat 1v1.jpeg"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     :aspect-ratio="1/1.5"
@@ -90,11 +90,11 @@
       id="unique"
       class="lighten-3"
     >
-      <div class="py-16"></div>
+      <div class="py-md-16 py-sm-8 py-4"></div>
 
-      <v-container fluid>
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
                 <div style="color:#29AB4A" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 white font-weight-bold">独家课程</div>
@@ -120,10 +120,10 @@
               >
                 <div
                   v-text="uniqueCourse_title"
-                  class="text-md-h4 text-lg-h3 text-sm-h6 text-h5 font-weight-bold text-uppercase white--text"
+                  class="text-h4 font-weight-bold text-uppercase white--text"
                   space="1"
                 />
-                <div class="text-md-h5 text-lg-h4 text-sm-h6 text-h6 font-weight-bold  white--text mt-8"
+                <div class="text-h6 font-weight-bold  white--text mt-8"
                   v-if="uniqueCourse_subtitle"
                   v-text="uniqueCourse_subtitle"
                   space="1"
@@ -139,11 +139,11 @@
       id="features"
       class="lighten-3"
     >
-      <div class="py-16"></div>
+      <div class="py-md-16 py-sm-8 py-4"></div>
 
-      <v-container fluid>
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
                 <div style="color:#FFFFFF" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 titlegreen font-weight-bold">优势介绍</div>
@@ -153,11 +153,11 @@
 
             <div class="py-md-12 py-sm-8 py-4"></div>
             <v-row justify="center">
-              <v-col cols="3" v-for="i in 4" :key="i">
+              <v-col cols="6" md="3" sm="4" v-for="i in 4" :key="i">
                 <v-container class="text-center">
                   <v-img class="mb-8" contain max-height="13vh" src="../assets/featureDemo.png">                    
                   </v-img>
-                  <span class="text-md-h4 text-lg-h3 text-sm-h6 font-weight-bold">FEATURE</span>
+                  <span class="text-h6 font-weight-bold">FEATURE</span>
                 </v-container>
               </v-col>
             </v-row>
@@ -165,9 +165,9 @@
         </v-row>
       </v-container>
       <div class="py-sm-4 py-8"></div>
-      <v-container fluid>
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <v-row justify="center">
               <v-col 
                 cols="6"
@@ -212,11 +212,11 @@
       id="outcome"
       class="lighten-3"
     >
-      <div class="py-16"></div>
+      <div class="py-md-16 py-sm-8 py-4"></div>
 
-      <v-container fluid>
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
                 <div style="color:#7EBD44" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 white font-weight-bold">成果展示</div>
@@ -240,7 +240,7 @@
                     src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                   ></v-img>
                 </v-card>
-                <span class="text-md-h4 text-lg-h3 text-sm-h6 font-weight-bold white--text">JACK 同学</span>
+                <span class="text-h6 font-weight-bold white--text">JACK 同学</span>
               </v-col>
             </v-row>
           </v-col>
@@ -289,6 +289,7 @@
 </script>
 
 <style scoped>
+@media only screen and (min-width: 1200px) {
   div.titleWrap{
     width: auto;
     position:relative;
@@ -317,5 +318,67 @@
     background-color: #7EBD44;
     height: 100vh
   }
-  /*@media screen and (max-width:500px)*/
+}
+
+@media screen and (min-width:600px){
+  div.titleWrap{
+    width: auto;
+    position:relative;
+    justify-content:center
+  }
+  div.a{
+    position:absolute;
+    top:-30px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    z-index:1;
+    width: 20%
+  }
+  section#online{
+    height: auto;
+  }
+  section#unique{
+    height: auto;
+    background-color: #29AB4A;
+  }
+  section#features{
+    background-color: #E2E3E6;
+  }
+  section#outcome{
+    background-color: #7EBD44;
+    height: auto
+  }
+}
+
+@media screen and (max-width:600px){
+  section#online{
+    height: auto;
+  }
+  section#unique{
+    height: auto;
+    background-color: #29AB4A;
+  }
+  section#features{
+    background-color: #E2E3E6;
+  }
+  section#outcome{
+    background-color: #7EBD44;
+    height: auto
+  }
+  div.titleWrap{
+    width: auto;
+    position:relative;
+    justify-content:center
+  }
+  div.a{
+    position:absolute;
+    top:-18px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    z-index:1;
+    width: 30%
+  }
+}
 </style>

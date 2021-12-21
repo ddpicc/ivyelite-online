@@ -1,5 +1,30 @@
 <template>
-  <h3> succeed</h3>
+  <div>
+    <v-content>
+      <v-container
+        class="fill-height"
+        fluid
+      >
+        <v-row
+          align="center"
+          justify="center"
+        >
+          <v-col
+            cols="12"
+            sm="8"
+            md="4"
+          >
+            <v-card flat class="elevation-12">
+              <v-card-text>
+                <div>支付成功</div>
+                <router-link to="/" style="color:blue">点击跳转到我的课程页面</router-link>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-content>
+  </div>
 </template>
 
 <script>

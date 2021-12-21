@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid >
+  <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
-			<v-col cols="10">
+			<v-col cols="12">
 				<div class="py-md-12 py-sm-8 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
@@ -24,10 +24,29 @@
 											v-for="(item, i) in searching"
 											:key="i"
 										>
+											<v-banner
+												single-line
+												sticky
+												color="titlegreen"
+												v-if="classBegin"
+											>
+												老师已经开课了，快来一起加入课堂吧!
+
+												<template v-slot:actions>
+													<v-btn
+														outlined
+														rounded
+														small
+														@click="joinClass(item.id)"
+													>
+														加入课堂
+													</v-btn>
+												</template>
+											</v-banner>
 											<div class="d-flex flex-no-wrap justify-space-between">
 												<div>
 													<v-card-title
-														class="text-h5"
+														class="text-h6"
 														v-text="item.name"
 													></v-card-title>
 
@@ -43,29 +62,24 @@
 														>
 															查看课程
 														</v-btn>
-														<v-btn
-															class="ml-2 mt-2"
-															outlined
-															rounded
-															small
-															@click="joinClass(item.id)"
-														>
-															加入课堂
-														</v-btn>
 													</v-card-actions>
 												</div>
 												<v-avatar
-												class="ma-3"
-												size="125"
-												tile
-											>
-												<v-img :src="item.cover_url"></v-img>
-											</v-avatar>
+													class="ma-3 d-none d-sm-flex"
+													size="125"
+													tile
+												>
+													<v-img :src="item.cover_url"></v-img>
+												</v-avatar>
 											</div>
 										</v-card>
 									</v-tab-item>
 									<v-tab-item>
-										
+										<!--
+
+
+
+										-->
 									</v-tab-item>
 								</v-tabs-items>
 							</v-card-text>
@@ -109,10 +123,20 @@
 			coursesList: [],
 			tab: null,
 			theClass: null,
+			classBegin: false,
 			snackbar: false,
       snackbarColor: '',
       notification: '',
 		}),
+
+		sockets: {
+			connect: function () {
+				console.log('socket connected')
+			},
+			classopen: function (data) {
+				this.classBegin = true;
+			},
+    },
 
 		components: {
 			profileLeft
@@ -120,7 +144,8 @@
 
 		methods: {
 			explore: function(id){
-        this.$router.push({ path: '/course/explore',query: {courseId: id}})
+				alert('页面还在开发中，请耐心等待')
+        //this.$router.push({ path: '/course/explore',query: {courseId: id}})
       },
 			
       joinClass: function(id) {

@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid >
+  <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
-			<v-col cols="10">
+			<v-col cols="12">
 				<div class="py-md-12 py-sm-8 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
@@ -27,7 +27,7 @@
 											<div class="d-flex flex-no-wrap justify-space-between">
 												<div>
 													<v-card-title
-														class="text-h5"
+														class="text-h6"
 														v-text="item.name"
 													></v-card-title>
 
@@ -39,7 +39,7 @@
 															outlined
 															rounded
 															small
-															@click="prepareCourse(item)"
+															@click="prepareClass(item)"
 														>
 															准备上课
 														</v-btn>
@@ -48,14 +48,14 @@
 															outlined
 															rounded
 															small
-															@click="editCourse(item)"
+															@click="classinfo(item)"
 														>
-															编辑课程
+															课堂信息
 														</v-btn>
 													</v-card-actions>
 												</div>
 												<v-avatar
-												class="ma-3"
+												class="ma-3 d-none d-sm-flex"
 												size="125"
 												tile
 											>
@@ -65,7 +65,11 @@
 										</v-card>
 									</v-tab-item>
 									<v-tab-item>
-										fasa
+										<!--
+
+
+
+										-->
 									</v-tab-item>
 								</v-tabs-items>
 							</v-card-text>
@@ -92,8 +96,8 @@
 		},
 
 		methods: {
-      prepareCourse: function(item) {
-        this.$router.push({ path: '/course/prepare', query: {courseTitle: item.name, courseId: item.id} });
+      prepareClass: function(item) {
+				this.$router.push({ path: '/course/prepare', query: {courseTitle: item.name, courseId: item.id} });
       },
 
       getUserCourses: function(){
@@ -108,9 +112,8 @@
         })
 			},
 
-			editCourse: function(item) {
-				//this.$router.push({ path: '/course/create', query: {courseId: item.id}});
-				alert(process.env.QINIU_SECRETKEY)
+			classinfo: function(item) {
+				this.$router.push({ path: '/course/classinfo', query: { courseId: item.id} });
 			}
 		},
 

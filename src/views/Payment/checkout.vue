@@ -18,7 +18,8 @@
               <v-card-title v-text="theClass.name"></v-card-title>
               <v-card-subtitle v-text="`$ ${theClass.amount}`"></v-card-subtitle>
               <v-card-actions>
-                <v-btn block color="blue" @click.stop="checkout">结算</v-btn>
+                <v-btn color="blue" @click.stop="checkout">结算</v-btn>
+                <v-btn color="blue" @click.stop="cancel">取消</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -91,6 +92,10 @@
             this.snackbarColor = 'red';
           }
         })
+      },
+
+      cancel: function(){
+        this.$router.go(-1);
       }
     },
 

@@ -1,9 +1,9 @@
 <template>
   <v-container
-    fill-height
+    fluid style="max-width: 1280px"
   >
     <v-row justify="center">
-			<v-col cols="3">
+			<v-col cols="12" sm="3">
         <v-card
 					class="mx-auto"
 					max-width="400"
@@ -17,9 +17,9 @@
 					</v-toolbar>
 
 					<v-card-text>
-						<h2 class="text-h6 mb-2">
+						<span class="text-h6 mb-2">
 							上课状态
-						</h2>
+						</span>
 
 						<v-chip-group
 							v-model="classStatus"
@@ -55,9 +55,9 @@
 					</v-card-text>
 
 					<v-card-text>
-						<h2 class="text-h6 mb-2">
+						<span class="text-h6 mb-2">
 							课程分类
-						</h2>
+						</span>
 
 						<v-chip-group
 							v-model="classType"
@@ -88,7 +88,7 @@
 					</v-card-text>
 				</v-card>
 			</v-col>
-      <v-col cols="8">
+      <v-col cols="12" sm="8">
         <v-card>
 					<v-toolbar
 						flat

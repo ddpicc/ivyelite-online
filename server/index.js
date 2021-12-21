@@ -3,11 +3,21 @@ const BodyParser = require('koa-bodyparser')
 const config = require('./config/db.js')
 const cors = require('koa2-cors')
 const koajwt = require('koa-jwt')
-const app = new Koa()
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
+const app = new Koa();
+const httpServer = createServer(app.callback());
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST"]
+  }
+});
 
 //路由白名单
 const origin = []// 允许来自所有域名请求
+
 
 app.use(cors({
   origin: function (ctx) {
@@ -44,7 +54,8 @@ app.use(async (ctx, next) => {
 
 app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
   // 登录接口不需要验证
-  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,/^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/payment\/webhook/]
+  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,
+    /^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/payment\/webhook/]
 }));
 
 //  路由
@@ -54,7 +65,16 @@ app.use(require('./routers/classRoomRouter.js').routes())
 app.use(require('./routers/relationRouter.js').routes())
 app.use(require('./routers/paymentRouter.js').routes())
 
+io.on("connection", (socket) => {
+  // ...
+  console.log('connect')
+  socket.on('classcreated', data => {
+    console.log('老师已经创建课程', data)
+    socket.broadcast.emit("classopen", "world");
+  })
+});
 
-app.listen(config.port)
+
+httpServer.listen(config.port)
 
 console.log(`listening on port ${config.port}`)
