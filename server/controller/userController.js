@@ -100,10 +100,45 @@ exports.findDataCountByUid = async ctx => {
 }
 
 exports.insertUser = async ctx => {
-	let { email, password, uid } = ctx.request.body;
+	let { email, password, uid, register_time } = ctx.request.body;
 	let defaultName = '用户'
-	await userModel.insertUser([defaultName, email, password, uid]).then( (res) => {
+	await userModel.insertUser([defaultName, email, password, uid, register_time]).then( (res) => {
 		console.log(res)
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.sendActivateEmail = async ctx => {
+	let { email, content} = ctx.request.body;
+	await mail_util.mail(email,'激活邮件',content).then( (res) => {
+		console.log('send email to ' + email)
+		ctx.body = {
+			code: 200,
+      message: '成功',
+			data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.activeUser = async ctx => {
+	let { is_active, uid, email } = ctx.request.body;
+	await userModel.activeUser([is_active, uid, email]).then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',

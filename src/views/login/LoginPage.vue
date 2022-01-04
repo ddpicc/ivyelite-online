@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
+  <v-container fluid style="max-width: 1280px">
+		<v-row justify="center">
+			<v-col cols="12">
+				<div class="py-md-12 py-sm-8 py-4"></div>
+				<v-row justify="center">
           <v-col
             cols="12"
             sm="8"
@@ -56,32 +51,32 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-snackbar
-          v-model="snackbar"
-          :color="snackbarColor"
-          :timeout="snackbarTimeout"
-          top
-          dark
-        >
-          <v-icon
-            color="white"
-            class="mr-3"
-          >
-            mdi-bell-plus
-          </v-icon>
-          {{notification}}
-          <v-btn
-            icon
-            @click="snackbar = false"
-          >
-            <v-icon>
-              mdi-close-circle
-            </v-icon>
-          </v-btn>
-        </v-snackbar>
-      </v-container>
-    </v-content>
-  </div>
+      </v-col>
+    </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      :timeout="snackbarTimeout"
+      top
+      dark
+    >
+      <v-icon
+        color="white"
+        class="mr-3"
+      >
+        mdi-bell-plus
+      </v-icon>
+      {{notification}}
+      <v-btn
+        icon
+        @click="snackbar = false"
+      >
+        <v-icon>
+          mdi-close-circle
+        </v-icon>
+      </v-btn>
+    </v-snackbar>
+  </v-container>
 </template>
 
 <script>
@@ -119,6 +114,9 @@
             this.notification = '登录成功';
             this.snackbarColor = 'green';
             let url = whiteList.indexOf(redirectUrl) === -1? redirectUrl : '/';
+            if(redirectUrl.indexOf('active')){
+              url = '/'
+            }
             this.$router.push({ path: url });
           }else if(res == 'login fail'){
             this.snackbar = true;

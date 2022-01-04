@@ -3,11 +3,22 @@
     <section id="hero">
       <v-row no-gutters>
         <v-col cols="12">
-          <v-img
-            :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-            src="https://www.ivyelite.net/wp-content/uploads/2020/04/GMAT-Boot-Camp-1440x550-B9-1.jpg"
-          >
-          </v-img>
+          <v-carousel cycle hide-delimiter-background :show-arrows="false" :height="'calc(100vh - ' + $vuetify.application.top + 'px)'">
+            <v-carousel-item>
+              <v-img
+                :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+                src="../assets/banner-01.png"
+              >
+              </v-img>
+            </v-carousel-item>
+            <v-carousel-item>
+              <v-img
+                :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+                src="../assets/banner-02.png"
+              >
+              </v-img>
+            </v-carousel-item>
+          </v-carousel>
         </v-col>
       </v-row>
     </section>
@@ -24,41 +35,41 @@
               <v-col>
                 <div class="text-center">
                   <div class="titleWrap">
-                    <div style="color:#FFFFFF" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 titlegreen font-weight-bold">线上课程</div>
+                    <div style="color:#FFFFFF" class="a titleChn titlegreen font-weight-bold">线上课程</div>
                   </div>
-                  <h2 style="color:#B4B5B8" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">ONLINE COURSES</h2>
+                  <h2 style="color:#B4B5B8" class="titleEng font-weight-bold">ONLINE COURSES</h2>
                 </div>
               </v-col>
             </v-row>
             <div class="py-md-12 py-sm-8 py-4"></div>
             <v-row justify="center">
               <v-col
-                v-for="({ cover_url, name, summary, id }, i) in courses"
+                v-for="(course, i) in courses"
                 :key="i"
                 cols="6"
                 md="3"
-                sm="4"
                 class="pa-5"
               >
                 <v-card>
                   <v-img
-                    src="../assets/course/gmat 1v1.jpeg"
+                    :src="course.cover_url"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
                     :aspect-ratio="1/1.5"
+                    @click="explore(course)"
                   >
-                    <div class="text-h6 font-weight-bold  white--text ml-4 text-no-wrap" v-text="name"/>
+                    <div class="text-h6 font-weight-bold  white--text ml-4 text-no-wrap" v-text="course.name"/>
                     <v-card-actions>
                       <v-btn
                         color="white lighten-2"
                         text
                         plain
-                        @click="explore(id)"
+                        @click="explore(course)"
                       >
                         Explore
                       </v-btn>
 
-                      <v-spacer></v-spacer>
+                     <!--  <v-spacer></v-spacer>
 
                       <v-btn
                         icon
@@ -66,10 +77,10 @@
                         @click="show = !show"
                       >
                         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-                      </v-btn>
+                      </v-btn> -->
                     </v-card-actions>
                   </v-img>
-                  <v-expand-transition>
+                  <!-- <v-expand-transition>
                     <div v-show="show">
                       <v-divider></v-divider>
 
@@ -77,7 +88,7 @@
                         jiesho
                       </v-card-text>
                     </div>
-                  </v-expand-transition>              
+                  </v-expand-transition>     -->          
                 </v-card>
               </v-col>
             </v-row>
@@ -97,33 +108,41 @@
           <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
-                <div style="color:#29AB4A" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 white font-weight-bold">独家课程</div>
+                <div style="color:#29AB4A" class="a titleChn white font-weight-bold">独家课程</div>
               </div>
-              <h2 style="color:#8FD39D" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">SPECIAL COURSES</h2>
+              <h2 style="color:#8FD39D" class="titleEng font-weight-bold">SPECIAL COURSES</h2>
             </div>
             <div class="py-md-12 py-sm-8 py-4"></div>
             <v-row>
               <v-col
                 cols="12"
-                sm="4"
+                md="4"
               >
                 <v-img
                   height="46vh"
-                  :src="uniqueCourse_pic"
+                  src="../assets/brain.png"
                 />
               </v-col>
 
               <v-col
                 cols="12"
-                sm="7"
-                offset-sm="1"
+                md="7"
+                offset-md="1"
+                align-self="center"
               >
                 <div
                   v-text="uniqueCourse_title"
-                  class="text-h4 font-weight-bold text-uppercase white--text"
+                  class="uniqueTit mb-2 font-weight-bold text-uppercase "
                   space="1"
                 />
-                <div class="text-h6 font-weight-bold  white--text mt-8"
+                <v-responsive
+                  class="mx-auto mb-12"
+                >
+                  <v-divider class="mb-1 white"></v-divider>
+
+                  <v-divider class="white"></v-divider>
+                </v-responsive>
+                <div class="uniqueDes white--text mt-8"
                   v-if="uniqueCourse_subtitle"
                   v-text="uniqueCourse_subtitle"
                   space="1"
@@ -146,41 +165,103 @@
           <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
-                <div style="color:#FFFFFF" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 titlegreen font-weight-bold">优势介绍</div>
+                <div style="color:#FFFFFF" class="a titleChn titlegreen font-weight-bold">优势介绍</div>
               </div>
-              <h2 style="color:#B4B5B8" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">COURSES FEATURES</h2>
+              <h2 style="color:#B4B5B8" class="titleEng font-weight-bold">COURSES FEATURES</h2>
             </div>
 
-            <div class="py-md-12 py-sm-8 py-4"></div>
+            <div class="py-md-6 py-sm-6 py-4"></div>
             <v-row justify="center">
-              <v-col cols="6" md="3" sm="4" v-for="i in 4" :key="i">
-                <v-container class="text-center">
-                  <v-img class="mb-8" contain max-height="13vh" src="../assets/featureDemo.png">                    
+              <v-col cols="6" md="3">
+                <v-container>
+                  <v-img  contain max-height="15vh" src="../assets/feature-04.png">                    
                   </v-img>
-                  <span class="text-h6 font-weight-bold">FEATURE</span>
+                  <v-container
+                    class="ma-6"
+                  >
+                    <v-row>
+                      <v-col>
+                        <div class="text-h6 text-center font-weight-bold">
+                          业界顶级教辅团队助力
+                        </div>
+                        <div class="text-h7 mt-8" style="text-indent: 2em;">
+                          常青藤网罗业界最具口碑的资深提分老师，组建成VIP教辅团队助力学员短期出分。并定期邀请最强大脑等嘉宾老师举办讲座，传授单词记忆与提分秘笈。
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-container>
+              </v-col>
+              <v-col cols="6" md="3">
+                <v-container>
+                  <v-img  contain max-height="15vh" src="../assets/feature-02.png">                    
+                  </v-img>
+                  <v-container
+                    class="ma-6"
+                  >
+                    <v-row>
+                      <v-col>
+                        <div class="text-h6 text-center  font-weight-bold">
+                          针对北美学生研发教案
+                        </div>
+                        <div class="text-h  mt-8" style="text-indent: 2em;">
+                          常青藤提分团队针对北美留学生的数理阅读基础和学习特性开发最适合的课程体系和配套教案，因材施教，做最有效的冲分辅导。
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-container>
+              </v-col>
+              <v-col cols="6" md="3">
+                <v-container>
+                  <v-img  contain max-height="15vh" src="../assets/feature-03.png">                    
+                  </v-img>
+                  <v-container
+                    class="ma-6"
+                  >
+                    <v-row>
+                      <v-col>
+                        <div class="text-h6 text-center  font-weight-bold">
+                          授课时间私人定制
+                        </div>
+                        <div class="text-h7 mt-8" style="text-indent: 2em;">
+                          常青藤双G教辅团队将尽可能配合学员的时间行程，通过线上直播、课后录播、周中周末私人定制等方式，让学生免受时间和地点的困扰，随时随地轻松提分。
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-container>
+              </v-col>
+              <v-col cols="6" md="3">
+                <v-container>
+                  <v-img contain max-height="15vh" src="../assets/feature-01.png">                    
+                  </v-img>
+                  <v-container
+                    class="ma-6"
+                  >
+                    <v-row>
+                      <v-col>
+                        <div class="text-h6 text-center  font-weight-bold">
+                          配套全面监督体系
+                        </div>
+                        <div class="text-h7  mt-8" style="text-indent: 2em;">
+                          为每个私教班和提分班都配备了常青藤导师作为课程小助手，全程陪伴并监督学生定时打卡、按时上课、练习复习、查漏补缺等等。
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-container>
                 </v-container>
               </v-col>
             </v-row>
           </v-col>
         </v-row>
       </v-container>
-      <div class="py-sm-4 py-8"></div>
-      <v-container fluid style="max-width: 1280px">
-        <v-row justify="center">
-          <v-col cols="12">
-            <v-row justify="center">
-              <v-col 
-                cols="6"
-                md="3"
-                sm="4" 
-                v-for="i in 4" 
-                :key="i"
-              >
-                <v-hover v-slot="{ hover }">
-                  <v-card elevation="10" class="ma-3">
+
+                <!-- <v-hover v-slot="{ hover }">
+                  <v-card elevation="10" class="ma-5">
                     <v-img
                       :aspect-ratio="1/1.5"
-                      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                      src="../assets/feature-01.png"
                     >
                     <v-expand-transition>
                       <v-container
@@ -190,8 +271,11 @@
                       >
                         <v-row>
                           <v-col>
-                            <div class="text-md-h5 text-lg-h4 text-sm-h6 text-h6 font-weight-bold mt-8">
-                              优势介绍文字
+                            <div class="text-h6 font-weight-bold mt-8">
+                              业界顶级教辅团队助力
+                            </div>
+                            <div class="text-h7 mt-8">
+                              常青藤网罗业界最具口碑的资深提分老师，组建成VIP教辅团队助力学员短期出分。并定期邀请最强大脑等嘉宾老师举办讲座，传授单词记忆与提分秘笈
                             </div>
                           </v-col>
                         </v-row>
@@ -199,13 +283,8 @@
                     </v-expand-transition>
                     </v-img>
                   </v-card>
-                </v-hover>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-
-      </v-container>
+                </v-hover> -->
+ 
       <div class="py-md-10 py-sm-5 py-5"></div>
     </section>
     <section
@@ -219,9 +298,9 @@
           <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
-                <div style="color:#7EBD44" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 white font-weight-bold">成果展示</div>
+                <div style="color:#7EBD44" class="a titleChn white font-weight-bold">成果展示</div>
               </div>
-              <h2 style="color:#BCDC98" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">COURSE OUTCOME</h2>
+              <h2 style="color:#BCDC98" class="titleEng font-weight-bold">COURSE OUTCOME</h2>
             </div>
 
             <div class="py-md-12 py-sm-8 py-4"></div>
@@ -230,7 +309,6 @@
                 class="text-center"
                 cols="6"
                 md="3"
-                sm="4" 
                 v-for="i in 4" 
                 :key="i" 
               >
@@ -263,14 +341,20 @@
       courses: [],
       show: false,
 
-      uniqueCourse_title: '优质课程',
-      uniqueCourse_subtitle: '课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程介绍课程',
+      uniqueCourse_title: '最强大脑高效记忆法 – 如何高效记忆GRE核心词',
+      uniqueCourse_subtitle: '最强大脑中国队队长，世界记忆大师李威老师曾受邀到哈佛大学、哥伦比亚大学等顶尖名校分享高效记忆方法和思维，并收获大批学生的青睐和赞赏。常青藤精英教育Ivy Elite 特邀李威老师为GRE暑假班全体学员亲授GRE核心词汇记忆大法，助力大家短时间克服单词难关，冲击高分并申请名校！',
       uniqueCourse_pic: 'https://www.ivyelite.net/wp-content/uploads/2020/07/首页BANNER_banner4.jpg'
+
+
     }),
 
     methods: {
-      explore: function(id){
-        this.$router.push({ path: '/course/explore',query: {courseId: id}})
+      explore: function(course){
+        if(course.type === '1v1'){
+          this.$router.push({ path: '/course/explore/1v1',query: {courseId: course.id}})
+        }else{
+          this.$router.push({ path: '/course/explore/smallclass',query: {courseId: course.id}})
+        }        
       },
 
       getAllCourses: function(){
@@ -289,7 +373,34 @@
 </script>
 
 <style scoped>
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 960px) {
+  .titleChn {
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .titleEng {
+    font-size: 38px;
+    line-height: 1.25;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .uniqueTit {
+    font-size: 34px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .uniqueDes {
+    font-size: 26px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #fff;
+  }
+
   div.titleWrap{
     width: auto;
     position:relative;
@@ -297,9 +408,10 @@
   }
   div.a{
     position:absolute;
-    top:-30px;
+    top:-40px;
     left:0;
     right:0;
+    padding: 8px 0 8px 0;
     margin:0 auto;
     z-index:1;
     width: 20%
@@ -312,7 +424,7 @@
     background-color: #29AB4A;
   }
   section#features{
-    background-color: #E2E3E6;
+    height: 100vh;
   }
   section#outcome{
     background-color: #7EBD44;
@@ -320,7 +432,34 @@
   }
 }
 
-@media screen and (min-width:600px){
+@media screen and (max-width:959px){
+  .titleChn {
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .titleEng {
+    font-size: 38px;
+    line-height: 1.25;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .uniqueTit {
+    font-size: 34px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .uniqueDes {
+    font-size: 26px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #fff;
+  }
+
   div.titleWrap{
     width: auto;
     position:relative;
@@ -341,9 +480,6 @@
   section#unique{
     height: auto;
     background-color: #29AB4A;
-  }
-  section#features{
-    background-color: #E2E3E6;
   }
   section#outcome{
     background-color: #7EBD44;
@@ -358,9 +494,6 @@
   section#unique{
     height: auto;
     background-color: #29AB4A;
-  }
-  section#features{
-    background-color: #E2E3E6;
   }
   section#outcome{
     background-color: #7EBD44;

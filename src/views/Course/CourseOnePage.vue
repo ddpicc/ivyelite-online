@@ -4,8 +4,8 @@
       <v-row no-gutters>
         <v-col cols="12">
           <v-img
-            :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-            src="https://www.ivyelite.net/wp-content/uploads/2020/07/首页BANNER_banner4.jpg"
+            :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
+            :src="course.banner_url"
           >
           </v-img>
         </v-col>
@@ -17,25 +17,20 @@
     >
       <div class="py-16"></div>
 
-      <v-container fluid>
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
-                <div style="color:#FFFFFF" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 titlegreen font-weight-bold">课程介绍</div>
+                <div style="color:#FFFFFF" class="a titleChn titlegreen">课程介绍</div>
               </div>
-              <h2 style="color:#B4B5B8" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">COURSES INTRODUCTION</h2>
+              <h2 style="color:#B4B5B8" class="titleEng">COURSES INTRODUCTION</h2>
             </div>
 
             <div class="py-md-12 py-sm-8 py-4"></div>
             <v-row justify="center">
               <v-col cols="12">
-                <div
-                  v-text="course.name"
-                  class="text-md-h4 text-lg-h3 text-sm-h6 text-h5 font-weight-bold"
-                  space="1"
-                />
-                <div class="text-md-h5 text-lg-h4 text-sm-h6 text-h6 font-weight-bold mt-8"
+                <div class="text-h6 mt-8" style="text-indent: 2em;"
                   v-text="course.description"
                   space="1"
                 />
@@ -52,40 +47,14 @@
     >
       <div class="py-16"></div>
 
-      <v-container fluid>
+      <v-container fluid style="max-width: 1280px">
         <v-row justify="center">
-          <v-col cols="10">
+          <v-col cols="12">
             <div class="text-center">
               <div class="titleWrap">
-                <div style="color:#FFFFFF" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 titlegreen font-weight-bold">可选班次</div>
+                <div style="color:#FFFFFF" class="a titleChn titlegreen">学生反馈</div>
               </div>
-              <h2 style="color:#B4B5B8" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">AVAILABLE CLASSES</h2>
-            </div>
-            <div class="py-md-12 py-sm-8 py-4"></div>
-            <v-row justify="center">
-              <v-col v-for="(oneClass, i) in classes" :key="i" cols="11">
-                <class-info-card v-bind="oneClass" />
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-container>
-      <div class="py-md-10 py-sm-5 py-5"></div>
-    </section>
-    <section
-      id="features"
-      class="lighten-3"
-    >
-      <div class="py-16"></div>
-
-      <v-container fluid>
-        <v-row justify="center">
-          <v-col cols="10">
-            <div class="text-center">
-              <div class="titleWrap">
-                <div style="color:#FFFFFF" class="a text-md-h4 text-lg-h3 text-sm-h5 text-h6 titlegreen font-weight-bold">学生反馈</div>
-              </div>
-              <h2 style="color:#B4B5B8" class="text-md-h4 text-lg-h3 text-sm-h5 text-h6 font-weight-bold">STUDENTS FEEDBACJS</h2>
+              <h2 style="color:#B4B5B8" class="titleEng">STUDENTS FEEDBACJS</h2>
             </div>
             <div class="py-md-12 py-sm-8 py-4"></div>
 
@@ -95,9 +64,9 @@
               :show-arrows="false"
               v-model="model"              
             >
-              <v-carousel-item>
+              <v-carousel-item v-for="(element, i) in comments" :key="i">
                 <div style="position: relative;margin-top:50px;">
-                  <div class="bubble white--text">{{comment}}</div>
+                  <div class="bubble white--text">{{element.comment}}</div>
                   <img class="bubble img"
                     src="../../assets/avatorDemo.jpeg"
                   >
@@ -151,6 +120,7 @@
       notification: '',
 
       classes: [],
+      comments: [],
 
       comment: "评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评。",
 
@@ -168,6 +138,15 @@
               }else{
                 this.snackbar = true;
                 this.notification = '读取课堂列表错误，请重试或联系管理员';
+                this.snackbarColor = 'red';
+              }
+            })
+            courseApi.getCommentbyCourseId(this.courseId).then( res => {
+              if(res.data.code === 200) {
+						    this.comments = res.data.data
+              }else{
+                this.snackbar = true;
+                this.notification = '读取学生反馈错误';
                 this.snackbarColor = 'red';
               }
             })
@@ -193,6 +172,18 @@
 </script>
 
 <style scoped>
+  .titleChn {
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .titleEng {
+    font-size: 38px;
+    line-height: 1.25;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+  }
   div.titleWrap{
     width: auto;
     position:relative;
@@ -200,9 +191,10 @@
   }
   div.a{
     position:absolute;
-    top:-30px;
+    top:-40px;
     left:0;
     right:0;
+    padding: 8px 0 8px 0;
     margin:0 auto;
     z-index:1;
     width: 20%

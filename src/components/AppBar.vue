@@ -2,14 +2,12 @@
   <v-app-bar
     id="core-app-bar"
     absolute
-    app
     flat
-    style="height: 7vh"
   >
     <v-toolbar-title class="tertiary--text font-weight-light align-self-left">
       <v-img
         contain
-        max-height="7vh"
+        max-height="6vh"
         position="left left"
         src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
         @click.stop="jumpHome"

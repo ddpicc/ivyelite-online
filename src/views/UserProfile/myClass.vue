@@ -50,7 +50,7 @@
 														v-text="item.name"
 													></v-card-title>
 
-													<v-card-subtitle v-text="item.summary"></v-card-subtitle>
+													<v-card-subtitle v-text="item.comment"></v-card-subtitle>
 
 													<v-card-actions>
 														<v-btn
@@ -178,6 +178,13 @@
 				relationApi.findClasseseByUser(this.$store.state.user.uid).then( (res) => {
           if (res.data.code === 200) {
             this.coursesList = res.data.data;
+						classRoomApi.searchRoomByCourseId(id,'进行中').then( (res) => {
+							if (res.data.code === 200) {
+								if(res.data.data.length > 0){     //有对应的房间
+									this.classBegin = true;
+								}
+							}
+						})
           }else{
             this.snackbar = true;
             this.notification = '发生错误，请重试或联系管理员';

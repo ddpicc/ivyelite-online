@@ -1,6 +1,4 @@
-module.exports = {
-  mail
-}
+
 
 /**
 * 发送邮件
@@ -10,18 +8,18 @@ module.exports = {
 * @param {Function} callback 回调函数（内置参数）
 * 
 */
-function mail(to,title,content,callback) {
-  const nodemailer = require('nodemailer'); //引入依赖
-  /**
-   * 详细配置文件地址： node_modules/lib/well-known/services
-   */
+const nodemailer = require('nodemailer');
+
+function mail(to,title,content) {
+
   let transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
-    secure: true,
-    auth: {
-        user: 'ivyelite-online@outlook.com', //发送方邮箱
-        pass: 'Ivyelite123' //发送方邮箱的授权码,一般去邮箱设置里面找，应该可以找到
+    host: "smtp-mail.outlook.com", // hostname
+    secureConnection: false, // TLS requires secureConnection to be false
+    port: 587, // port for secure SMTP
+    tls: {
+       ciphers:'SSLv3'
+    }, auth: {
+        user: 'ivyelite-online@outlook.com', pass: 'ivyelite123'
     }
   });
 
@@ -29,11 +27,24 @@ function mail(to,title,content,callback) {
       from: 'ivyelite-online@outlook.com',//发送方邮箱
       to: to, 
       subject: title,
-      text: content
-      //html: '<h1>这里内容</h1>'，text和html任选其一即可
+      //text: content
+      html: content
   }
-    //发送邮件
-  transporter.sendMail(info,(err,data) => {
-      callback &&  callback(err,data)
+
+  //发送邮件
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(info,(err, info) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(info)
+      }
+    })
   })
+
+  
+}
+
+module.exports = {
+  mail
 }

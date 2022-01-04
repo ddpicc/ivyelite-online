@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
+  <v-container fluid style="max-width: 1280px">
+		<v-row justify="center">
+			<v-col cols="12">
+				<div class="py-md-12 py-sm-8 py-4"></div>
+				<v-row justify="center">
           <v-col
             cols="12"
             sm="8"
@@ -48,7 +43,7 @@
                     @keyup.enter.native="registerClick"
                   ></v-text-field>
                 </v-form>
-                注册即代表阅读并同意《服务协议和隐私政策
+                注册即代表阅读并同意《服务协议和隐私政策》
                 <v-card-actions>
                   <v-btn block color="blue" @click.stop="registerClick">注册</v-btn>
                 </v-card-actions>
@@ -56,32 +51,32 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-snackbar
-          v-model="snackbar"
-          :color="snackbarColor"
-          :timeout="snackbarTimeout"
-          top
-          dark
-        >
-          <v-icon
-            color="white"
-            class="mr-3"
-          >
-            mdi-bell-plus
-          </v-icon>
-          {{notification}}
-          <v-btn
-            icon
-            @click="snackbar = false"
-          >
-            <v-icon>
-              mdi-close-circle
-            </v-icon>
-          </v-btn>
-        </v-snackbar>
-      </v-container>
-    </v-content>
-  </div>
+      </v-col>
+    </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      :timeout="snackbarTimeout"
+      top
+      dark
+    >
+      <v-icon
+        color="white"
+        class="mr-3"
+      >
+        mdi-bell-plus
+      </v-icon>
+      {{notification}}
+      <v-btn
+        icon
+        @click="snackbar = false"
+      >
+        <v-icon>
+          mdi-close-circle
+        </v-icon>
+      </v-btn>
+    </v-snackbar>
+  </v-container>
 </template>
 
 <script>
@@ -118,12 +113,26 @@
           userApi.findCountByEmail(this.registerEmail).then( (res) => {
             if (res.data.code === 200) {
               if(res.data.data[0].count === 0){
-                userApi.insertUser(this.registerEmail, md5Pass, uid).then(res => {
+                userApi.insertUser(this.registerEmail, md5Pass, uid, new Date().getTime()).then(res => {
                   if (res.data.code === 200) {
-                    this.snackbar = true;
-                    this.notification = '注册成功';
-                    this.snackbarColor = 'green';
-                    
+                    let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
+                                  <a href='http://localhost:8080/#/active?email=${this.registerEmail}&uid=${uid}'>
+                                    http://localhost:8080/#/active?email=${this.registerEmail}&uid=${uid}
+                                  </a><br><br>
+                                  <div>若链接点击无效，请复制链接到浏览器地址栏中打开。</div>
+                                  <div>若您未申请注册常青藤在线教育账号，请忽略此邮件。</div>`
+                    userApi.sendActivateEmail(this.registerEmail, content).then(res => {
+                      if (res.data.code === 200) { 
+                        this.snackbar = true;
+                        this.notification = '注册成功,请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
+                        this.snackbarColor = 'green';
+                        setTimeout( () => {this.$router.push({path: '/login'});}, 3000);
+                      }else{
+                        this.snackbar = true;
+                        this.notification = '发生错误，请重试或联系管理员';
+                        this.snackbarColor = 'red';
+                      }
+                    })
                     //发送验证邮件链接
                   }else{
                     this.snackbar = true;

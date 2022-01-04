@@ -31,7 +31,7 @@
 														v-text="item.name"
 													></v-card-title>
 
-													<v-card-subtitle v-text="item.summary"></v-card-subtitle>
+													<v-card-subtitle v-text="item.comment"></v-card-subtitle>
 
 													<v-card-actions>
 														<v-btn

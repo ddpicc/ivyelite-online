@@ -11,7 +11,7 @@
           class="pt-6 pb-6"
         >
           <v-img
-            min-height="390px"
+            min-height="280px"
             :src="cover_url"
           />
         </v-col>
@@ -23,18 +23,18 @@
           class="pt-6 pb-6"
         >
           <v-row>
-            <v-col style="height: 320px">
+            <v-col style="height: 240px">
               <div
                 v-text="name"
-                class="text-md-h4 text-lg-h3 text-sm-h6 text-h5 font-weight-bold text-uppercase titlegreen--text"
+                class="classtitle"
                 space="1"
               />
-              <div class="text-md-h5 text-lg-h4 text-sm-h6 text-h6 mt-8"
+              <div class="classDes"
                 v-if="description"
                 v-text="description"
                 space="1"
               />
-              <div class="text-md-h5 text-lg-h4 text-sm-h6 text-h6 font-weight-bold mt-8"
+              <div class="classTime"
                 v-if="classCount"
                 v-text="'授课课时： ' + classCount"
                 space="1"
@@ -42,8 +42,8 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col>
-              <span @click="btnClickFun" class="text-md-h5 text-lg-h4 text-sm-h6 text-h6 titlegreen white--text pl-16 pr-16 pt-2 pb-2">选择TA</span>
+            <v-col class="mt-2">
+              <span @click="btnClickFun" class="btnC">选择TA</span>
             </v-col>
           </v-row>
         </v-col>
@@ -127,6 +127,40 @@
   }
 </script>
 
-<style lang="sass">
+<style scoped>
+  .classtitle{
+    font-size: 26px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #29AB4A;
+  }
+
+  .classDes {
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-top: 26px;
+  }
+
+  .classTime {
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin-top: 12px;
+  }
+
+  span.btnC {
+    padding: 5px 16px 5px 16px;
+    font-size: 26px;
+    color:#fff;
+    background-color: #29AB4A;
+  }
+
+  span.btnC:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #29AB4A;
+    border:1px solid #29AB4A;
+  }
 
 </style>

@@ -14,6 +14,7 @@ let users =
 		register_time BIGINT COMMENT '注册时间timestamp',
 		roles VARCHAR(20) NOT NULL DEFAULT 'student' COMMENT '用户类型',
 		avatar_url TEXT,
+		is_active VARCHAR(2) NOT NULL DEFAULT '否' COMMENT '账号是否激活',
 		PRIMARY KEY ( id )
 	);`
 
@@ -22,9 +23,10 @@ let courses =
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(20) NOT NULL COMMENT '课程名称',
 		cover_url TEXT COMMENT '封面图片',
+		banner_url TEXT COMMENT '封面图片',
 		summary VARCHAR(50) COMMENT '简介',
 		description TEXT COMMENT '详细描述',
-		status VARCHAR(20) NOT NULL COMMENT '状态',
+		type VARCHAR(20) NOT NULL COMMENT '类型',
 		PRIMARY KEY ( id )
 	);`
 
@@ -70,4 +72,13 @@ let user_class =
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users,courses,classes,user_class,room]
+	let user_comment =
+	`create table if not exists user_comment(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		user_name VARCHAR(20),
+		comment TEXT COMMENT '封面图片',
+		course_id INT UNSIGNED NOT NULL,
+		PRIMARY KEY ( id )
+	);`
+
+module.exports = [users,courses,classes,user_class,room,user_comment]

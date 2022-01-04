@@ -16,7 +16,7 @@ exports.findOneCourseById = ( id ) => {
 
 //更新课程描述信息
 exports.updateCourseInfo = ( value ) => {
-	let _sql = "update courses set name=?,cover_url=?,summary=?,description=?,time_arrange=?,status=?;"
+	let _sql = "update courses set name=?,cover_url=?,summary=?,description=?,time_arrange=?,type=?;"
 	return query( _sql, value)
 }
 
@@ -30,4 +30,10 @@ exports.getClassesbyCourseId = ( course_id ) => {
 exports.findOneClassById = ( id ) => {
   let _sql = `select * from classes where id="${id}";`
   return query(_sql)
+}
+
+//根据课程id获取该课程的学生反馈，显示在课程页面
+exports.getCommentbyCourseId = ( course_id ) => {
+	let _sql = `select * from user_comment where course_id="${course_id}";`
+	return query( _sql)
 }

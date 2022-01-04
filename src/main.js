@@ -11,10 +11,10 @@ import SocketIO from "socket.io-client"
 import VueSocketIO from 'vue-socket.io'
 
 Vue.config.productionTip = false
-
+let socketurl = process.env.NODE_ENV === 'production' ? '//online.ivyelite.net' : 'http://localhost:3000'
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO("http://localhost:3000")
+  connection: SocketIO(socketurl)
 }))
 
 new Vue({

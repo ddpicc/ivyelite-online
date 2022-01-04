@@ -72,7 +72,7 @@
   const allLinks = [
     { text: '我的课程', icon: 'mdi-playlist-star', to: '/myprofile/class', roles: ['student']},
     //{ text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
-    { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice' },
+    { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice', roles: ['student'] },
     //{ text: '新建课程', icon: 'mdi-star', to: '/course/create', roles: ['teacher']},
     { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
     { text: '我的课程', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher']}

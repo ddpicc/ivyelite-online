@@ -54,7 +54,7 @@ app.use(async (ctx, next) => {
 
 app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
   // 登录接口不需要验证
-  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,
+  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/userApi\/sendActivateEmail/,/^\/userApi\/activeUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,/^\/courseApi\/getClassesbyCourseId/,/^\/courseApi\/getCommentbyCourseId/,
     /^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/payment\/webhook/]
 }));
 

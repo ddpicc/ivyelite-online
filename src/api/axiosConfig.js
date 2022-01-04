@@ -35,8 +35,8 @@ axios.interceptors.response.use(res => {
     // 对得到的状态码的处理，具体的设置视自己的情况而定
     case 401:
       console.log('未登录')
-      this.$router.push({path: '/login'});
-      break
+      window.location.href='#/login'
+      break 
     case 404:
       console.log('404')
       break
