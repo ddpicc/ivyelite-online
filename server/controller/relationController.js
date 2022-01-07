@@ -50,3 +50,54 @@ exports.isClassReserved = async ctx => {
 		}
 	})
 }
+
+exports.findUsersByClass = async ctx => {
+	let {class_id} = ctx.request.query
+	await relationModel.findUsersByClass(class_id).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.findAllUsersNotInClass = async ctx => {
+	let {class_id} = ctx.request.query
+	await relationModel.findAllUsersNotInClass(class_id).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+	
+	exports.deleteRelation = async ctx => {
+		let {user_uid, class_id} = ctx.request.query
+		await relationModel.deleteRelation(user_uid, class_id).then(res => {
+			ctx.body = {
+				code: 200,
+				message: '成功',
+				data: res
+			}
+		}).catch(err => {
+			console.log(err)
+			ctx.body = {
+				code: 500,
+				message: '失败'
+			}
+		})
+	}

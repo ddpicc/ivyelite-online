@@ -37,3 +37,9 @@ exports.getCommentbyCourseId = ( course_id ) => {
 	let _sql = `select * from user_comment where course_id="${course_id}";`
 	return query( _sql)
 }
+
+// 查找所有课堂
+exports.getAllClasses = () => {
+	let _sql = "select * from classes;"
+	return query( _sql )
+}

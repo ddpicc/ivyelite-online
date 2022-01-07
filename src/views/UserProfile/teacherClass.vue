@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-12 py-sm-8 py-8"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
@@ -97,7 +97,7 @@
 
 		methods: {
       prepareClass: function(item) {
-				this.$router.push({ path: '/course/prepare', query: {courseTitle: item.name, courseId: item.id} });
+				this.$router.push({ path: '/course/prepare', query: {classTitle: item.name, class_id: item.id} });
       },
 
       getUserCourses: function(){
@@ -113,7 +113,7 @@
 			},
 
 			classinfo: function(item) {
-				this.$router.push({ path: '/course/classinfo', query: { courseId: item.id} });
+				this.$router.push({ path: '/course/classinfo', query: { class_id: item.id} });
 			}
 		},
 

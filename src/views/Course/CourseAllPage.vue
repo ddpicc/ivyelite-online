@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-12 py-sm-8 py-8"></div>
 				<v-row justify="center">
 					<v-col cols="12" sm="3">
 						<v-card
@@ -38,12 +38,6 @@
 										outlined
 										filter
 									>
-										即将开课
-									</v-chip>
-									<v-chip
-										outlined
-										filter
-									>
 										开课中
 									</v-chip>
 									<v-chip
@@ -65,7 +59,7 @@
 									column
 									active-class="green--text text--accent-4"
 									mandatory
-									@change="typeFilter()"
+									@change="typeFilter(classType)"
 								>
 									<v-chip
 										filter
@@ -116,7 +110,7 @@
 										<v-list-item-content>
 											<span
 												class="text-uppercase font-weight-regular text-caption"
-												v-text="item.summary"
+												v-text="item.comment"
 											></span>
 
 											<div v-text="item.name"></div>
@@ -129,6 +123,29 @@
 				</v-row>
 			</v-col>
     </v-row>
+		<v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      timeout="3000"
+      top
+      dark
+    >
+      <v-icon
+        color="white"
+        class="mr-3"
+      >
+        mdi-bell-plus
+      </v-icon>
+      {{notification}}
+      <v-btn
+        icon
+        @click="snackbar = false"
+      >
+        <v-icon>
+          mdi-close-circle
+        </v-icon>
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -138,39 +155,63 @@
     data: () => ({
 			classStatus: 0,
 			classType: 0,
-			courses: [],
+			classes: [],
+			searching: null,
+
+			snackbar: false,
+      snackbarColor: '',
+      notification: '',
+
 		}),
 
 		methods: {
-			typeFilter: function(){
+			typeFilter: function(classType){
 				//this.searching = 
+				if(classType == 0){
+					this.searching = this.classes
+				}else if(classType == 1){
+					this.searching = this.classes.filter(item => {
+						return item.comment.indexOf('GRE') > -1
+					})
+				}else if(classType == 2){
+					this.searching = this.classes.filter(item => {
+						return item.comment.indexOf('GMAT') > -1
+					})
+				}
 			},
 
 			getAllCourses: function(){
-				courseApi.getAllCourses().then( (res) => {
+				courseApi.getAllClasses().then( (res) => {
           if (res.data.code === 200) {
-						this.courses = res.data.data;
+						this.classes = res.data.data;
+						this.searching = this.classes;
+					}else{
+						this.snackbar = true;
+						this.notification = '发生错误，请重试或联系管理员';
+						this.snackbarColor = 'red';
 					}
         })
-			}
-		},
+			},
 
-		computed: {
-      searching () {
-        if (!this.search) return this.courses
-
-        const search = this.search.toLowerCase()
-
-        return this.courses.filter(item => {
-          const text = item.name.toLowerCase()
-
-          return text.indexOf(search) > -1
-        })
+			next () {
+        this.onboarding = this.onboarding + 1 === this.length
+          ? 0
+          : this.onboarding + 1
       },
-    },
+      prev () {
+        this.onboarding = this.onboarding - 1 < 0
+          ? this.length - 1
+          : this.onboarding - 1
+      },
+		},
 
 		mounted: function(){
 			this.getAllCourses();
+			let timer = setInterval(() => {
+				this.onboarding = this.onboarding + 1 === this.length
+          ? 0
+          : this.onboarding + 1
+			},8000)
 		}
 	}
 </script>

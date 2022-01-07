@@ -99,10 +99,26 @@ exports.findDataCountByUid = async ctx => {
 	})
 }
 
+exports.findDataCountByName = async ctx => {
+	let {name} = ctx.request.query
+	await userModel.findDataCountByName(name).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
 exports.insertUser = async ctx => {
-	let { email, password, uid, register_time } = ctx.request.body;
-	let defaultName = '用户'
-	await userModel.insertUser([defaultName, email, password, uid, register_time]).then( (res) => {
+	let { username, email, password, uid, register_time } = ctx.request.body;
+	await userModel.insertUser([username, email, password, uid, register_time]).then( (res) => {
 		console.log(res)
 		ctx.body = {
 			code: 200,
@@ -181,6 +197,22 @@ exports.getQiniuToken = async ctx => {
 exports.updateUserAvatar = async ctx => {
 	let { avatar_url, uid } = ctx.request.body;
 	await userModel.updateUserAvatar([avatar_url, uid]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.getAllUsers = async ctx => {
+	await userModel.getAllUsers().then( (res) => {
 		ctx.body = {
 			code: 200,
       message: '成功',

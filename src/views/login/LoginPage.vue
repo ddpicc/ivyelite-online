@@ -56,7 +56,7 @@
     <v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      :timeout="snackbarTimeout"
+      timeout="3000"
       top
       dark
     >
@@ -99,7 +99,6 @@
         snackbar: false,
         snackbarColor: '',
         notification: '',
-        snackbarTimeout: 3000,
       }
     },
 

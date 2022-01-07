@@ -70,12 +70,15 @@
   import userApi from '../api/userApi'
   import myUpload from 'vue-image-crop-upload/upload-2.vue';
   const allLinks = [
-    { text: '我的课程', icon: 'mdi-playlist-star', to: '/myprofile/class', roles: ['student']},
+    { text: '我的课堂', icon: 'mdi-playlist-star', to: '/myprofile/class', roles: ['student']},
     //{ text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
     { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice', roles: ['student'] },
     //{ text: '新建课程', icon: 'mdi-star', to: '/course/create', roles: ['teacher']},
     { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
-    { text: '我的课程', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher']}
+    { text: '我的课堂', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher']},
+    { text: '所有用户', icon: 'mdi-account-multiple', to: '/admin/allusers', roles: ['admin']},
+    { text: '所有课堂', icon: 'mdi-play-box-multiple', to: '/admin/allclasses', roles: ['admin']}
+    
   ]
   export default {
     components: {
@@ -94,6 +97,7 @@
     methods: {
       editName: function(){
         this.editInfo = true;
+        this.userName = this.$store.state.user.name
       },
 
       updateUserName: function(){
@@ -134,6 +138,7 @@
 			cropSuccess(imgDataUrl, field){
 				console.log('-------- crop success --------');
 				this.avatar_url = imgDataUrl;
+        console.log(imgDataUrl)
         this.$set(this.params,'img_url',imgDataUrl.replace(/^.*?base64,/, ''))
 			},
 			/**
@@ -172,7 +177,7 @@
 
     mounted: function() {
       allLinks.forEach(element => {
-        if(this.$store.state.user.roles.indexOf('admin') >= 0 || !element.roles || element.roles.indexOf(this.$store.state.user.roles) >=0 ){
+        if(!element.roles || element.roles.indexOf(this.$store.state.user.roles) >=0 ){
           this.links.push(element);
         }
       });

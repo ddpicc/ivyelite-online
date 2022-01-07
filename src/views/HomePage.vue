@@ -58,7 +58,7 @@
                     :aspect-ratio="1/1.5"
                     @click="explore(course)"
                   >
-                    <div class="text-h6 font-weight-bold  white--text ml-4 text-no-wrap" v-text="course.name"/>
+                    <div class="otherTit font-weight-bold  white--text ml-4 text-no-wrap" v-text="course.name"/>
                     <v-card-actions>
                       <v-btn
                         color="white lighten-2"
@@ -66,7 +66,7 @@
                         plain
                         @click="explore(course)"
                       >
-                        Explore
+                        了解详情
                       </v-btn>
 
                      <!--  <v-spacer></v-spacer>
@@ -181,10 +181,10 @@
                   >
                     <v-row>
                       <v-col>
-                        <div class="text-h6 text-center font-weight-bold">
+                        <div class="otherTit text-center">
                           业界顶级教辅团队助力
                         </div>
-                        <div class="text-h7 mt-8" style="text-indent: 2em;">
+                        <div class="otherDes mt-8" style="text-indent: 2em;">
                           常青藤网罗业界最具口碑的资深提分老师，组建成VIP教辅团队助力学员短期出分。并定期邀请最强大脑等嘉宾老师举办讲座，传授单词记忆与提分秘笈。
                         </div>
                       </v-col>
@@ -201,10 +201,10 @@
                   >
                     <v-row>
                       <v-col>
-                        <div class="text-h6 text-center  font-weight-bold">
+                        <div class="otherTit text-center">
                           针对北美学生研发教案
                         </div>
-                        <div class="text-h  mt-8" style="text-indent: 2em;">
+                        <div class="otherDes  mt-8" style="text-indent: 2em;">
                           常青藤提分团队针对北美留学生的数理阅读基础和学习特性开发最适合的课程体系和配套教案，因材施教，做最有效的冲分辅导。
                         </div>
                       </v-col>
@@ -221,10 +221,10 @@
                   >
                     <v-row>
                       <v-col>
-                        <div class="text-h6 text-center  font-weight-bold">
+                        <div class="otherTit text-center">
                           授课时间私人定制
                         </div>
-                        <div class="text-h7 mt-8" style="text-indent: 2em;">
+                        <div class="otherDes mt-8" style="text-indent: 2em;">
                           常青藤双G教辅团队将尽可能配合学员的时间行程，通过线上直播、课后录播、周中周末私人定制等方式，让学生免受时间和地点的困扰，随时随地轻松提分。
                         </div>
                       </v-col>
@@ -241,10 +241,10 @@
                   >
                     <v-row>
                       <v-col>
-                        <div class="text-h6 text-center  font-weight-bold">
+                        <div class="otherTit text-center">
                           配套全面监督体系
                         </div>
-                        <div class="text-h7  mt-8" style="text-indent: 2em;">
+                        <div class="otherDes mt-8" style="text-indent: 2em;">
                           为每个私教班和提分班都配备了常青藤导师作为课程小助手，全程陪伴并监督学生定时打卡、按时上课、练习复习、查漏补缺等等。
                         </div>
                       </v-col>
@@ -395,10 +395,22 @@
   }
 
   .uniqueDes {
-    font-size: 26px;
+    font-size: 20px;
     line-height: 1.5;
     font-weight: 400;
     color: #fff;
+  }
+
+  .otherTit {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .otherDes {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
   }
 
   div.titleWrap{
@@ -434,30 +446,42 @@
 
 @media screen and (max-width:959px){
   .titleChn {
-    font-size: 36px;
+    font-size: 32px;
     line-height: 1.25;
     font-weight: 700;
   }
 
   .titleEng {
-    font-size: 38px;
+    font-size: 34px;
     line-height: 1.25;
     font-weight: 700;
     font-family: "Times New Roman", Times, serif;
   }
 
   .uniqueTit {
-    font-size: 34px;
+    font-size: 30px;
     line-height: 1.25;
     font-weight: 700;
     color: #fff;
   }
 
   .uniqueDes {
-    font-size: 26px;
+    font-size: 18px;
     line-height: 1.5;
     font-weight: 400;
     color: #fff;
+  }
+
+  .otherTit {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .otherDes {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
   }
 
   div.titleWrap{
@@ -470,9 +494,10 @@
     top:-30px;
     left:0;
     right:0;
+    padding: 4px 0 4px 0;
     margin:0 auto;
     z-index:1;
-    width: 20%
+    width: 25%
   }
   section#online{
     height: auto;
@@ -488,6 +513,44 @@
 }
 
 @media screen and (max-width:600px){
+  .titleChn {
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .titleEng {
+    font-size: 26px;
+    line-height: 1.25;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .uniqueTit {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .uniqueDes {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  .otherTit {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .otherDes {
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 400;
+  }
   section#online{
     height: auto;
   }
@@ -506,7 +569,7 @@
   }
   div.a{
     position:absolute;
-    top:-18px;
+    top:-25px;
     left:0;
     right:0;
     margin:0 auto;

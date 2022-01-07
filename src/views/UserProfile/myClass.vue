@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-12 py-sm-8 py-8"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
@@ -28,7 +28,7 @@
 												single-line
 												sticky
 												color="titlegreen"
-												v-if="classBegin"
+												v-if="item.classBegin"
 											>
 												老师已经开课了，快来一起加入课堂吧!
 
@@ -58,7 +58,7 @@
 															outlined
 															rounded
 															small
-															@click="explore(item.id)"
+															@click="explore(item)"
 														>
 															查看课程
 														</v-btn>
@@ -123,7 +123,6 @@
 			coursesList: [],
 			tab: null,
 			theClass: null,
-			classBegin: false,
 			snackbar: false,
       snackbarColor: '',
       notification: '',
@@ -143,9 +142,8 @@
 		},
 
 		methods: {
-			explore: function(id){
-				alert('页面还在开发中，请耐心等待')
-        //this.$router.push({ path: '/course/explore',query: {courseId: id}})
+			explore: function(item){
+				this.$router.push({ path: '/course/classinfo', query: { class_id: item.id} });
       },
 			
       joinClass: function(id) {
@@ -178,13 +176,16 @@
 				relationApi.findClasseseByUser(this.$store.state.user.uid).then( (res) => {
           if (res.data.code === 200) {
             this.coursesList = res.data.data;
-						classRoomApi.searchRoomByCourseId(id,'进行中').then( (res) => {
-							if (res.data.code === 200) {
-								if(res.data.data.length > 0){     //有对应的房间
-									this.classBegin = true;
+						for(let element of this.coursesList){
+							classRoomApi.searchRoomByCourseId(element.id,'进行中').then( (res) => {
+								if (res.data.code === 200) {
+									if(res.data.data.length > 0){     //有对应的房间
+										element.classBegin = true;
+									}
 								}
-							}
-						})
+							})
+						}
+						
           }else{
             this.snackbar = true;
             this.notification = '发生错误，请重试或联系管理员';

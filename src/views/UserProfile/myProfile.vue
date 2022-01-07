@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-12 py-sm-8 py-8"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
@@ -17,7 +17,7 @@
 								<v-form>
 									<v-row>
 										<v-col cols="12" sm="6" class="d-flex">
-											<v-subheader>姓名</v-subheader>
+											<v-subheader>昵称</v-subheader>
 											<v-subheader v-if="!editInfo">{{userName}}</v-subheader>
 											<v-text-field
 												v-if="editInfo"
@@ -246,7 +246,7 @@
             	this.notification = '发生错误，请重试或联系管理员';
             	this.snackbarColor = 'red';
 						}
-					})					
+					})
 				}
 				
 			},

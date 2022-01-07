@@ -33,6 +33,11 @@ exports.findDataCountByUid =  ( uid ) => {
   let _sql = `select count(*) as count from users where uid="${uid}";`
   return query( _sql)
 }
+// 通过name查找用户数量判断name是否重复
+exports.findDataCountByName =  ( name ) => {
+  let _sql = `select count(*) as count from users where name="${name}";`
+  return query( _sql)
+}
 // 注册时添加用户
 exports.insertUser = ( value ) => {
 	let _sql = "insert into users set name=?,email=?,pass=?,uid=?,register_time=?;"
@@ -52,4 +57,9 @@ exports.findCountByEmail = ( email ) => {
 exports.updateUserAvatar = ( value ) => {
   let _sql = "update users set avatar_url=? where uid=?;"
   return query( _sql, value )
+}
+// 获取所有用户
+exports.getAllUsers = () => {
+	let _sql = "select * from users;"
+	return query( _sql )
 }

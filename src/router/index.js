@@ -53,24 +53,30 @@ const router = new Router({
 });
 
 
-//用户类型:  admin, operator, default, premium, batch user, 
+//用户类型:  admin, student, teacher
 export const asyncRouterMap = [
   {
     path: '',
     component: () => import('../Full.vue'),
     children: [
-      {path: 'myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
-      {path: 'myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue'), meta: {roles: ['student']}},
-      {path: 'myprofile/teacherclass', name: '课程', component: () => import('../views/UserProfile/teacherClass.vue'), meta: {roles: ['teacher'] }},
+      {path: '/myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
+      {path: '/myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue'), meta: {roles: ['student']}},
+      {path: '/myprofile/teacherclass', name: '课程', component: () => import('../views/UserProfile/teacherClass.vue'), meta: {roles: ['teacher'] }},
       //{path: 'myprofile/discuss', name: '我的讨论', component: () => import('../views/UserProfile/myDiscuss.vue')},
-      {path: 'myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
-      {path: 'course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareZoom.vue')},
+      {path: '/myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
+
+      {path: '/course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareZoom.vue')},
       //{path: 'course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue'), meta: {roles: ['teacher','admin']}},
-      {path: 'course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher','admin']}},
+      {path: '/course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher']}},
       {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
+
       {path: '/payment/checkout', name: 'Checkout', component: () => import('../views/Payment/checkout.vue')},
       {path: '/payment/success', name: '支付成功', component: () => import('../views/Payment/success.vue')},
       {path: '/payment/cancel', name: '支付取消', component: () => import('../views/Payment/cancel.vue')},
+
+      {path: '/admin/allusers', name: '所有用户', component: () => import('../views/Admin/AllUser.vue'), meta: {roles: ['admin'] }},
+      {path: '/admin/allclasses', name: '所有课堂', component: () => import('../views/Admin/AllClasses.vue'), meta: {roles: ['admin'] }},
+      {path: '/admin/classuser', name: '课堂用户', component: () => import('../views/Admin/ClassUser.vue'), meta: {roles: ['admin'] }},
       {path: '*', redirect: '/' }
     ]
   }

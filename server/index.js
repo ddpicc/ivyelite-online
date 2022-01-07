@@ -54,8 +54,8 @@ app.use(async (ctx, next) => {
 
 app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
   // 登录接口不需要验证
-  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/userApi\/sendActivateEmail/,/^\/userApi\/activeUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/findOneCourseById/,/^\/courseApi\/getClassesbyCourseId/,/^\/courseApi\/getCommentbyCourseId/,
-    /^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/payment\/webhook/]
+  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/userApi\/sendActivateEmail/,/^\/userApi\/activeUser/,/^\/courseApi\/getAllCourses/,/^\/courseApi\/getAllClasses/,/^\/courseApi\/findOneCourseById/,/^\/courseApi\/getClassesbyCourseId/,/^\/courseApi\/getCommentbyCourseId/,
+    /^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/userApi\/findDataCountByName/,/^\/payment\/webhook/]
 }));
 
 //  路由
@@ -64,6 +64,7 @@ app.use(require('./routers/courseRouter.js').routes())
 app.use(require('./routers/classRoomRouter.js').routes())
 app.use(require('./routers/relationRouter.js').routes())
 app.use(require('./routers/paymentRouter.js').routes())
+app.use(require('./routers/receiptRouter.js').routes())
 
 io.on("connection", (socket) => {
   // ...

@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <v-content>
-      <v-container
-        class="fill-height"
-        fluid
-      >
-        <v-row
-          align="center"
-          justify="center"
-        >
+  <v-container fluid style="max-width: 1280px">
+		<v-row justify="center">
+			<v-col cols="12">
+				<div class="py-md-12 py-sm-8 py-8"></div>
+				<v-row justify="center">
           <v-col
             cols="12"
             sm="8"
@@ -22,7 +17,7 @@
             </v-card>
           </v-col>
         </v-row>
-      </v-container>
-    </v-content>
-  </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>

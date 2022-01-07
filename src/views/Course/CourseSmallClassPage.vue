@@ -30,7 +30,7 @@
             <div class="py-md-12 py-sm-8 py-4"></div>
             <v-row justify="center">
               <v-col cols="12">
-                <div class="text-h6 mt-8" style="text-indent: 2em;"
+                <div class="otherTit mt-8" style="text-indent: 2em;"
                   v-text="course.description"
                   space="1"
                 />
@@ -91,8 +91,8 @@
               v-model="model"              
             >
               <v-carousel-item v-for="(element, i) in comments" :key="i">
-                <div style="position: relative;margin-top:50px;">
-                  <div class="bubble white--text">{{element.comment}}</div>
+                <div style="position: relative;margin-top:60px;">
+                  <div class="bubble otherDes white--text">{{element.comment}}</div>
                   <img class="bubble img"
                     src="../../assets/avatorDemo.jpeg"
                   >
@@ -198,6 +198,7 @@
 </script>
 
 <style scoped>
+@media only screen and (min-width: 960px) {
   .titleChn {
     font-size: 36px;
     line-height: 1.25;
@@ -209,6 +210,17 @@
     line-height: 1.25;
     font-weight: 700;
     font-family: "Times New Roman", Times, serif;
+  }
+  .otherTit {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .otherDes {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
   }
   div.titleWrap{
     width: auto;
@@ -258,5 +270,155 @@
     left:14%;
     max-width:100px;
     height:100px;
-    }
+  }
+}
+
+@media only screen and (max-width:959px) {
+  .titleChn {
+    font-size: 32px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .titleEng {
+    font-size: 34px;
+    line-height: 1.25;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+  }
+  .otherTit {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .otherDes {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 400;
+  }
+  div.titleWrap{
+    width: auto;
+    position:relative;
+    justify-content:center
+  }
+  div.a{
+    position:absolute;
+    top:-30px;
+    left:0;
+    right:0;
+    padding: 4px 0 4px 0;
+    margin:0 auto;
+    z-index:1;
+    width: 25%
+  }
+
+  div.bubble{
+    margin: 30px auto;
+    padding: 30px 20px;
+    width: 70%;
+    height: auto;
+    line-height: 30px;
+    position: relative;
+    border-radius: 5px;
+    background-color: #70A943;
+  }
+  div.bubble:after{
+    content:'';
+    position:absolute;
+    top:100%;
+    right:80px;
+    width:56px;
+    height:25px;
+    border-width:0;
+    border-style:solid;
+    border-color:transparent;
+    border-right-width:15px;
+    border-right-color:currentColor;
+    border-radius:0 0 55px;
+    color:#70A943;
+  }
+  .bubble.img{
+    position:absolute;
+    border-radius:50%;
+    bottom:80%;
+    left:12%;
+    max-width:100px;
+    height:85px;
+  }
+}
+
+@media only screen and (max-width:600px) {
+  .titleChn {
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .titleEng {
+    font-size: 26px;
+    line-height: 1.25;
+    font-weight: 700;
+    font-family: "Times New Roman", Times, serif;
+  }
+  .otherTit {
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .otherDes {
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 400;
+  }
+  div.titleWrap{
+    width: auto;
+    position:relative;
+    justify-content:center
+  }
+  div.a{
+    position:absolute;
+    top:-22px;
+    left:0;
+    right:0;
+    margin:0 auto;
+    z-index:1;
+    width: 30%
+  }
+
+  div.bubble{
+    margin: 30px auto;
+    padding: 20px 20px;
+    width: 80%;
+    height: auto;
+    line-height: 30px;
+    position: relative;
+    border-radius: 5px;
+    background-color: #70A943;
+  }
+  div.bubble:after{
+    content:'';
+    position:absolute;
+    top:100%;
+    right:30px;
+    width:56px;
+    height:25px;
+    border-width:0;
+    border-style:solid;
+    border-color:transparent;
+    border-right-width:15px;
+    border-right-color:currentColor;
+    border-radius:0 0 55px;
+    color:#70A943;
+  }
+  .bubble.img{
+    position:absolute;
+    border-radius:50%;
+    bottom:90%;
+    left:5%;
+    max-width:100px;
+    height:70px;
+  }
+}
 </style>

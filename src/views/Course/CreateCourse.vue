@@ -2,7 +2,7 @@
   <v-container fluid >
 		<v-row justify="center">
 			<v-col cols="10">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-12 py-sm-8 py-8"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>

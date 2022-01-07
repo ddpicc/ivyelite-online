@@ -13,7 +13,7 @@ let users =
 		language VARCHAR(5) COMMENT '语言',
 		register_time BIGINT COMMENT '注册时间timestamp',
 		roles VARCHAR(20) NOT NULL DEFAULT 'student' COMMENT '用户类型',
-		avatar_url TEXT,
+		avatar_url VARCHAR(50) DEFAULT 'FuObl8yKxcftADmihsFi-tRLWW_O',
 		is_active VARCHAR(2) NOT NULL DEFAULT '否' COMMENT '账号是否激活',
 		PRIMARY KEY ( id )
 	);`
@@ -72,6 +72,16 @@ let user_class =
 		PRIMARY KEY ( id )
 	);`
 
+	let receipt =
+	`create table if not exists receipt(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		class_id INT UNSIGNED NOT NULL,
+		user_uid INT UNSIGNED NOT NULL,
+		create_timestamp BIGINT,
+		amount FLOAT COMMENT '价钱', 
+		PRIMARY KEY ( id )
+	);`
+
 	let user_comment =
 	`create table if not exists user_comment(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -81,4 +91,4 @@ let user_class =
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users,courses,classes,user_class,room,user_comment]
+module.exports = [users,courses,classes,user_class,room,receipt,user_comment]

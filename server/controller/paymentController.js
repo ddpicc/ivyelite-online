@@ -1,6 +1,8 @@
 const stripeGate = require('stripe')('sk_test_51JzuEnJ1wNWalvad4ozFFmjhAeG9a89sFDCP64okVjvtKvvfTK0cJ9R3Fe8hssqLgKVMtH1Z2okSNzK5Fd9zPYXy00yUA4rzWo');
-const endpointSecret = "whsec_CFGHbIhkWafwzMCpb8TBTt9wvOVZqzn7";
+const endpointSecret = "whsec_CFGHbIhkWafwzMCpb8TBTt9wvOVZqzn7"
+//"whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR";
 const relationModel = require('../model/relationModel')
+const receiptModel = require('../model/receiptModel')
 
 //create a stripe checkout session
 exports.createCheckoutSession = async ctx => {
@@ -55,11 +57,21 @@ exports.paymentNotifyReceive = async ctx => {
     //fullfil the order
     const user_uid = session.metadata.user_uid;
     const class_id = session.metadata.class_id;
-
+    const amount_total = session.amount_total;
     await relationModel.setUserClassRelation([user_uid, class_id, 1, 0]).then(res => {
-      ctx.body = {
-        code: 200,
-      }
+      receiptModel.createReceipt([class_id, user_uid, new Date().getTime(), amount_total ]).then(res => {
+        ctx.body = {
+          code: 200,
+          message: '成功',
+          data: res
+        }
+      }).catch(err => {
+        console.log(err)
+        ctx.body = {
+          code: 500,
+          message: '失败'
+        }
+      })
     }).catch(err => {
       console.log(err)
       ctx.body = {
@@ -74,9 +86,13 @@ exports.retriveSessionInfo = async ctx => {
   let { stripe_session_id } = ctx.request.query;
   try {
     const session = await stripeGate.checkout.sessions.retrieve(stripe_session_id);
+    let result = {
+      ...session.metadata,
+      'amount_total': session.amount_total,
+    }
     ctx.body = {
       code: 200,
-      data: session.metadata
+      data: result,
     }
   } catch (err) {
     console.log(err.message)

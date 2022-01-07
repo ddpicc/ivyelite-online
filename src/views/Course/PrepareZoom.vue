@@ -1,77 +1,83 @@
 <template>
-  <v-container
-    fill-height
-  >
-    <v-row justify="center">
-			<v-col cols="8">
-				<v-card
-					v-if="theClass"
-					color="#385F73"
-					dark
-					flat
-					class="elevation-12 mt-4"
-				>
-					<v-card-title class="text-h5">
-						{{theClass.subject}}
-						<v-fab-transition>
-              <v-btn
-                color="pink"
-                dark
-								small
-                absolute
-                top
-                right
-                fab
-								@click="deleteCurrentClass(theClass)"
-              >
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </v-fab-transition>
-					</v-card-title>
-
-					<v-card-subtitle>{{theClass.room_id}}</v-card-subtitle>
-
-					<v-card-actions>
-						<v-btn @click="attendClass(theClass.id,theClass.room_id,theClass.begin_timestamp)" text>
-							加入课堂
-						</v-btn>
-					</v-card-actions>
-				</v-card>
-				<v-card class='mt-6'>									
-					<v-list subheader>
-						<v-subheader>设置</v-subheader>
-						<v-list-item>
-							<v-list-item-content>
-								<v-list-item-title>课堂名称 : {{classSubject}}</v-list-item-title>
-								
-							</v-list-item-content>
-							<v-list-item-icon>
-								<v-btn text>
-									编辑
-								</v-btn>
-							</v-list-item-icon>
-						</v-list-item>
-
-						<v-list-item
-							v-for="chat in recent"
-							:key="chat.title"
+  <v-container fluid style="max-width: 1280px">
+		<v-row justify="center">
+			<v-col cols="12">
+				<div class="py-md-12 py-sm-8 py-8"></div>
+				<v-row justify="center">
+					<v-col cols="3">
+						<profile-left></profile-left>
+					</v-col>
+					<v-col cols="9">
+						<v-card
+							v-if="theClass"
+							color="#385F73"
+							dark
+							flat
+							class="elevation-12 mb-6"
 						>
-							<v-list-item-content>
-								<v-list-item-title v-text="chat.title"></v-list-item-title>
-							</v-list-item-content>
+							<v-card-title class="text-h5">
+								{{theClass.subject}}
+								<v-fab-transition>
+									<v-btn
+										color="pink"
+										dark
+										small
+										absolute
+										top
+										right
+										fab
+										@click="deleteCurrentClass(theClass)"
+									>
+										<v-icon>mdi-delete</v-icon>
+									</v-btn>
+								</v-fab-transition>
+							</v-card-title>
 
-							<v-list-item-icon>
-								<v-switch
-									inset
-									v-model="switch1"
-								></v-switch>
-							</v-list-item-icon>
-						</v-list-item>
-					</v-list>
-					<v-card-actions class="d-flex justify-center">
-						<v-btn block color="blue" @click="createClass()">创建课堂</v-btn>
-					</v-card-actions>
-				</v-card>		
+							<v-card-subtitle>{{theClass.room_id}}</v-card-subtitle>
+
+							<v-card-actions>
+								<v-btn @click="attendClass(theClass.id,theClass.room_id,theClass.begin_timestamp)" text>
+									加入课堂
+								</v-btn>
+							</v-card-actions>
+						</v-card>
+						<v-card>									
+							<v-list subheader>
+								<v-subheader>设置</v-subheader>
+								<v-list-item>
+									<v-list-item-content>
+										<v-list-item-title>课堂名称 : {{classSubject}}</v-list-item-title>
+										
+									</v-list-item-content>
+									<v-list-item-icon>
+										<v-btn text>
+											编辑
+										</v-btn>
+									</v-list-item-icon>
+								</v-list-item>
+
+								<v-list-item
+									v-for="chat in recent"
+									:key="chat.title"
+								>
+									<v-list-item-content>
+										<v-list-item-title v-text="chat.title"></v-list-item-title>
+									</v-list-item-content>
+
+									<v-list-item-icon>
+										<v-switch
+											inset
+											v-model="switch1"
+										></v-switch>
+									</v-list-item-icon>
+								</v-list-item>
+							</v-list>
+							<v-card-actions class="d-flex justify-center">
+								<v-btn block color="blue" @click="createClass()">创建课堂</v-btn>
+							</v-card-actions>
+						</v-card>		
+					</v-col>
+				</v-row>
 			</v-col>
 		</v-row>
 		<v-snackbar
@@ -101,11 +107,12 @@
 </template>
 
 <script>
+	import profileLeft from "../../components/ProfileLeft.vue"	
 	import classRoomApi from '../../api/classRoomApi'
 	export default {
 		data: () => ({
-			courseTitle: '',
-			courseId: null,
+			classTitle: '',
+			class_id: null,
 			switch1: true,
 			recent: [
 				{
@@ -124,6 +131,10 @@
       snackbarColor: '',
       notification: '',
 		}),
+
+		components: {
+			profileLeft
+		},
 
 		methods: {
 			createClass: async function(){
@@ -147,7 +158,7 @@
 						let roomkitResult = res.data.data;
 						console.log(roomkitResult)
 						//把房间信息存入数据库
-						classRoomApi.saveRoom(this.courseId, subject, roomkitResult.room_id, roomkitResult.begin_timestamp, 1,'','进行中').then( (res) => {
+						classRoomApi.saveRoom(this.class_id, subject, roomkitResult.room_id, roomkitResult.begin_timestamp, 1,'','进行中').then( (res) => {
 							if (res.data.code === 200) {
 								this.snackbar = true;
 								this.notification = '成功';
@@ -174,13 +185,13 @@
 			},
 
 			getClass: function(){
-				classRoomApi.searchRoomByCourseId(this.courseId, '进行中').then( (res) => {
+				classRoomApi.searchRoomByCourseId(this.class_id, '进行中').then( (res) => {
 					if (res.data.code === 200) {
 						if(res.data.data.length > 0){
 							this.theClass = res.data.data[0];
 							this.classSubject = this.theClass.subject;
 						}else{
-							this.classSubject = this.courseTitle + ' ' + new Date().toLocaleDateString();
+							this.classSubject = this.classTitle + ' ' + new Date().toLocaleDateString();
 							this.theClass = null;
 						}
 						
@@ -232,7 +243,7 @@
 		},
 
 		mounted: function(){
-			if(!this.courseId){
+			if(!this.class_id){
 				this.snackbar = true;
 				this.notification = '你还没有选择课程，请先选择一个课程';
 				this.snackbarColor = 'red';
@@ -243,9 +254,9 @@
 		},
 
 		created() {
-			if(this.$route.query.courseId){
-        this.courseId = this.$route.query.courseId;
-				this.courseTitle = this.$route.query.courseTitle;
+			if(this.$route.query.class_id){
+        this.class_id = this.$route.query.class_id;
+				this.classTitle = this.$route.query.classTitle;
       }
 		}
 	}

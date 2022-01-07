@@ -8,10 +8,10 @@
         <v-col
           cols="12"
           sm="3"
-          class="pt-6 pb-6"
+          class="pt-2 pb-2"
         >
           <v-img
-            min-height="280px"
+            class="pic_height"
             :src="cover_url"
           />
         </v-col>
@@ -20,10 +20,10 @@
           cols="12"
           sm="6"
           offset-sm="1"
-          class="pt-6 pb-6"
+          class="pt-2 pb-2"
         >
           <v-row>
-            <v-col style="height: 240px">
+            <v-col class="col_height">
               <div
                 v-text="name"
                 class="classtitle"
@@ -43,7 +43,7 @@
           </v-row>
           <v-row>
             <v-col class="mt-2">
-              <span @click="btnClickFun" class="btnC">选择TA</span>
+              <span @click="btnClickFun" class="btnC">{{btnTitle}}</span>
             </v-col>
           </v-row>
         </v-col>
@@ -76,6 +76,7 @@
 </template>
 
 <script>
+  import relationApi from '../api/relationApi'
   export default {
     name: 'ClassInfoCard',
     props: {
@@ -91,6 +92,7 @@
     },
 
     data: () => ({
+      btnTitle: '选择TA',
       snackbar: false,
       snackbarColor: '',
       notification: '',
@@ -103,33 +105,48 @@
 				  this.notification = '你还没有登录，请先登录账号';
 				  this.snackbarColor = 'red';
 				  setTimeout( () => {this.$router.push({path: '/login'});}, 3000);
-        }else{
+        }else if(this.btnTitle == '已注册'){
+          this.$router.push({ path: '/myprofile/class' });
+        }
+        else{
           //用户已经登录
           //跳转到支付checkout页面
           this.$router.push({ path: '/payment/checkout',query: {classId: this.id} });
-
-
-          /* relationApi.setUserCourseRelation(this.$store.state.user.uid, this.id, 1, 0).then( (res) => {
-            if (res.data.code === 200) {
-              this.snackbar = true;
-              this.notification = '选课成功';
-              this.snackbarColor = 'green';
-              this.$router.push({path: '/myprofile/class'});
-            }else{
-              this.snackbar = true;
-              this.notification = '发生错误，请重试或联系管理员';
-              this.snackbarColor = 'red';
-            }
-          }) */
         }
-      }
-    }
+      },
+
+      checkClassReserved: function(){
+        relationApi.isClassReserved(this.$store.state.user.uid, this.id).then(res => {
+          if (res.data.code === 200) {
+            if(res.data.data[0].count != 0){
+              this.btnTitle = '已注册'
+            }else{
+              this.btnTitle = '选择TA'
+            }
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
+      }      
+    },
+    mounted: function(){
+			this.checkClassReserved()
+		}
   }
 </script>
 
 <style scoped>
+@media only screen and (min-width: 960px) {
+  .pic_height{
+    height: 280px;
+  }
+  .col_height{
+    height: 240px;
+  }
   .classtitle{
-    font-size: 26px;
+    font-size: 24px;
     line-height: 1.5;
     font-weight: 700;
     color: #29AB4A;
@@ -139,7 +156,7 @@
     font-size: 20px;
     line-height: 1.5;
     font-weight: 500;
-    margin-top: 26px;
+    margin-top: 20px;
   }
 
   .classTime {
@@ -151,7 +168,7 @@
 
   span.btnC {
     padding: 5px 16px 5px 16px;
-    font-size: 26px;
+    font-size: 24px;
     color:#fff;
     background-color: #29AB4A;
   }
@@ -162,5 +179,84 @@
     color: #29AB4A;
     border:1px solid #29AB4A;
   }
+}
+@media only screen and (max-width:959px) {
+  .pic_height{
+    height: 220px;
+  }
+  .col_height{
+    height: 180px;
+  }
+  .classtitle{
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #29AB4A;
+  }
+
+  .classDes {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-top: 20px;
+  }
+
+  .classTime {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  span.btnC {
+    padding: 5px 16px 5px 16px;
+    font-size: 20px;
+    color:#fff;
+    background-color: #29AB4A;
+  }
+
+  span.btnC:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #29AB4A;
+    border:1px solid #29AB4A;
+  }
+}
+@media only screen and (max-width:600px) {
+  .classtitle{
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #29AB4A;
+  }
+
+  .classDes {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-top: 14px;
+  }
+
+  .classTime {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+
+  span.btnC {
+    padding: 5px 16px 5px 16px;
+    font-size: 18px;
+    color:#fff;
+    background-color: #29AB4A;
+  }
+
+  span.btnC:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #29AB4A;
+    border:1px solid #29AB4A;
+  }
+}
 
 </style>
