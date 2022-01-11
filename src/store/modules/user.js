@@ -42,6 +42,9 @@ const actions = {
 					Cookies.set('ivyelite-uid', data.data[0].uid);
 					commit('SET_UID', data.data[0].uid);
 					resolve('login success');
+				}else if(data.code === 400){
+					commit('SET_UID', data.data[0].uid);
+					resolve('account not active');
 				}else{
 					resolve('login fail');
 				}

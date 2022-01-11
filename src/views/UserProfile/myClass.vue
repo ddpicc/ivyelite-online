@@ -193,10 +193,6 @@
           }
         })
 			},
-
-			gotoCheckout: function(){
-				this.$router.push({ path: '/payment/checkout' })
-			}
 		},
 
 		computed: {

@@ -17,14 +17,14 @@
     <v-spacer />
 
     <v-toolbar-items>
-      <v-btn
+      <!-- <v-btn
         class="ma-1"
         plain
         to="/course/all"
         :small="$vuetify.breakpoint.mobile"
       >
         全部课程
-      </v-btn>
+      </v-btn> -->
       <v-btn
         v-if="!verifyLogin()"
         class="ma-1"
@@ -56,7 +56,10 @@
           <v-list-item to="/myprofile/profile" active-class="green--text">
             <v-list-item-title>个人资料</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/myprofile/class" active-class="green--text">
+          <v-list-item v-if="this.$store.state.user.roles == 'teacher'" to="/myprofile/teacherclass" active-class="green--text">
+            <v-list-item-title>我的课程</v-list-item-title>
+          </v-list-item>
+          <v-list-item v-else to="/myprofile/class" active-class="green--text">
             <v-list-item-title>我的课程</v-list-item-title>
           </v-list-item>
           <v-list-item @click="logout" active-class="green--text">

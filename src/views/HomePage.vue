@@ -3,7 +3,7 @@
     <section id="hero">
       <v-row no-gutters>
         <v-col cols="12">
-          <v-carousel cycle hide-delimiter-background :show-arrows="false" :height="'calc(100vh - ' + $vuetify.application.top + 'px)'">
+          <v-carousel v-if="!$vuetify.breakpoint.mobile" cycle hide-delimiter-background :show-arrows="false" :height="'calc(100vh - ' + $vuetify.application.top + 'px)'">
             <v-carousel-item>
               <v-img
                 :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
@@ -15,6 +15,22 @@
               <v-img
                 :height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
                 src="../assets/banner-02.png"
+              >
+              </v-img>
+            </v-carousel-item>
+          </v-carousel>
+
+          <v-carousel v-if="$vuetify.breakpoint.mobile" cycle hide-delimiter-background :show-arrows="false" height="750">
+            <v-carousel-item>
+              <v-img
+                v-if="$vuetify.breakpoint.mobile"
+                src="../assets/banner-mobile-01.jpg"
+              >
+              </v-img>
+            </v-carousel-item>
+            <v-carousel-item>
+              <v-img
+                src="../assets/banner-mobile-02.jpg"
               >
               </v-img>
             </v-carousel-item>
@@ -50,7 +66,7 @@
                 md="3"
                 class="pa-5"
               >
-                <v-card>
+                <v-card style="cursor: pointer;">
                   <v-img
                     :src="course.cover_url"
                     class="white--text align-end"

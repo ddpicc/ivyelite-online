@@ -11,6 +11,7 @@
         </v-col>
       </v-row>
     </section>
+    
     <section
       id="introduction"
       class="lighten-3"
@@ -67,6 +68,35 @@
       </v-container>
       <div class="py-md-10 py-sm-5 py-5"></div>
     </section>
+
+    <section
+      id="teacher"
+      class="lighten-3"
+    >
+      <div class="py-16"></div>
+
+      <v-container fluid style="max-width: 1280px">
+        <v-row justify="center">
+          <v-col cols="12">
+            <div class="text-center">
+              <div class="titleWrap">
+                <div style="color:#FFFFFF" class="a titleChn titlegreen">名师风采</div>
+              </div>
+              <h2 style="color:#B4B5B8" class="titleEng">COURSES TUTORS</h2>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container fluid>
+        <v-row justify="center">
+          <v-col cols="12">
+            <slide-group />
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
+
     <section
       id="features"
       class="lighten-3"
@@ -132,8 +162,9 @@
 <script>
   import courseApi from '../../api/courseApi'
   import ClassInfoCard from '../../components/ClassInfoCard.vue'
+  import SlideGroup from '../../components/slide/SlideGroup.vue'
   export default {
-    components: { ClassInfoCard },
+    components: { ClassInfoCard, SlideGroup},
     data: () => ({
       selection: '',
       course: {
@@ -147,8 +178,6 @@
 
       classes: [],
       comments: [],
-
-      comment: "评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评。",
 
       model: 0,
     }),

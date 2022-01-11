@@ -30,7 +30,7 @@ export const constantRouterMap = [
       {path: '/login', name: '登录', component: () => import('../views/login/LoginPage.vue')},
       {path: '/register', name: '注册', component: () => import('../views/login/RegisterPage.vue')},
       {path: '/active', name: '激活账号', component: () => import('../views/login/Active.vue')},
-      {path: '/course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
+      //{path: '/course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
       {path: '/course/explore/1v1', name: '私教冲刺班', component: () => import('../views/Course/CourseOnePage.vue')},
       {path: '/course/explore/smallclass', name: '全程提分班', component: () => import('../views/Course/CourseSmallClassPage.vue')},
     ]
@@ -67,7 +67,7 @@ export const asyncRouterMap = [
 
       {path: '/course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareZoom.vue')},
       //{path: 'course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue'), meta: {roles: ['teacher','admin']}},
-      {path: '/course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher']}},
+      {path: '/course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher','student']}},
       {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
 
       {path: '/payment/checkout', name: 'Checkout', component: () => import('../views/Payment/checkout.vue')},

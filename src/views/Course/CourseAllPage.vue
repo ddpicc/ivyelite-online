@@ -161,7 +161,6 @@
 			snackbar: false,
       snackbarColor: '',
       notification: '',
-
 		}),
 
 		methods: {

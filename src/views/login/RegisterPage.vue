@@ -98,7 +98,6 @@
         name: '',
         nameValid: false,
         nameNotify: '',
-        nameNotifyColor: '',
         registerEmail: '',
         password: '',
         repeatPassword: '',
@@ -126,7 +125,6 @@
             if(res.data.data[0].count != 0){
               this.nameValid = false;
               this.nameNotify = '该名字已被占用'
-              this.nameNotifyColor = 'red'
             }else{
               this.nameValid = true;
             }
@@ -139,7 +137,6 @@
       },
       
       registerClick: async function(){
-
         if(this.$refs.registerForm.validate() && this.nameValid){
           //看是不是8位数
           let uid = await this.getUseableUid();
@@ -147,28 +144,29 @@
           userApi.findCountByEmail(this.registerEmail).then( (res) => {
             if (res.data.code === 200) {
               if(res.data.data[0].count === 0){
-                let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
+                userApi.insertUser(this.name, this.registerEmail, md5Pass, uid, new Date().getTime()).then(res => {
+                  if (res.data.code === 200) {
+                    this.snackbar = true;
+                    this.notification = '注册成功,正在发送激活邮件到您的邮箱';
+                    this.snackbarColor = 'green';
+                    let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
                                   <a href='https://online.ivyelite.net/#/active?email=${this.registerEmail}&uid=${uid}'>
                                     https://online.ivyelite.net/#/active?email=${this.registerEmail}&uid=${uid}
                                   </a><br><br>
                                   <div>若链接点击无效，请复制链接到浏览器地址栏中打开。</div>
                                   <div>若您未申请注册常青藤在线教育账号，请忽略此邮件。</div>`
-                userApi.sendActivateEmail(this.registerEmail, content).then(res => {
-                  if (res.data.code === 200) { 
-                    
-                    
-                  }else{
-                    this.snackbar = true;
-                    this.notification = '发生错误，请重试或联系管理员';
-                    this.snackbarColor = 'red';
-                  }
-                })
-                userApi.insertUser(this.name, this.registerEmail, md5Pass, uid, new Date().getTime()).then(res => {
-                  if (res.data.code === 200) {
-                    this.snackbar = true;
-                    this.notification = '注册成功,请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
-                    this.snackbarColor = 'green';
-                    setTimeout( () => {this.$router.push({path: '/login'});}, 3000);
+                    userApi.sendActivateEmail(this.registerEmail, content).then(res => {
+                      if (res.data.code === 200) { 
+                        this.snackbar = true;
+                        this.notification = '请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
+                        this.snackbarColor = 'green';
+                        setTimeout( () => {this.$router.push({path: '/login'});}, 2000);
+                      }else{
+                        this.snackbar = true;
+                        this.notification = '邮件发送失败，您可以尝试登录账号，或者联系管理员';
+                        this.snackbarColor = 'red';
+                      }
+                    })                    
                   }else{
                     this.snackbar = true;
                     this.notification = '发生错误，请重试或联系管理员';

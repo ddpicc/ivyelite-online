@@ -41,6 +41,35 @@
       </v-container>
       <div class="py-md-10 py-sm-5 py-5"></div>
     </section>
+
+    <section
+      id="teacher"
+      class="lighten-3"
+    >>
+      <div class="py-16"></div>
+
+      <v-container fluid style="max-width: 1280px">
+        <v-row justify="center">
+          <v-col cols="12">
+            <div class="text-center">
+              <div class="titleWrap">
+                <div style="color:#FFFFFF" class="a titleChn titlegreen">名师风采</div>
+              </div>
+              <h2 style="color:#B4B5B8" class="titleEng">COURSES TUTORS</h2>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+
+      <v-container fluid>
+        <v-row justify="center">
+          <v-col cols="12">
+            <slide-group />
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
+
     <section
       id="features"
       class="lighten-3"
@@ -105,9 +134,9 @@
 
 <script>
   import courseApi from '../../api/courseApi'
-  import ClassInfoCard from '../../components/ClassInfoCard.vue'
+  import SlideGroup from '../../components/slide/SlideGroup.vue'
   export default {
-    components: { ClassInfoCard },
+    components: {  SlideGroup },
     data: () => ({
       selection: '',
       course: {
@@ -132,15 +161,6 @@
         courseApi.findOneCourseById(this.courseId).then( (res) => {
           if (res.data.code === 200) {
 						this.course = res.data.data[0];
-            courseApi.getClassesbyCourseId(this.courseId).then( res => {
-              if(res.data.code === 200) {
-						    this.classes = res.data.data
-              }else{
-                this.snackbar = true;
-                this.notification = '读取课堂列表错误，请重试或联系管理员';
-                this.snackbarColor = 'red';
-              }
-            })
             courseApi.getCommentbyCourseId(this.courseId).then( res => {
               if(res.data.code === 200) {
 						    this.comments = res.data.data

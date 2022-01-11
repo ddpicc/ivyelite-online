@@ -1,5 +1,5 @@
 const stripeGate = require('stripe')('sk_test_51JzuEnJ1wNWalvad4ozFFmjhAeG9a89sFDCP64okVjvtKvvfTK0cJ9R3Fe8hssqLgKVMtH1Z2okSNzK5Fd9zPYXy00yUA4rzWo');
-const endpointSecret = "whsec_CFGHbIhkWafwzMCpb8TBTt9wvOVZqzn7"
+const endpointSecret = "whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR"
 //"whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR";
 const relationModel = require('../model/relationModel')
 const receiptModel = require('../model/receiptModel')

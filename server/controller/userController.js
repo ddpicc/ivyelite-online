@@ -24,21 +24,30 @@ exports.postSignin = async ctx => {
 	let { email, password } = ctx.request.body;
 	await userModel.findUserByEmail(email).then(result => {
 		let res = result;
-		if (res.length && email === res[0]['email'] && password === res[0]['pass']) {
-			ctx.body = {
-				code: 200,
-				msg: '登录成功',
-				token: jsonwebtoken.sign(
-					{email: res[0].email, id: res[0].id},
-					'Ivyelite Token',
-					{expiresIn: '6h'}
-				),
-				data: res,
-			}
-			console.log('登录成功')
+		if (res.length && password === res[0]['pass']) {
+			if(res[0]['is_active'] == '否'){
+				ctx.body = {
+					code: 400,
+					msg: '账号未激活',
+					data: res,
+				}
+				console.log('账号尚未激活')
+			}else{
+				ctx.body = {
+					code: 200,
+					msg: '登录成功',
+					token: jsonwebtoken.sign(
+						{email: res[0].email, id: res[0].id},
+						'Ivyelite Token',
+						{expiresIn: '6h'}
+					),
+					data: res,
+				}
+				console.log('登录成功')
+			}			
 		} else {
 			ctx.body = {
-				code: 400,
+				code: 500,
 				msg: '用户名或密码错误'
 			}
 			console.log('用户名或密码错误!')
@@ -118,7 +127,8 @@ exports.findDataCountByName = async ctx => {
 
 exports.insertUser = async ctx => {
 	let { username, email, password, uid, register_time } = ctx.request.body;
-	await userModel.insertUser([username, email, password, uid, register_time]).then( (res) => {
+	let avatar_url = 'FuObl8yKxcftADmihsFi-tRLWW_O'    //default avatar when register
+	await userModel.insertUser([username, email, password, uid, register_time, avatar_url]).then( (res) => {
 		console.log(res)
 		ctx.body = {
 			code: 200,

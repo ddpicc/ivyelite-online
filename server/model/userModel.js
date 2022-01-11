@@ -40,7 +40,7 @@ exports.findDataCountByName =  ( name ) => {
 }
 // 注册时添加用户
 exports.insertUser = ( value ) => {
-	let _sql = "insert into users set name=?,email=?,pass=?,uid=?,register_time=?;"
+	let _sql = "insert into users set name=?,email=?,pass=?,uid=?,register_time=?,avatar_url=?;"
 	return query( _sql, value)
 }
 // 激活用户账户

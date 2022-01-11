@@ -1,14 +1,15 @@
 <template>
-  <v-card class="pa-0" :color="cardBackColor">
-    <v-card-text>
+  <v-hover v-slot="{ hover }">
+  <v-card :color="cardBackColor">
+    <v-card-text >      
       <v-row
         no-gutters
-        justify="center"
+        justify="space-between"
       >
         <v-col
           cols="12"
           sm="3"
-          class="pt-2 pb-2"
+          class="pt-1 pb-1"
         >
           <v-img
             class="pic_height"
@@ -18,9 +19,9 @@
 
         <v-col
           cols="12"
-          sm="6"
+          sm="8"
           offset-sm="1"
-          class="pt-2 pb-2"
+          class="pt-1 pb-1"
         >
           <v-row>
             <v-col class="col_height">
@@ -49,6 +50,72 @@
         </v-col>
       </v-row>
     </v-card-text>
+    <v-expand-transition>
+      <v-card 
+        v-if="hover"
+        class="transition-fast-in-fast-out v-card--reveal"
+      >
+        <v-card-text class="pb-0">
+          <v-row
+            no-gutters
+            justify="center"
+          >
+            <v-col
+              cols="12"
+            >
+              <v-chip
+                color="#29AB4A"
+                outlined
+              >
+                超低直播课时单价
+              </v-chip>
+              <v-chip
+                color="#29AB4A"
+                outlined
+                class="ml-5"
+              >
+                48课时直播强化
+              </v-chip>
+              <v-chip
+                color="#29AB4A"
+                outlined
+                class="ml-5"
+              >
+                24/7 课后答疑
+              </v-chip>
+            </v-col>
+          </v-row>
+          <v-row
+            no-gutters
+            justify="center"
+          >
+            <v-col
+              cols="12"
+            >
+              <div
+                v-text="name + '(1月3日开班)'"
+                class="hover-title"                
+              />
+              <div class="hover-des"
+                v-text="'美东 21：00-23：00 上课 | 美西 18：00-20：00 上课'"
+              />
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider class="action-margin"></v-divider>
+        <v-card-actions>
+          <div class="amount-title">${{amount}}</div>
+          <v-spacer />
+          <v-btn
+            rounded
+            color="#EB5467"
+            class="action-btn"
+          >
+            <span class="action-btn-text">立即报名</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-expand-transition>
     <v-snackbar
 			v-model="snackbar"
 			:color="snackbarColor"
@@ -73,6 +140,7 @@
 			</v-btn>
 		</v-snackbar>
   </v-card>
+  </v-hover>
 </template>
 
 <script>
@@ -89,6 +157,7 @@
       description: String,
       name: String,
       classCount: String,
+      amount: String,
     },
 
     data: () => ({
@@ -139,11 +208,51 @@
 
 <style scoped>
 @media only screen and (min-width: 960px) {
+  .v-card--reveal {
+    bottom: 0;
+    opacity: 1 !important;
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    border:2px solid #29AB4A;
+  }
+  .action-margin{
+    margin-top: 50px;
+  }
+  .hover-title{
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #29AB4A;
+    margin-top: 30px;
+  }
+  .hover-des{
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  .amount-title{
+    font-size: 28px;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #29AB4A;
+    margin: 12px;
+  }
+  button.action-btn{
+    padding: 10px 30px 10px 30px !important;
+  }
+  span.action-btn-text{
+    font-size: 18px !important; 
+    line-height: 1.5;
+    font-weight: 700;
+    color: #fff;
+  }
   .pic_height{
-    height: 280px;
+    height: 240px;
   }
   .col_height{
-    height: 240px;
+    height: 190px;
   }
   .classtitle{
     font-size: 24px;
