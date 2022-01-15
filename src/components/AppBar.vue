@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-app-bar
     id="core-app-bar"
     absolute
@@ -68,7 +69,12 @@
         </v-list>
       </v-menu>
     </v-toolbar-items>
+    <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
   </v-app-bar>
+  <v-navigation-drawer v-model="drawer" app class="indigo">
+    <p>Test</p>
+  </v-navigation-drawer>
+</div>
 </template>
 
 <script>
@@ -82,6 +88,7 @@
       title: '常青藤精英教育',
       responsive: false,
       userName: '',
+      drawer: false
     }),
 
     watch: {

@@ -22,17 +22,19 @@ Router.prototype.push = function push(location) {
 Vue.use(Router)
 
 export const constantRouterMap = [
+  {path: '', name: '首页', component: () => import('../views/HomePage.vue')},
+  {path: '/home', name: '首页', component: () => import('../views/HomePage3.vue')},
   {
     path: '',
     component: () => import('../Full.vue'),
     children: [
-      {path: '', name: '首页', component: () => import('../views/HomePage.vue')},
       {path: '/login', name: '登录', component: () => import('../views/login/LoginPage.vue')},
       {path: '/register', name: '注册', component: () => import('../views/login/RegisterPage.vue')},
       {path: '/active', name: '激活账号', component: () => import('../views/login/Active.vue')},
-      //{path: '/course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
+      {path: '/course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
       {path: '/course/explore/1v1', name: '私教冲刺班', component: () => import('../views/Course/CourseOnePage.vue')},
       {path: '/course/explore/smallclass', name: '全程提分班', component: () => import('../views/Course/CourseSmallClassPage.vue')},
+      {path: '/course/detail', name: '课程详情', component: () => import('../views/Course/CourseDetail.vue')},
     ]
   }
 ]

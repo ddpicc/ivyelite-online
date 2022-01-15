@@ -3,15 +3,18 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import './plugins/tiptap'
 import './plugins'
 import './permission.js'
 import SocketIO from "socket.io-client"
 
 import VueSocketIO from 'vue-socket.io'
+import './assets/iconmoon/css/iconmoon.css'
+import 'font-awesome/css/font-awesome.min.css'
+import './assets/css/global.css'
 
 Vue.config.productionTip = false
 let socketurl = process.env.NODE_ENV === 'production' ? '//online.ivyelite.net' : 'http://localhost:3000'
+
 Vue.use(new VueSocketIO({
   debug: true,
   connection: SocketIO(socketurl)
