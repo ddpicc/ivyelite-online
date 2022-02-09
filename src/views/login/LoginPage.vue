@@ -1,15 +1,57 @@
 <template>
-  <v-container fluid style="max-width: 1280px">
+ <div class="container">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-8 py-sm-4 py-4"></div>
 				<v-row justify="center">
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card flat class="elevation-12">
+          <v-col cols="12">
+            <section id="about">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="about-info">
+                      <h2>Start your journey to a better life with online practical courses</h2>
+                      <figure>
+                        <span><i class="fa fa-users"></i></span>
+                        <figcaption>
+                          <h3>Professional Trainers</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
+                        </figcaption>
+                      </figure>
+
+                      <figure>
+                        <span><i class="fa fa-certificate"></i></span>
+                        <figcaption>
+                          <h3>International Certifications</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
+                        </figcaption>
+                      </figure>
+
+                      <figure>
+                        <span><i class="fa fa-bar-chart-o"></i></span>
+                        <figcaption>
+                          <h3>Free for 3 months</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-4 col-sm-12">
+                    <div class="entry-form">
+                        <h2>Login</h2>
+                        <input v-model="loginEmail" type="email" name="email" class="form-control" placeholder="Your email address" required="">
+                        <input v-model="password" type="password" name="password" class="form-control" placeholder="Your password" required="">
+                        <button class="submit-btn form-control" @click.stop="loginClick">Get started</button>
+                        <span>Not a member?</span>
+                        <button class="register-btn form-control" @click.stop="registerClick">Register now</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+<!--             <v-card flat class="elevation-12">
               <v-card-text>
                 <v-img
                   contain
@@ -48,7 +90,8 @@
                   </v-col>
                 </v-row>
               </v-card-text>
-            </v-card>
+            </v-card> -->
+            <div class="py-md-8 py-sm-4 py-4"></div>
           </v-col>
         </v-row>
       </v-col>
@@ -76,7 +119,7 @@
         </v-icon>
       </v-btn>
     </v-snackbar>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -115,7 +158,7 @@
             this.snackbarColor = 'green';
             let url = whiteList.indexOf(redirectUrl) === -1? redirectUrl : '/';
             if(redirectUrl.indexOf('active')){
-              url = '/'
+              url = '/myclass'
             }
             this.$router.push({ path: url });
           }else if(res == 'account not active'){
@@ -145,6 +188,126 @@
           }          
         })
       },
+      registerClick: function(){
+        this.$router.push({path: '/register'})
+      }
     }
   }
 </script>
+<style scoped>
+  #about figure {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 15px;
+  }
+
+  #about figure span {
+    float: left;
+    margin-left: -15px;
+    padding: 15px 20px;
+    position: relative;
+    top: 20px;
+  }
+
+  #about figure span i {
+    background: #29ca8e;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+    .entry-form {
+    background-color: #29AB4A; /* 不支持线性的时候显示 */
+    background-image: linear-gradient(to bottom right, #29AB4A , #7EBD44);
+    border-radius: 100%;
+    text-align: center;
+    padding: 6em;
+    width: 450px;
+    height: 450px;
+  }
+
+  .entry-form h2 {
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .entry-form input {
+    color: #ffffff;
+    margin: 0;
+  }
+
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #ffffff;
+}
+
+  .entry-form .form-control {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    box-shadow: none;
+    height: 45px;
+    margin: 10px 0;
+  }
+
+  .entry-form .submit-btn {
+    background: #ffffff;
+    border-radius: 50px;
+    border: 0;
+    color: #252020;
+    width: 50%;
+    height: 50px;
+    margin: 30px auto;
+    margin-bottom: 10px;
+  }
+
+  .entry-form .submit-btn:hover {
+    background: #3f51b5;
+    color: #ffffff;
+  }
+
+  .entry-form .register-btn {
+    background: #ffffff;
+    border-radius: 50px;
+    border: 0;
+    color: #252020;
+    width: 50%;
+    height: 50px;
+    margin: 10px auto;
+    margin-bottom: 10px;
+  }
+
+  .entry-form .register-btn:hover {
+    background: #3f51b5;
+    color: #ffffff;
+  }
+
+  section {
+    position: relative;
+
+  }
+
+    @media only screen and (max-width: 767px) {
+      .entry-form {
+      display: block;
+      margin: 0 auto;
+    }
+    }
+
+      @media only screen and (max-width: 480px) {
+
+
+    .entry-form {
+      border-radius: 0;
+      padding: 2em;
+      max-width: 100%;
+      max-height: 100%;
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+</style>

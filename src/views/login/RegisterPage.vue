@@ -1,63 +1,56 @@
 <template>
-  <v-container fluid style="max-width: 1280px">
+ <div class="container">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-4"></div>
+				<div class="py-md-8 py-sm-4 py-4"></div>
 				<v-row justify="center">
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card flat class="elevation-12">
-              <v-card-text>
-                <v-img
-                  contain
-                  max-height="70px"
-                  position="left left"
-                  src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
-                  @click.stop="jumpHome"
-                ></v-img>  
-                <v-form class="mt-8"
-                 ref="registerForm"
-                 lazy-validation>
-                 <small style="color: red" v-if="!nameValid">{{nameNotify}}</small>
-                  <v-text-field
-                    solo
-                    label="输入用户名"
-                    :rules="nameRules"
-                    v-model="name"
-                    @blur="validateAlias(name)"
-                  ></v-text-field>
-                  
-                  <v-text-field
-                    solo
-                    label="输入邮箱"
-                    :rules="emailRules"
-                    v-model="registerEmail"
-                  ></v-text-field>
-                  <v-text-field
-                    solo
-                    label="输入密码 至少6位数"
-                    :rules="passwordRules"
-                    type="password"
-                    v-model="password"
-                  ></v-text-field>
-                  <v-text-field
-                    solo
-                    label="重复密码"
-                    :rules="[v => v == this.password || '两次输入的密码不一致']"
-                    type="password"
-                    v-model="repeatPassword"
-                    @keyup.enter.native="registerClick"
-                  ></v-text-field>
-                </v-form>
-                注册即代表阅读并同意《服务协议和隐私政策》
-                <v-card-actions>
-                  <v-btn block color="blue" @click.stop="registerClick">注册</v-btn>
-                </v-card-actions>
-              </v-card-text>
-            </v-card>
+          <v-col cols="12">
+            <section id="about">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="about-info">
+                      <h2>Start your journey to a better life with online practical courses</h2>
+                      <figure>
+                        <span><i class="fa fa-users"></i></span>
+                        <figcaption>
+                          <h3>Professional Trainers</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
+                        </figcaption>
+                      </figure>
+
+                      <figure>
+                        <span><i class="fa fa-certificate"></i></span>
+                        <figcaption>
+                          <h3>International Certifications</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
+                        </figcaption>
+                      </figure>
+
+                      <figure>
+                        <span><i class="fa fa-bar-chart-o"></i></span>
+                        <figcaption>
+                          <h3>Free for 3 months</h3>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </div>
+
+                  <div class="col-md-offset-1 col-md-4 col-sm-12">
+                    <div class="entry-form">
+                      <h2>Register</h2>
+                      <input type="text" name="full name" class="form-control" placeholder="Full name" required="">
+                      <input type="email" name="email" class="form-control" placeholder="Your email address" required="">
+                      <input type="password" name="password" class="form-control" placeholder="Your password" required="">
+                      <button class="submit-btn form-control" id="form-submit" @click.stop="loginClick">Register now</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+            <div class="py-md-8 py-sm-4 py-4"></div>
           </v-col>
         </v-row>
       </v-col>
@@ -65,7 +58,7 @@
     <v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      timeout="3000"
+      timeout="5000"
       top
       dark
     >
@@ -85,7 +78,7 @@
         </v-icon>
       </v-btn>
     </v-snackbar>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -209,3 +202,122 @@
     }
   }
 </script>
+
+<style scoped>
+  #about figure {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 15px;
+  }
+
+  #about figure span {
+    float: left;
+    margin-left: -15px;
+    padding: 15px 20px;
+    position: relative;
+    top: 20px;
+  }
+
+  #about figure span i {
+    background: #29ca8e;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+  }
+    .entry-form {
+    background-color: #29AB4A; /* 不支持线性的时候显示 */
+    background-image: linear-gradient(to bottom right, #29AB4A , #7EBD44);
+    border-radius: 100%;
+    text-align: center;
+    padding: 6em;
+    width: 450px;
+    height: 450px;
+  }
+
+  .entry-form h2 {
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .entry-form input {
+    color: #ffffff;
+    margin: 0;
+  }
+
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #ffffff;
+}
+
+  .entry-form .form-control {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid;
+    border-radius: 0;
+    box-shadow: none;
+    height: 45px;
+    margin: 10px 0;
+  }
+
+  .entry-form .submit-btn {
+    background: #ffffff;
+    border-radius: 50px;
+    border: 0;
+    color: #252020;
+    width: 50%;
+    height: 50px;
+    margin: 30px auto;
+    margin-bottom: 10px;
+  }
+
+  .entry-form .submit-btn:hover {
+    background: #3f51b5;
+    color: #ffffff;
+  }
+
+  .entry-form .register-btn {
+    background: #ffffff;
+    border-radius: 50px;
+    border: 0;
+    color: #252020;
+    width: 50%;
+    height: 50px;
+    margin: 10px auto;
+    margin-bottom: 10px;
+  }
+
+  .entry-form .register-btn:hover {
+    background: #3f51b5;
+    color: #ffffff;
+  }
+
+  section {
+    position: relative;
+
+  }
+
+    @media only screen and (max-width: 767px) {
+      .entry-form {
+      display: block;
+      margin: 0 auto;
+    }
+    }
+
+      @media only screen and (max-width: 480px) {
+
+
+    .entry-form {
+      border-radius: 0;
+      padding: 2em;
+      max-width: 100%;
+      max-height: 100%;
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+</style>
+

@@ -25,3 +25,9 @@ export default {
     }
   }
 </script>
+<style scoped>
+.v-application {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', "PingFang SC", "Hragino Sans GB","Microsoft YaHei", "Helvetica Neue", Arial, Helvetica, sans-serif !important;
+}
+  
+</style>

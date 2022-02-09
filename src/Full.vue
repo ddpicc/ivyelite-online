@@ -1,10 +1,12 @@
 <template>
-  <v-app id="app">
-    <core-app-bar />
+  <v-app>
 
-    <core-view />
+      <core-app-bar />
 
-    <core-footer />
+      <core-view />
+
+
+
   </v-app>
 </template>
 
@@ -18,4 +20,7 @@
     }
   }
 </script>
+<style scoped>
+
+</style>
 

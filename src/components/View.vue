@@ -1,10 +1,8 @@
 <template>
-  <v-content>
-    <div id="core-view">
-      <v-fade-transition mode="out-in">
-        <router-view />
-      </v-fade-transition>
-    </div>
+  <v-content id="core">
+    <v-fade-transition mode="out-in">
+      <router-view />
+    </v-fade-transition>
   </v-content>
 </template>
 
@@ -19,3 +17,8 @@
     }
   }
 </script>
+<style scoped>
+#core {
+  padding: 8.5rem 0 0 !important;
+}
+</style>

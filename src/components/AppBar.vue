@@ -1,80 +1,40 @@
 <template>
-<div>
   <v-app-bar
-    id="core-app-bar"
+    app
     absolute
+    color="white"
     flat
+    class="header"
+
   >
-    <v-toolbar-title class="tertiary--text font-weight-light align-self-left">
-      <v-img
-        contain
-        max-height="6vh"
-        position="left left"
-        src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
-        @click.stop="jumpHome"
-      ></v-img>      
-    </v-toolbar-title>
+    <v-container class="py-0 fill-height">
+      <v-avatar
+        class="mr-10"
+        color="grey darken-1"
+        size="32"
+      ></v-avatar>      
 
-    <v-spacer />
+      <v-spacer></v-spacer>
 
-    <v-toolbar-items>
-      <!-- <v-btn
-        class="ma-1"
-        plain
-        to="/course/all"
-        :small="$vuetify.breakpoint.mobile"
-      >
-        全部课程
-      </v-btn> -->
       <v-btn
-        v-if="!verifyLogin()"
-        class="ma-1"
-        plain
-        to="/login"
-        :small="$vuetify.breakpoint.mobile"
+        rounded
+        class="header-menu"
+        color="primary"
+        outlined
+        dark
       >
         登录
       </v-btn>
-      <v-menu
-        v-else
-        open-on-hover
-        bottom
-        offset-y
+      <v-btn
+        rounded
+        class="header-menu"
+        color="primary"
+        dark
       >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            plain
-            v-bind="attrs"
-            class="ma-1"
-            v-on="on"
-            :small="$vuetify.breakpoint.mobile"
-          >
-            welcome, {{userName}}
-          </v-btn>
-        </template>
-
-        <v-list>
-          <v-list-item to="/myprofile/profile" active-class="green--text">
-            <v-list-item-title>个人资料</v-list-item-title>
-          </v-list-item>
-          <v-list-item v-if="this.$store.state.user.roles == 'teacher'" to="/myprofile/teacherclass" active-class="green--text">
-            <v-list-item-title>我的课程</v-list-item-title>
-          </v-list-item>
-          <v-list-item v-else to="/myprofile/class" active-class="green--text">
-            <v-list-item-title>我的课程</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="logout" active-class="green--text">
-            <v-list-item-title>安全退出</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-toolbar-items>
-    <v-app-bar-nav-icon @click="drawer=!drawer"></v-app-bar-nav-icon>
+        注册
+      </v-btn>
+    </v-container>
   </v-app-bar>
-  <v-navigation-drawer v-model="drawer" app class="indigo">
-    <p>Test</p>
-  </v-navigation-drawer>
-</div>
 </template>
 
 <script>
@@ -88,7 +48,6 @@
       title: '常青藤精英教育',
       responsive: false,
       userName: '',
-      drawer: false
     }),
 
     watch: {
@@ -138,12 +97,14 @@
 </script>
 
 <style>
-  /* Fix coming in v2.0.8 */
-  #core-app-bar {
-    width: auto;
-  }
+.header {
+  height: 8.5rem !important;
+}
 
-  #core-app-bar a {
-    text-decoration: none;
-  }
+.v-toolbar__content {
+  height: 8.5rem !important;
+}
+.header .header-menu{
+  width: 8.75rem;
+}
 </style>
