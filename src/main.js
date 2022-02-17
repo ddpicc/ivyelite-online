@@ -2,14 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './rem'
 import vuetify from './plugins/vuetify'
 import './plugins'
 import './permission.js'
 import SocketIO from "socket.io-client"
 
 import VueSocketIO from 'vue-socket.io'
-import './assets/iconmoon/css/iconmoon.css'
 import 'font-awesome/css/font-awesome.min.css'
+
 
 
 Vue.config.productionTip = false

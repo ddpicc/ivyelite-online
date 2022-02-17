@@ -7,33 +7,24 @@
     class="header"
 
   >
-    <v-container class="py-0 fill-height">
-      <v-avatar
-        class="mr-10"
-        color="grey darken-1"
-        size="32"
-      ></v-avatar>      
+
+      <div class="logo">
+
+      </div>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        rounded
-        class="header-menu"
-        color="primary"
-        outlined
-        dark
+      <button
+        class="header-menu login"
       >
-        登录
-      </v-btn>
-      <v-btn
-        rounded
-        class="header-menu"
-        color="primary"
-        dark
+        <p class="word20">登录</p>
+      </button>
+      <button
+        class="header-menu register"
       >
-        注册
-      </v-btn>
-    </v-container>
+        <p class="word20">注册</p>
+      </button>
+
   </v-app-bar>
 </template>
 
@@ -97,14 +88,36 @@
 </script>
 
 <style>
+.word20{
+    font-size: 20px;
+    font-weight: 600;
+  }
 .header {
   height: 8.5rem !important;
+}
+.logo{
+  width: 236px;
+  height: 100px;
+  background: url("../assets/ivyelite-final-logo-green.png");
 }
 
 .v-toolbar__content {
   height: 8.5rem !important;
+  padding: 1.375rem 1.5rem !important;
 }
 .header .header-menu{
   width: 8.75rem;
+  height: 3.125rem;
+  border-radius: 6.625rem;
+  text-align:center;
+  line-height: 3.125rem;
+}
+.header .login{
+  border: 1px solid #1A8750;
+  color: #1A8750;
+}
+.header .register{
+  background: #1A8750;
+  color: #fff;
 }
 </style>

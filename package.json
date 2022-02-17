@@ -36,6 +36,7 @@
     "socket.io-client": "^4.4.0",
     "stripe": "^8.191.0",
     "vue": "^2.6.11",
+    "vue-concise-slider": "^4.2.3",
     "vue-countup-v2": "^4.0.0",
     "vue-image-crop-upload": "^3.0.3",
     "vue-meta": "^2.4.0",
