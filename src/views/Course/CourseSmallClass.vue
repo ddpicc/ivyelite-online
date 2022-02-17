@@ -29,8 +29,31 @@
                 暑期是备考准备的绝佳时期，时间充裕的同学还能完成实习+GRE双管齐下的绝佳背景提升组合。
               </div>
             </div>
-            <div class="">
+            <div class="card-content">
+              <v-item-group
+                v-model="classIndex"
+                class="d-inline-flex align-center"
+                mandatory
+              >
+                <v-item
+                  v-for="n in classList.length"
+                  :key="`btn-${n}`"
+                  v-slot="{ active, toggle }"
+                >
+                  <div :class="{'item-active courseTab': active, 'item-inactive courseTab': !active}" @click="toggle">
+                    <div class="course-word">{{classList[n-1]}}</div>
+                  </div>
+                  
+                </v-item>
+              </v-item-group>
+              
+              <v-window
+                v-model="classIndex"
+              >
+                <v-window-item>
 
+                </v-window-item>
+              </v-window>
             </div>
           </div>
       </v-sheet>      
@@ -97,6 +120,12 @@
         '课表安排'
       ],
       tabIndex: 0,
+      classIndex: 1,
+      classList: [
+        '暑假班',
+        '周末班',
+        '寒假班',
+      ],
     }),
 
     methods: {
@@ -174,6 +203,27 @@
     color: #1A8750;
 
     padding: 4.0625rem 2.4375rem 0 12.625rem;
+  }
+  #banner .card-content{
+    margin: 2.0625rem 0 0 3.3125rem;
+  }
+  #banner .card-content .courseTab{    
+    padding: 0.375rem 1.6875rem 0.3125rem;
+    background: #E8F5EE;
+    border-radius: 0.25rem 0.25rem 0px 0px;
+    margin: 0 3.25rem 0 0; 
+  }
+  #banner .card-content .item-active{
+    color: #1A8750;
+    border-bottom: 0.1875rem solid #1A8750;
+  }
+  #banner .card-content .item-inactive{
+    background: #ffffff;
+  }
+  #banner .card-content .course-word{
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 155%;
   }
   /* #endregion */ 
 
