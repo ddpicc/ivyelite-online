@@ -1,124 +1,41 @@
 <template>
- <div class="container">
-		<v-row justify="center">
-			<v-col cols="12">
-				<div class="py-md-8 py-sm-4 py-4"></div>
-				<v-row justify="center">
-          <v-col cols="12">
-            <section id="about">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-6 col-sm-12">
-                    <div class="about-info">
-                      <h2>Start your journey to a better life with online practical courses</h2>
-                      <figure>
-                        <span><i class="fa fa-users"></i></span>
-                        <figcaption>
-                          <h3>Professional Trainers</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                        </figcaption>
-                      </figure>
-
-                      <figure>
-                        <span><i class="fa fa-certificate"></i></span>
-                        <figcaption>
-                          <h3>International Certifications</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                        </figcaption>
-                      </figure>
-
-                      <figure>
-                        <span><i class="fa fa-bar-chart-o"></i></span>
-                        <figcaption>
-                          <h3>Free for 3 months</h3>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint ipsa voluptatibus.</p>
-                        </figcaption>
-                      </figure>
-                    </div>
-                  </div>
-
-                  <div class="col-md-offset-1 col-md-4 col-sm-12">
-                    <div class="entry-form">
-                        <h2>Login</h2>
-                        <input v-model="loginEmail" type="email" name="email" class="form-control" placeholder="Your email address" required="">
-                        <input v-model="password" type="password" name="password" class="form-control" placeholder="Your password" required="">
-                        <button class="submit-btn form-control" @click.stop="loginClick">Get started</button>
-                        <span>Not a member?</span>
-                        <button class="register-btn form-control" @click.stop="registerClick">Register now</button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </section>
-<!--             <v-card flat class="elevation-12">
-              <v-card-text>
-                <v-img
-                  contain
-                  max-height="70px"
-                  position="left left"
-                  src="https://cdn.ivyelite.net/wp-content/uploads/2021/10/16171623/beepress2-1634418983.png"
-                  @click.stop="jumpHome"
-                ></v-img>  
-                <v-form class="mt-8">
-                  <v-text-field
-                    solo
-                    label="输入邮箱"
-                    :rules="emailRules"
-                    v-model="loginEmail"
-                  ></v-text-field>
-                  <v-text-field
-                    solo
-                    label="输入密码"
-                    :rules="[v => !!v || 'Password is required']"
-                    type="password"
-                    v-model="password"
-                    @keyup.enter.native="loginClick"
-                  ></v-text-field>
-                </v-form>                  
-                
-                <v-card-actions>
-                  <v-btn block color="blue" @click.stop="loginClick">登录</v-btn>
-                </v-card-actions>
-                <v-row>
-                  <v-col cols="6">
-                    还没有帐号？
-                    <router-link to="/register" style="color:red">免费注册</router-link>
-                  </v-col>
-                  <v-col cols="6" class="d-inline-flex justify-end">
-                    <router-link to="/forgetPass" style="color:red">忘记密码</router-link>   
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card> -->
-            <div class="py-md-8 py-sm-4 py-4"></div>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-    <v-snackbar
-      v-model="snackbar"
-      :color="snackbarColor"
-      timeout="5000"
-      top
-      dark
-    >
-      <v-icon
-        color="white"
-        class="mr-3"
-      >
-        mdi-bell-plus
-      </v-icon>
-      {{notification}}
-      <v-btn
-        icon
-        @click="snackbar = false"
-      >
-        <v-icon>
-          mdi-close-circle
-        </v-icon>
-      </v-btn>
-    </v-snackbar>
+  <div id="login" class="card">
+    <div class="cont d-flex">
+      <div class="left">
+        <div class="wrap">
+          <div class="btn-wrap d-flex">
+            <div class="lg" v-bind:class="{'before': inLogin, 'after2': !inLogin}" @click="changeLogin()">登录</div>
+            <div class="rg" v-bind:class="{'before': !inLogin, 'after': inLogin}" @click="changeRegister()">注册</div>
+          </div>
+          <div class="line1">
+            <div class="label1">
+              <div>邮箱<span style="color: red">*</span></div>
+              <input type="text" v-model="loginEmail">
+            </div>
+          </div>
+          <div class="line2">
+            <div class="label2">
+              <div>密码<span style="color: red">*</span><div class="forget">忘记密码?</div></div>
+              
+              <input type="text" v-model="password">
+            </div>
+          </div>
+          <div v-if="!inLogin" class="line4">
+            <div class="label4">
+              <div>姓名<span style="color: red">*</span></div>
+              
+              <input type="text">
+            </div>
+          </div>
+          <div class="line3" @click="loginClick">
+            {{btnText}}
+          </div>
+        </div>
+      </div>
+      <div class="right">
+      
+      </div>
+   </div>
   </div>
 </template>
 
@@ -133,6 +50,8 @@
     },
     data () {
       return {
+        inLogin: true,
+        btnText: '登录',
         loginEmail: '',
         password: '',
         emailRules: [
@@ -188,126 +107,138 @@
           }          
         })
       },
-      registerClick: function(){
-        this.$router.push({path: '/register'})
+      changeLogin: function(){
+        this.inLogin = true
+      },
+      changeRegister: function(){
+        this.inLogin = false
+        this.btnText = '注册'
       }
-    }
+    },
   }
 </script>
 <style scoped>
-  #about figure {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 15px;
+  #login .cont{
+    width: 90rem;
+    margin: 0 auto;
   }
-
-  #about figure span {
-    float: left;
-    margin-left: -15px;
-    padding: 15px 20px;
+  #login .left{
+    width: 45rem;
+    height: 51.5625rem;
+  }
+  #login .left .wrap{
+    padding: 8.6875rem 11.25rem 11.25rem;
+  }
+  #login .left .btn-wrap{
     position: relative;
-    top: 20px;
   }
-
-  #about figure span i {
-    background: #29ca8e;
-    border-radius: 50px;
-    color: #ffffff;
-    font-size: 25px;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+  #login .left .btn-wrap .lg{
+    width: 10.875rem;
+    height: 2.8125rem;
     text-align: center;
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 2.8125rem;
+    
+    position: absolute;
   }
-    .entry-form {
-    background-color: #29AB4A; /* 不支持线性的时候显示 */
-    background-image: linear-gradient(to bottom right, #29AB4A , #7EBD44);
-    border-radius: 100%;
+  #login .left .btn-wrap .rg{
+    width: 10.875rem;
+    height: 2.8125rem;
     text-align: center;
-    padding: 6em;
-    width: 450px;
-    height: 450px;
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 2.8125rem;
+
+    position: absolute;
+    left: 9.5rem;
   }
+  #login .left .btn-wrap .before{
+    z-index: 50;
 
-  .entry-form h2 {
-    color: #ffffff;
-    margin: 0;
+    background: #1A8750;
+    color: #FFFFFF;
+    border-radius: 6.625rem;
   }
+  #login .left .btn-wrap .after{
+    z-index: 5;
 
-  .entry-form input {
-    color: #ffffff;
-    margin: 0;
+    background: #E8F5EE;
+    border-radius: 0px 6.625rem 6.625rem 0px;
   }
+  #login .left .btn-wrap .after2{
+    z-index: 5;
 
-  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-  color: #ffffff;
-}
-
-  .entry-form .form-control {
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid;
-    border-radius: 0;
-    box-shadow: none;
-    height: 45px;
-    margin: 10px 0;
+    background: #E8F5EE;
+    border-radius: 6.625rem 0 0 6.625rem;
   }
-
-  .entry-form .submit-btn {
-    background: #ffffff;
-    border-radius: 50px;
-    border: 0;
-    color: #252020;
-    width: 50%;
-    height: 50px;
-    margin: 30px auto;
-    margin-bottom: 10px;
+  #login .left .line1{
+    margin-top: 6.4375rem;
   }
+  #login .left .line1 input{
+    width: 22.5rem;
+    height: 2.6875rem;
+    margin-top: 0.25rem;
+    padding: 0 1rem;
 
-  .entry-form .submit-btn:hover {
-    background: #3f51b5;
-    color: #ffffff;
+    border: 0.5px solid #2C2E30;
+    box-sizing: border-box;
+    border-radius: 0.3125rem;
   }
-
-  .entry-form .register-btn {
-    background: #ffffff;
-    border-radius: 50px;
-    border: 0;
-    color: #252020;
-    width: 50%;
-    height: 50px;
-    margin: 10px auto;
-    margin-bottom: 10px;
+  #login .left .line2{
+    margin-top: 1.25rem;
   }
+  #login .left .line2 input{
+    width: 22.5rem;
+    height: 2.6875rem;
+    margin-top: 0.25rem;
+    padding: 0 1rem;
 
-  .entry-form .register-btn:hover {
-    background: #3f51b5;
-    color: #ffffff;
+    border: 0.5px solid #2C2E30;
+    box-sizing: border-box;
+    border-radius: 0.3125rem;
   }
+  #login .left .line3{
+    margin-top: 2.1875rem;
+    background: #1A8750;
+    border-radius: 0.3125rem;
+    height: 2.8125rem;
 
-  section {
-    position: relative;
-
+    text-align: center;
+    line-height: 2.8125rem;
+    color: #FFFFFF;
+    cursor: pointer;
   }
-
-    @media only screen and (max-width: 767px) {
-      .entry-form {
-      display: block;
-      margin: 0 auto;
-    }
-    }
-
-      @media only screen and (max-width: 480px) {
-
-
-    .entry-form {
-      border-radius: 0;
-      padding: 2em;
-      max-width: 100%;
-      max-height: 100%;
-      width: inherit;
-      height: inherit;
-    }
+  #login .left .line4{
+    margin-top: 1.25rem;
   }
+  #login .left .line4 input{
+    width: 22.5rem;
+    height: 2.6875rem;
+    margin-top: 0.25rem;
+    padding: 0 1rem;
 
+    border: 0.5px solid #2C2E30;
+    box-sizing: border-box;
+    border-radius: 0.3125rem;
+  }
+  #login .left .line1, .line2, .line3, .line4{
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.5625rem;
+  }
+  #login .left .label2 .forget{
+    float: right;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  #login .right{
+    width: 45rem;
+    height: 51.5625rem;
+    background-color: #F5F0FF;
+  }
 </style>

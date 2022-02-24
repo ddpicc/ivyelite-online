@@ -201,21 +201,22 @@
         <div class="content-wrap">
           <v-item-group
             v-model="onboarding"
-            class="d-inline-flex align-center"
             mandatory
           >
-            <v-item
-              v-for="n in courseList.length"
-              :key="`btn-${n}`"
-              v-slot="{ active, toggle }"
-            >
-              <div :class="{'item-active courseTab': active, 'item-inactive courseTab': !active}" @click="toggle">
-                <div class="course-word">{{courseList[n-1]}}</div>
+            <div class="tabLine d-inline-flex align-center">
+              <v-item
+                v-for="n in courseList.length"
+                :key="`btn-${n}`"
+                v-slot="{ active, toggle }"
+              >
+                <div class="courseTab" :class="{'item-active': active, 'item-inactive': !active}" @click="toggle">
+                  <div class="course-word">{{courseList[n-1]}}</div>
+                </div>
+                
+              </v-item>
+              <div class="allCourse">
+                全部课程
               </div>
-              
-            </v-item>
-            <div class="allCourse">
-              全部课程
             </div>
           </v-item-group>
           
@@ -236,7 +237,7 @@
                   </div>
                   <div class="slogan">私人定制，出分神器</div>
                   <div class="des">往届参与学生屡出330高分，人<br>均提分20+，为冲刺名校申请保<br>驾护航。</div>
-                  <button class="btn-joinclass1">
+                  <button class="btn-joinclass1" @click="courseDetail(1)">
                     立即上课
                   </button>
                 </div>
@@ -263,7 +264,7 @@
                   </div>
                   <div class="slogan">小规模授课，大规模提分</div>
                   <div class="des">以短期提分为首要目标的学生群体，授课以科学化教<br>学、大数据筛题为内核，合理化陪伴管理为标配，高保<br>真习题反复操练，周期测试不断打磨，实现沉浸式学习<br>体验的同时，顺利达到名校申请的标化成绩。</div>
-                  <button class="btn-joinclass2">
+                  <button class="btn-joinclass2" @click="courseDetail(2)">
                     立即上课
                   </button>
                 </div>
@@ -291,7 +292,7 @@
                   </div>
                   <div class="slogan">高效提分，直击痛点</div>
                   <div class="des">开课前精准评估各知识点掌握程度，优先<br>强化训练高频薄弱知识点。往届参与学生<br>屡出720高分，人均提分40+，为冲刺名<br>校申请保驾护航。</div>
-                  <button class="btn-joinclass3">
+                  <button class="btn-joinclass3" @click="courseDetail(3)">
                     立即上课
                   </button>
                 </div>
@@ -319,7 +320,7 @@
                   </div>
                   <div class="slogan">名师讲堂，因材施教</div>
                   <div class="des">四大全科名师中文授课， 深入浅出的覆盖各<br>个考点，以通俗易懂的形式将复杂的语法，逻<br>辑，阅读等考点一一突破；以新颖、特色教学<br>风格吸引学生在线听课保持专注力。</div>
-                  <button class="btn-joinclass4">
+                  <button class="btn-joinclass4" @click="courseDetail(4)">
                     立即上课
                   </button>
                 </div>
@@ -599,20 +600,26 @@ export default {
     },
     prev () {
       this.$refs.slider.$emit('slidePre')
-
     },
     // Listener event
     slide (data) {
       this.teacherOn = data.currentPage;
     },
+    courseDetail: function(index){
+      if(index == 1 || index == 3){
+        this.$router.push({ path: '/course/explore/1v1' });
+      }else if(index == 2 || index == 4){
+        this.$router.push({ path: '/course/explore/smallclass' });
+      }
+    }
   },
 
   mounted: function(){
-    /* let timer = setInterval(() => {
+    let timer = setInterval(() => {
       this.swiperOn = this.swiperOn + 1 === 3
         ? 0
         : this.swiperOn + 1
-    },6000) */
+    },6000) 
   }
 }
 </script>
@@ -814,11 +821,17 @@ export default {
   #course .content-wrap{
     margin: 4.75rem 0 0;
   }
+  #course .content-wrap .tabLine{
+    border-bottom: 0.1875rem solid #E6E6E6;
+  }
   #course .content-wrap .courseTab{    
     padding: 0.375rem 1.6875rem 0.3125rem;
-    background: #E8F5EE;
     border-radius: 0.25rem 0.25rem 0px 0px;
     margin: 0 3.25rem 0 0; 
+  }
+  #course .content-wrap .courseTab:hover{
+    cursor: pointer;
+    background: #E8F5EE;
   }
   #course .content-wrap .item-active{
     color: #1A8750;
@@ -837,7 +850,6 @@ export default {
     font-size: 1.25rem;
     line-height: 155.2%;
 
-    text-decoration-line: underline;
     color: #9F9F9F;
   }
   #course .gre-1v1 .left{
@@ -1008,28 +1020,28 @@ export default {
     justify-content: center;
     
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 154.7%;
   }
   #course .gre-small .right .fe1{
     position: absolute;
-    top: 84px;
+    top: 5.25rem;
     left: 1rem;
   }
   #course .gre-small .right .fe2{
     position: absolute;
-    top: 138px;
-    left: 441px;
+    top: 8.625rem;
+    left: 27.5625rem;
   }
   #course .gre-small .right .fe3{
     position: absolute;
-    top: 428px;
-    left: 6px;
+    top: 26.75rem;
+    left: 0.375rem;
   }
   #course .gre-small .right .fe4{
     position: absolute;
-    top: 428px;
-    left: 477px;
+    top: 26.75rem;
+    left: 29.8125rem;
   }
 
 
@@ -1044,35 +1056,35 @@ export default {
     width: 11.25rem;
     height: 6.125rem;
     background: #FFFFFF;
-    box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.13);
-    border-radius: 6px;
+    box-shadow: 0px 0.4375rem 1rem rgba(0, 0, 0, 0.13);
+    border-radius: 0.375rem;
     display: flex;
     align-items: center;
     justify-content: center;
     
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 140.7%;
   }
   #course .gmat-1v1 .right .fe1{
     position: absolute;
-    top: 195px;
-    left: -10px;
+    top: 12.1875rem;
+    left: -0.625rem;
   }
   #course .gmat-1v1 .right .fe2{
     position: absolute;
-    top: 168px;
-    left: 535px;
+    top: 10.5rem;
+    left: 33.4375rem;
   }
   #course .gmat-1v1 .right .fe3{
     position: absolute;
-    top: 435px;
-    left: 49px;
+    top: 27.1875rem;
+    left: 3.0625rem;
   }
   #course .gmat-1v1 .right .fe4{
     position: absolute;
-    top: 399px;
-    left: 501px;
+    top: 24.9375rem;
+    left: 31.3125rem;
   }
 
 
@@ -1087,35 +1099,35 @@ export default {
     width: 19.1875rem;
     height: 6.125rem;
     background: #FFFFFF;
-    box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.13);
-    border-radius: 6px;
+    box-shadow: 0px 0.4375rem 1rem rgba(0, 0, 0, 0.13);
+    border-radius: 0.375rem;
     display: flex;
     align-items: center;
     justify-content: center;
     
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 154.7%;
   }
   #course .gmat-small .right .fe1{
     position: absolute;
-    top: 77px;
-    left: 48px;
+    top: 4.8125rem;
+    left: 3rem;
   }
   #course .gmat-small .right .fe2{
     position: absolute;
-    top: 153px;
-    left: 473px;
+    top: 9.5625rem;
+    left: 29.6875rem;
   }
   #course .gmat-small .right .fe3{
     position: absolute;
-    top: 429px;
-    left: 40px;
+    top: 26.8125rem;
+    left: 2.5rem;
   }
   #course .gmat-small .right .fe4{
     position: absolute;
-    top: 429px;
-    left: 511px;
+    top: 26.8125rem;
+    left: 31.9375rem;
   }
   /* #endregion */
 
@@ -1131,7 +1143,7 @@ export default {
   #unique .title-wrap{
     position: relative;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 155.2%;    
   }
   #unique .title-wrap .yellow-line{
@@ -1142,7 +1154,7 @@ export default {
     left: 50%;
     margin-left: -4.15625rem;
     background: #E5C12C;
-    border-radius: 39px;
+    border-radius: 2.4375rem;
   }
   #unique .headline-wrap{
     position: relative;
@@ -1162,7 +1174,7 @@ export default {
   }
   #unique .cont .left{
     font-weight: 400;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 172.7%;
     width: 33.3125rem;
     letter-spacing: 0.02em;
@@ -1174,8 +1186,8 @@ export default {
     margin: 6.25rem 0 0;
 
     background: #FFFFFF;
-    box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.13);
-    border-radius: 6px;
+    box-shadow: 0px 0.4375rem 1rem rgba(0, 0, 0, 0.13);
+    border-radius: 0.375rem;
   }
 /* #endregion */
 
@@ -1192,7 +1204,7 @@ export default {
   #media .title-wrap{
     position: relative;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 155.2%;    
   }
   #media .title-wrap .yellow-line{
@@ -1203,7 +1215,7 @@ export default {
     left: 50%;
     margin-left: -4.15625rem;
     background: #E5C12C;
-    border-radius: 39px;
+    border-radius: 2.4375rem;
   }
   #media .content-wrap{
     margin: 8.625rem 0 0;
@@ -1212,7 +1224,7 @@ export default {
     width: 15.5rem;
     height: 7.1875rem;
     background: #F8FFFB;
-    border-radius: 11px;
+    border-radius: 0.6875rem;
     margin: 0 5.375rem 4.6875rem 0;
 
     display: flex;
@@ -1235,7 +1247,7 @@ export default {
   #teacher .title-wrap{
     position: relative;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 155.2%;    
   }
   #teacher .title-wrap .yellow-line{
@@ -1246,7 +1258,7 @@ export default {
     left: 50%;
     margin-left: -4.15625rem;
     background: #E5C12C;
-    border-radius: 39px;
+    border-radius: 2.4375rem;
   }
   #teacher .content-wrap{
     margin-top: 5.9375rem;
@@ -1260,8 +1272,8 @@ export default {
     height: 25rem;
   }
   #teacher .teacher-slider .overlay{
-    width: 303px;
-    height: 303px;
+    width: 18.9375rem;
+    height: 18.9375rem;
     cursor: pointer;
   }
   #teacher .teacher-slider img{
@@ -1269,13 +1281,13 @@ export default {
     max-height: 100%;
   }
   .slider-item {
-    width: 350px;
+    width: 31.875rem;
     transform:scale(0.5);
     transition-timing-function: ease;
     transition-duration: 100ms;
   }
   .slider-item.slider-active {
-    width: 350px;
+    width: 31.875rem;
     transform:scale(1.0);
     z-index: 999;
   }
@@ -1291,22 +1303,22 @@ export default {
     cursor: pointer;
   }
   #teacher .teacher-slider .left{
-    margin: 0 0 0 84px;
+    margin: 0 0 0 5.25rem;
   }
   #teacher .teacher-slider .right{
-    margin: 0 70px 0 0;
+    margin: 0 4.375rem 0 0;
   }
   #teacher .intro-wrap{
     display: inline-block;
     border: 1px solid #E8F5EE;
     box-sizing: border-box;
     box-shadow: 0px 1px 3px #C0E1D1;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     text-align: left;
-    padding: 32px 43px 32px 64px;
+    padding: 2rem 2.6875rem 2rem 4rem;
 
     font-weight: 400;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 186.7%;
   }
   #teacher .intro-wrap li::marker{
@@ -1325,7 +1337,7 @@ export default {
   #news .title-wrap{
     position: relative;
     font-weight: 600;
-    font-size: 32px;
+    font-size: 2rem;
     line-height: 155.2%;    
   }
   #news .title-wrap .yellow-line{
@@ -1336,7 +1348,7 @@ export default {
     left: 50%;
     margin-left: -4.15625rem;
     background: #E5C12C;
-    border-radius: 39px;
+    border-radius: 2.4375rem;
   }
   #news .content-wrap{
     padding: 5.0625rem 9.0625rem 0 9.3125rem;
@@ -1348,7 +1360,7 @@ export default {
     line-height: 3.375rem;
 
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.13);
-    border-radius: 6px;
+    border-radius: 0.375rem;
   }
   #news .content-wrap .gmat{
     border: 1px solid #1A8750;
@@ -1364,14 +1376,14 @@ export default {
     height: 1.4375rem;
     background: #1A8750;
     border-radius: 1.875rem;
-    margin: 3px 0;
+    margin: 0.1875rem 0;
   }
   #news .swiper-btn-group .btn-inactive{
     width: 0.375rem;
     height: 0.375rem;
     border-radius: 1.875rem;
     background: #C4C4C4;
-    margin: 3px 0;
+    margin: 0.1875rem 0;
   }
   #news .content-wrap .news-block1{
     margin: 3.875rem 14.5625rem 0 0;
@@ -1383,15 +1395,15 @@ export default {
   }
   #news .content-wrap .wrap{
     font-weight: 500;
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 1.125rem;
+    line-height: 1.5625rem;
   }
   #news .content-wrap .wrap li{
     margin-bottom: 0.875rem;
   }
   #news .content-wrap .wrap li::marker{
     color: #1A8750;
-    size: 9px;
+    size: 0.5625rem;
   }
 /* #endregion */
 </style>
