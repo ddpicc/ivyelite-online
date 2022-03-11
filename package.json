@@ -11,6 +11,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "axios": "^0.23.0",
     "chalk": "^4.1.2",
     "commander": "^8.2.0",
@@ -36,6 +37,7 @@
     "socket.io-client": "^4.4.0",
     "stripe": "^8.191.0",
     "vue": "^2.6.11",
+    "vue-animate-onscroll": "^1.0.8",
     "vue-concise-slider": "^4.2.3",
     "vue-countup-v2": "^4.0.0",
     "vue-image-crop-upload": "^3.0.3",

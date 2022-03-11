@@ -1,2 +1,3 @@
 import './jscookie'
+import './animate'
 

@@ -1679,6 +1679,11 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.nlark.com/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+animate.css@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.nlark.com/ansi-colors/download/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
@@ -9344,6 +9349,11 @@ vm2@^3.9.3:
   version "3.9.5"
   resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.9.5.tgz#5288044860b4bbace443101fcd3bddb2a0aa2496"
   integrity sha512-LuCAHZN75H9tdrAiLFf030oW7nJV5xwNMuk1ymOZwopmuK3d2H4L1Kv4+GFHgarKiLfXXLFU+7LDABHnwOkWng==
+
+vue-animate-onscroll@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/vue-animate-onscroll/-/vue-animate-onscroll-1.0.8.tgz#7ce2570f62435031b906f38847550c4a9a3e7f50"
+  integrity sha512-uyb/lTudNmWaxT8W0UQIk75EyzX7wYM64hm7gsMCVhGICQkb5j/ynIZ/ZnSApsqvruUg4t3UxT1MUhN4sDU11Q==
 
 vue-cli-plugin-vuetify@~2.4.3:
   version "2.4.3"

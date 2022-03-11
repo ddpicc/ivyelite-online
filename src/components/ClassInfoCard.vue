@@ -117,28 +117,22 @@
       </v-card>
     </v-expand-transition>
     <v-snackbar
-			v-model="snackbar"
-			:color="snackbarColor"
-			timeout="3000"
-			top
-			dark
-		>
-			<v-icon
-				color="white"
-				class="mr-3"
-			>
-				mdi-bell-plus
-			</v-icon>
-			{{notification}}
-			<v-btn
-				icon
-				@click="snackbar = false"
-			>
-				<v-icon>
-					mdi-close-circle
-				</v-icon>
-			</v-btn>
-		</v-snackbar>
+      v-model="snackbar"
+      :color="snackbarColor"
+      multi-line="true"
+    >
+      {{ notification }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          关闭
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-card>
   </v-hover>
 </template>

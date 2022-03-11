@@ -17,8 +17,3 @@
     }
   }
 </script>
-<style scoped>
-#core {
-  padding: 8.5rem 0 0 !important;
-}
-</style>

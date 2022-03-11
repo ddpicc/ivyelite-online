@@ -25,14 +25,14 @@ exports.postSignin = async ctx => {
 	await userModel.findUserByEmail(email).then(result => {
 		let res = result;
 		if (res.length && password === res[0]['pass']) {
-			if(res[0]['is_active'] == '否'){
+			/* if(res[0]['is_active'] == '否'){
 				ctx.body = {
 					code: 400,
 					msg: '账号未激活',
 					data: res,
 				}
 				console.log('账号尚未激活')
-			}else{
+			}else{ */
 				ctx.body = {
 					code: 200,
 					msg: '登录成功',
@@ -44,7 +44,7 @@ exports.postSignin = async ctx => {
 					data: res,
 				}
 				console.log('登录成功')
-			}			
+			//}			
 		} else {
 			ctx.body = {
 				code: 500,

@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-8 py-sm-4 py-4"></div>
+				<div class="py-md-4 py-sm-4 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
@@ -89,28 +89,22 @@
 			</v-col>
 		</v-row>
 		<v-snackbar
-			v-model="snackbar"
-			:color="snackbarColor"
-			timeout="3000"
-			top
-			dark
-		>
-			<v-icon
-				color="white"
-				class="mr-3"
-			>
-				mdi-bell-plus
-			</v-icon>
-			{{notification}}
-			<v-btn
-				icon
-				@click="snackbar = false"
-			>
-				<v-icon>
-					mdi-close-circle
-				</v-icon>
-			</v-btn>
-		</v-snackbar>
+      v-model="snackbar"
+      :color="snackbarColor"
+      multi-line="true"
+    >
+      {{ notification }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          关闭
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 

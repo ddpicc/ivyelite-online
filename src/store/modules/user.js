@@ -41,6 +41,7 @@ const actions = {
 					Cookies.set('ivyelite-token', data.token);
 					Cookies.set('ivyelite-uid', data.data[0].uid);
 					commit('SET_UID', data.data[0].uid);
+					commit('SET_NAME', data.data[0].name)
 					resolve('login success');
 				}else if(data.code === 400){
 					commit('SET_UID', data.data[0].uid);

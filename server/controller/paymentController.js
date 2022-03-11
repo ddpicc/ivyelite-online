@@ -1,11 +1,18 @@
-const stripeGate = require('stripe')('sk_test_51JzuEnJ1wNWalvad4ozFFmjhAeG9a89sFDCP64okVjvtKvvfTK0cJ9R3Fe8hssqLgKVMtH1Z2okSNzK5Fd9zPYXy00yUA4rzWo');
-const endpointSecret = "whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR"
+const stripeGate = require('stripe')(process.env.VUE_APP_STRIPE_APIKEY);
+//const endpointSecret =  process.env.VUE_APP_STRIPE_WEBHOOKKEY_LOCAL
+
+const endpointSecret = process.env.VUE_APP_STRIPE_WEBHOOKKEY_PROD
+
 //"whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR";
 const relationModel = require('../model/relationModel')
 const receiptModel = require('../model/receiptModel')
 
 //create a stripe checkout session
 exports.createCheckoutSession = async ctx => {
+  //let baseurl = 'http://localhost:8080/#'
+
+  let baseurl = 'https://online.ivyelite.net/#'
+
   let { price_id, quantity,class_id,user_uid } = ctx.request.body;
   const session = await stripeGate.checkout.sessions.create({
     line_items: [
@@ -16,8 +23,8 @@ exports.createCheckoutSession = async ctx => {
       },
     ],
     mode: 'payment',
-    success_url: 'https://online.ivyelite.net/#/payment/success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'https://online.ivyelite.net/#/payment/cancel',
+    success_url: baseurl + '/course/explore/gresmallclass?session_id={CHECKOUT_SESSION_ID}',
+    cancel_url: baseurl + '/payment/cancel',
     metadata: {
       class_id: class_id,
       user_uid: user_uid
@@ -58,20 +65,15 @@ exports.paymentNotifyReceive = async ctx => {
     const user_uid = session.metadata.user_uid;
     const class_id = session.metadata.class_id;
     const amount_total = session.amount_total;
-    await relationModel.setUserClassRelation([user_uid, class_id, 1, 0]).then(res => {
-      receiptModel.createReceipt([class_id, user_uid, new Date().getTime(), amount_total ]).then(res => {
-        ctx.body = {
-          code: 200,
-          message: '成功',
-          data: res
-        }
-      }).catch(err => {
-        console.log(err)
-        ctx.body = {
-          code: 500,
-          message: '失败'
-        }
-      })
+    await relationModel.setUserClassRelation([user_uid, class_id, 1, 0])
+    await receiptModel.createReceipt([class_id, user_uid, new Date().getTime(), amount_total ]).then(res => {
+      console.log('payment success')
+      ctx.status = 200
+      ctx.body = {
+        code: 200,
+        message: '成功',
+        data: res
+      }
     }).catch(err => {
       console.log(err)
       ctx.body = {

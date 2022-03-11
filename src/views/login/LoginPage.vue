@@ -10,32 +10,49 @@
           <div class="line1">
             <div class="label1">
               <div>邮箱<span style="color: red">*</span></div>
-              <input type="text" v-model="loginEmail">
-            </div>
-          </div>
-          <div class="line2">
-            <div class="label2">
-              <div>密码<span style="color: red">*</span><div class="forget">忘记密码?</div></div>
-              
-              <input type="text" v-model="password">
+              <input type="text" v-model="loginEmail" @focus="focus($event)">
             </div>
           </div>
           <div v-if="!inLogin" class="line4">
             <div class="label4">
               <div>姓名<span style="color: red">*</span></div>
               
-              <input type="text">
+              <input type="text" v-model="name" @focus="focus($event)" @blur="validateAlias(name)">
             </div>
           </div>
-          <div class="line3" @click="loginClick">
+          <div class="line2">
+            <div class="label2">
+              <div>密码<span style="color: red">*</span><div class="forget">忘记密码?</div></div>
+              
+              <input type="password" v-model="password" @keyup.enter="btnClick">
+            </div>
+          </div>
+          <div class="line3" @click="btnClick">
             {{btnText}}
           </div>
         </div>
       </div>
       <div class="right">
-      
+
       </div>
-   </div>
+    </div>
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      multi-line="true"
+    >
+      {{ notification }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          关闭
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -43,6 +60,8 @@
   let redirectUrl
   const whiteList = ['/login','/register']
   import userApi from '../../api/userApi'
+  import {randChar} from '../../plugins/helpFunc'
+  import md5 from 'md5'
   export default {
     beforeRouteEnter(to, from, next) {
       redirectUrl = from.fullPath;
@@ -54,10 +73,10 @@
         btnText: '登录',
         loginEmail: '',
         password: '',
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          //v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-        ],
+        name: '',
+        nameValid: false,
+        nameNotify: '',
+        emailValid: null,
 
         snackbar: false,
         snackbarColor: '',
@@ -66,6 +85,16 @@
     },
 
     methods: {
+      focus(event) {
+        event.currentTarget.select();
+			},
+      btnClick: function(){
+        if(this.inLogin){
+          this.loginClick()
+        }else{
+          this.registerClick()
+        }
+      },
       loginClick: function(){
         this.$store.dispatch('user/LoginByEmail', {
           email: this.loginEmail,
@@ -81,6 +110,11 @@
             }
             this.$router.push({ path: url });
           }else if(res == 'account not active'){
+            this.snackbar = true;
+            this.notification = '账号未激活，请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
+            this.snackbarColor = 'green';
+            setTimeout( () => {this.$router.push({path: '/login'});}, 2000);
+
             let uid = this.$store.state.user.uid;
             let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
                                   <a href='https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}'>
@@ -89,12 +123,7 @@
                                   <div>若链接点击无效，请复制链接到浏览器地址栏中打开。</div>
                                   <div>若您未申请注册常青藤在线教育账号，请忽略此邮件。</div>`
             userApi.sendActivateEmail(this.loginEmail, content).then(res => {
-              if (res.data.code === 200) { 
-                this.snackbar = true;
-                this.notification = '账号未激活，请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
-                this.snackbarColor = 'green';
-                setTimeout( () => {this.$router.push({path: '/login'});}, 2000);
-              }else{
+              if (res.data.code != 200) {
                 this.snackbar = true;
                 this.notification = '邮件发送失败，您可以尝试登录账号，或者联系管理员';
                 this.snackbarColor = 'red';
@@ -109,11 +138,103 @@
       },
       changeLogin: function(){
         this.inLogin = true
+        this.btnText = '登录'
+        this.password = ''
       },
       changeRegister: function(){
         this.inLogin = false
         this.btnText = '注册'
-      }
+        this.password = ''
+        this.name = ''
+      },
+      validateAlias: function(name) {
+        if(name.trim() == ''){
+          return;
+        }
+        userApi.findDataCountByName(name).then( (res) => {
+          if (res.data.code === 200) {
+            if(res.data.data[0].count != 0){
+              this.nameValid = false;
+              this.nameNotify = '该名字已被占用'
+            }else{
+              this.nameValid = true;
+            }
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
+      },
+      
+      registerClick: async function(){        
+          //看是不是8位数
+          let uid = await this.getUseableUid();
+          let md5Pass = md5(this.password);
+          userApi.findCountByEmail(this.loginEmail).then( (res) => {
+            if (res.data.code === 200) {
+              if(res.data.data[0].count === 0){
+                userApi.insertUser(this.name, this.loginEmail, md5Pass, uid, new Date().getTime()).then(res => {
+                  if (res.data.code === 200) {
+                    this.snackbar = true;
+                    this.notification = '注册成功';  //,正在发送激活邮件到您的邮箱
+                    this.snackbarColor = 'green';
+                    this.password = ''
+                    this.name = ''
+                    /* let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
+                                  <a href='https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}'>
+                                    https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}
+                                  </a><br><br>
+                                  <div>若链接点击无效，请复制链接到浏览器地址栏中打开。</div>
+                                  <div>若您未申请注册常青藤在线教育账号，请忽略此邮件。</div>`
+                    userApi.sendActivateEmail(this.loginEmail, content).then(res => {
+                      if (res.data.code === 200) { 
+                        this.snackbar = true;
+                        this.notification = '请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
+                        this.snackbarColor = 'green';
+                        setTimeout( () => {this.$router.push({path: '/login'});}, 2000); 
+                      }else{
+                        this.snackbar = true;
+                        this.notification = '邮件发送失败，您可以尝试登录账号，或者联系管理员';
+                        this.snackbarColor = 'red';
+                      }
+                    }) */                   
+                  }else{
+                    this.snackbar = true;
+                    this.notification = '发生错误，请重试或联系管理员';
+                    this.snackbarColor = 'red';
+                  }
+                })
+              }else{
+                this.snackbar = true;
+                this.notification = '这个邮箱已被注册，请直接登录';
+                this.snackbarColor = 'red';
+              }
+            }else{
+              this.snackbar = true;
+              this.notification = '发生错误，请重试或联系管理员';
+              this.snackbarColor = 'red';
+            }          
+          })
+        
+      },
+
+      getUseableUid: function(){
+        var uid = randChar(8,'0123456789');
+        return new Promise(( resolve, reject) => {
+          userApi.findDataCountByUid(uid).then(res => {
+            if (res.data.code === 200) {
+              if(res.data.data[0].count === 0){
+                resolve(uid);
+              }else{
+                this.getUseableUid();
+              }
+            }else{
+              reject('发生错误，请重试或联系管理员');
+            }
+				  })
+        })
+      },
     },
   }
 </script>
@@ -124,7 +245,7 @@
   }
   #login .left{
     width: 45rem;
-    height: 51.5625rem;
+    height: calc(100vh - 8.5rem);
   }
   #login .left .wrap{
     padding: 8.6875rem 11.25rem 11.25rem;
@@ -235,10 +356,12 @@
     float: right;
     font-size: 0.875rem;
     line-height: 1.25rem;
+    cursor: pointer;
   }
   #login .right{
     width: 45rem;
-    height: 51.5625rem;
-    background-color: #F5F0FF;
+    height: calc(100vh - 8.5rem);
+    background: url("../../assets/login_banner.jpg") no-repeat top; 
+    background-size: cover;
   }
 </style>

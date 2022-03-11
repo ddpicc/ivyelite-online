@@ -29,11 +29,12 @@ export const constantRouterMap = [
     children: [
       {path: '/', name: '首页', component: () => import('../views/HomePage.vue')},
       {path: '/login', name: '登录', component: () => import('../views/login/LoginPage.vue')},
-      {path: '/register', name: '注册', component: () => import('../views/login/RegisterPage.vue')},
       {path: '/active', name: '激活账号', component: () => import('../views/login/Active.vue')},
       {path: '/course/all', name: '全部课程', component: () => import('../views/Course/CourseAllPage.vue')},
-      {path: '/course/explore/1v1', name: '私教冲刺班', component: () => import('../views/Course/Course1v1.vue')},
-      {path: '/course/explore/smallclass', name: '全程提分班', component: () => import('../views/Course/CourseSmallClass.vue')},
+      {path: '/course/explore/gre1v1', name: 'Gre私教班', component: () => import('../views/Course/Gre1v1.vue')},
+      {path: '/course/explore/gmat1v1', name: 'Gmat私教班', component: () => import('../views/Course/Gmat1v1.vue')},
+      {path: '/course/explore/gresmallclass', name: 'Gre全程提分班', component: () => import('../views/Course/GreSmallClass.vue')},
+      {path: '/course/explore/gmatsmallclass', name: 'Gmat全程提分班', component: () => import('../views/Course/GmatSmallClass.vue')},
     ]
   }
 ]
@@ -72,7 +73,6 @@ export const asyncRouterMap = [
       {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
 
       {path: '/payment/checkout', name: 'Checkout', component: () => import('../views/Payment/checkout.vue')},
-      {path: '/payment/success', name: '支付成功', component: () => import('../views/Payment/success.vue')},
       {path: '/payment/cancel', name: '支付取消', component: () => import('../views/Payment/cancel.vue')},
 
       {path: '/admin/allusers', name: '所有用户', component: () => import('../views/Admin/AllUser.vue'), meta: {roles: ['admin'] }},

@@ -35,9 +35,7 @@ let classes =
 	`create table if not exists classes(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(20) NOT NULL COMMENT '课堂名称',
-		cover_url TEXT COMMENT '封面图片',
-		classCount VARCHAR(50) COMMENT '课时',
-		description TEXT COMMENT '详细描述',
+		classCount VARCHAR(50) COMMENT '班级人数',
 		time_arrange TEXT COMMENT '上课时间',
 		status VARCHAR(20) NOT NULL COMMENT '状态',
 		course_id INT UNSIGNED NOT NULL,
