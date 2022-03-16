@@ -91,7 +91,7 @@
 		<v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
@@ -174,7 +174,8 @@
 							classRoomApi.searchRoomByCourseId(element.id,'进行中').then( (res) => {
 								if (res.data.code === 200) {
 									if(res.data.data.length > 0){     //有对应的房间
-										element.classBegin = true;
+										//element.classBegin = true;
+										this.$set(element,'classBegin',true)
 									}
 								}
 							})

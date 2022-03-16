@@ -1,13 +1,13 @@
 <template>
-  <v-container fluid >
+  <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
-			<v-col cols="10">
-				<div class="py-md-12 py-sm-8 py-8"></div>
+			<v-col cols="12">
+				<div class="py-md-4 py-sm-4 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
 					</v-col>
-          <v-col cols="9">
+					<v-col cols="9">
             <v-card>
               <v-card-text>
                 <v-row>
@@ -18,7 +18,7 @@
                       <input type="text" v-model="demoCourseTitle" @focus="focus($event)">
                     </div>
                     <div class="d-flex align-center">
-                      <div>简介</div>
+                      <div>备注</div>
                       <input type="text" v-model="demoSummary" @focus="focus($event)">
                     </div>
                     <v-divider></v-divider>
@@ -28,12 +28,6 @@
                       <div>时间</div>
                       <input type="text" v-model="demoCourseTitle" @focus="focus($event)">
                     </div>
-
-                    <div class="d-flex align-center">
-                      <div>日期</div>
-                      <input type="text" v-model="demoCourseTitle" @focus="focus($event)">
-                    </div>
-
                   </v-col>
                   <v-divider
                     vertical
@@ -49,6 +43,12 @@
                       <v-expansion-panel>
                         <v-expansion-panel-header>课程状态</v-expansion-panel-header>
                         <v-expansion-panel-content>
+                          <v-select
+                            solo
+                            dense
+                            v-model="classType"
+                            :items="classTypeList"
+                          ></v-select>
                           <v-select
                             solo
                             dense
@@ -89,6 +89,8 @@
       demoTimeSchedule: '<p>11/17/2021  06:00 pm</p><p>11/23/2021  05:00 pm</p>',
       courseId: null,
       editBtnTitle: '编辑',
+      classTypeList: ['GRE 1V1','GMAT 1V1'],
+      classType: 'GRE 1V1',
       courseStatus: '即将开课',
       statusList: ['即将开课','正在上课','已结课'],
       
@@ -158,5 +160,6 @@
     border: 0.5px solid #2C2E30;
     box-sizing: border-box;
     border-radius: 0.2rem;
+    flex: 1 0 auto;
   }    
 </style>

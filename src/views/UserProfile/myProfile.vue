@@ -159,7 +159,7 @@
 		<v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
