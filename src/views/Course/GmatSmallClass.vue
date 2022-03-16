@@ -74,7 +74,7 @@
             </div>
             <div class="card-action">
               <div class="money">
-                ¥230
+                ¥799
               </div>
               <button class="signup-button hvr-grow" @click="signupBtnClick()">
                 立即报名

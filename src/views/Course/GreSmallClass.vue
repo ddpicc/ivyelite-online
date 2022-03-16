@@ -58,14 +58,14 @@
                       <img class="people-icon" src="../../assets/icon/people.png"/>
                       {{oneClass.classCount}}
                       <img class="clock-icon" src="../../assets/icon/clock.png"/>
-                      2:00 pm - 4:00 pm
+                      {{oneClass.time_range}}
                     </div>
                     <div class="line2">
                       <div class="people">
                         班级人数
                       </div>
                       <div class="clock">
-                        时间段
+                        {{oneClass.date_range}}
                       </div>
                     </div>
                   </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="card-action">
               <div class="money">
-                ¥230
+                ¥799
               </div>
               <button class="signup-button hvr-grow" @click="signupBtnClick()">
                 立即报名

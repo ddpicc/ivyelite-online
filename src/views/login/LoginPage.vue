@@ -9,22 +9,26 @@
           </div>
           <div class="line1">
             <div class="label1">
-              <div>邮箱<span style="color: red">*</span></div>
-              <input type="text" v-model="loginEmail" @focus="focus($event)">
+              <div>邮箱<span style="color: red">*</span><div v-if="!inLogin && emailValid == false" class="email-msg">请输入合法的邮箱</div></div>
+              <input type="text" v-model="loginEmail" @focus="focus($event)" @blur="checkEmail(loginEmail)">
             </div>
           </div>
           <div v-if="!inLogin" class="line4">
             <div class="label4">
-              <div>姓名<span style="color: red">*</span></div>
+              <div>姓名<span style="color: red">*</span><div v-if="!inLogin && nameValid == false" class="email-msg">该名字已被占用</div></div>
               
               <input type="text" v-model="name" @focus="focus($event)" @blur="validateAlias(name)">
             </div>
           </div>
           <div class="line2">
             <div class="label2">
-              <div>密码<span style="color: red">*</span><div class="forget">忘记密码?</div></div>
-              
-              <input type="password" v-model="password" @keyup.enter="btnClick">
+              <div>
+                密码
+                <span style="color: red">*</span>
+                <div v-if="inLogin" class="forget">忘记密码?</div>
+                <div v-if="!inLogin && passValid == false" class="email-msg">至少包含一个大写字母，一个小写字母，一个数字</div>
+              </div>              
+              <input type="password" v-model="password" @keyup.enter="btnClick()" @blur="checkPass(password)">
             </div>
           </div>
           <div class="line3" @click="btnClick">
@@ -74,9 +78,9 @@
         loginEmail: '',
         password: '',
         name: '',
-        nameValid: false,
-        nameNotify: '',
+        nameValid: null,
         emailValid: null,
+        passValid: null,
 
         snackbar: false,
         snackbarColor: '',
@@ -106,7 +110,10 @@
             this.snackbarColor = 'green';
             let url = whiteList.indexOf(redirectUrl) === -1? redirectUrl : '/';
             if(redirectUrl.indexOf('active')){
-              url = '/myclass'
+              url = '/myprofile/profile'
+            }
+            if(redirectUrl.indexOf('login')){
+              url = '/myprofile/profile'
             }
             this.$router.push({ path: url });
           }else if(res == 'account not active'){
@@ -147,6 +154,34 @@
         this.password = ''
         this.name = ''
       },
+      checkEmail: function(loginEmail){
+        if(this.inLogin)
+          return
+        if(loginEmail != ''){
+          let isemail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(loginEmail)
+          if(isemail){
+            this.emailValid = true
+          }else{
+            this.emailValid = false
+          }          
+        }else{
+          this.emailValid = false
+        }
+      },
+      checkPass: function(password){
+        if(this.inLogin)
+          return
+        if(password != ''){
+          let ispassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{6,16}$/.test(password)
+          if(ispassword){
+            this.passValid = true
+          }else{
+            this.passValid = false
+          }
+        }else{  
+          this.passValid = false;
+        }
+      },
       validateAlias: function(name) {
         if(name.trim() == ''){
           return;
@@ -155,7 +190,6 @@
           if (res.data.code === 200) {
             if(res.data.data[0].count != 0){
               this.nameValid = false;
-              this.nameNotify = '该名字已被占用'
             }else{
               this.nameValid = true;
             }
@@ -167,55 +201,57 @@
         })
       },
       
-      registerClick: async function(){        
-          //看是不是8位数
-          let uid = await this.getUseableUid();
-          let md5Pass = md5(this.password);
-          userApi.findCountByEmail(this.loginEmail).then( (res) => {
-            if (res.data.code === 200) {
-              if(res.data.data[0].count === 0){
-                userApi.insertUser(this.name, this.loginEmail, md5Pass, uid, new Date().getTime()).then(res => {
-                  if (res.data.code === 200) {
-                    this.snackbar = true;
-                    this.notification = '注册成功';  //,正在发送激活邮件到您的邮箱
-                    this.snackbarColor = 'green';
-                    this.password = ''
-                    this.name = ''
-                    /* let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
-                                  <a href='https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}'>
-                                    https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}
-                                  </a><br><br>
-                                  <div>若链接点击无效，请复制链接到浏览器地址栏中打开。</div>
-                                  <div>若您未申请注册常青藤在线教育账号，请忽略此邮件。</div>`
-                    userApi.sendActivateEmail(this.loginEmail, content).then(res => {
-                      if (res.data.code === 200) { 
-                        this.snackbar = true;
-                        this.notification = '请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
-                        this.snackbarColor = 'green';
-                        setTimeout( () => {this.$router.push({path: '/login'});}, 2000); 
-                      }else{
-                        this.snackbar = true;
-                        this.notification = '邮件发送失败，您可以尝试登录账号，或者联系管理员';
-                        this.snackbarColor = 'red';
-                      }
-                    }) */                   
-                  }else{
-                    this.snackbar = true;
-                    this.notification = '发生错误，请重试或联系管理员';
-                    this.snackbarColor = 'red';
-                  }
-                })
-              }else{
-                this.snackbar = true;
-                this.notification = '这个邮箱已被注册，请直接登录';
-                this.snackbarColor = 'red';
-              }
+      registerClick: async function(){
+        if(!this.emailValid || !this.passValid || !this.nameValid){
+          return
+        }        
+        let uid = await this.getUseableUid();
+        let md5Pass = md5(this.password);
+        userApi.findCountByEmail(this.loginEmail).then( (res) => {
+          if (res.data.code === 200) {
+            if(res.data.data[0].count === 0){
+              userApi.insertUser(this.name, this.loginEmail, md5Pass, uid, new Date().getTime()).then(res => {
+                if (res.data.code === 200) {
+                  this.snackbar = true;
+                  this.notification = '注册成功';  //,正在发送激活邮件到您的邮箱
+                  this.snackbarColor = 'green';
+                  this.password = ''
+                  this.name = ''
+                  /* let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
+                                <a href='https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}'>
+                                  https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}
+                                </a><br><br>
+                                <div>若链接点击无效，请复制链接到浏览器地址栏中打开。</div>
+                                <div>若您未申请注册常青藤在线教育账号，请忽略此邮件。</div>`
+                  userApi.sendActivateEmail(this.loginEmail, content).then(res => {
+                    if (res.data.code === 200) { 
+                      this.snackbar = true;
+                      this.notification = '请前往邮箱激活账号。如果未收到邮件，请先检查垃圾箱再联系管理员';
+                      this.snackbarColor = 'green';
+                      setTimeout( () => {this.$router.push({path: '/login'});}, 2000); 
+                    }else{
+                      this.snackbar = true;
+                      this.notification = '邮件发送失败，您可以尝试登录账号，或者联系管理员';
+                      this.snackbarColor = 'red';
+                    }
+                  }) */                   
+                }else{
+                  this.snackbar = true;
+                  this.notification = '发生错误，请重试或联系管理员';
+                  this.snackbarColor = 'red';
+                }
+              })
             }else{
               this.snackbar = true;
-              this.notification = '发生错误，请重试或联系管理员';
+              this.notification = '这个邮箱已被注册，请直接登录';
               this.snackbarColor = 'red';
-            }          
-          })
+            }
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }          
+        })
         
       },
 
@@ -309,6 +345,11 @@
     border: 0.5px solid #2C2E30;
     box-sizing: border-box;
     border-radius: 0.3125rem;
+  }
+  #login .left .email-msg{
+    font-size: 0.8rem;
+    color: red;
+    float: right;
   }
   #login .left .line2{
     margin-top: 1.25rem;

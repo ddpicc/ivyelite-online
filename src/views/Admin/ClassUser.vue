@@ -59,6 +59,7 @@
                     <v-btn
                       icon
                       color="pink"
+                      @click="deleteRelation(item)"
                     >
                       <v-icon>mdi-close</v-icon>
                     </v-btn>
@@ -175,7 +176,7 @@
     <v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
@@ -223,17 +224,17 @@
       findAllUsersNotInClass: function(){
 				relationApi.findAllUsersNotInClass(this.class_id).then( (res) => {
           if (res.data.code === 200) {
-						this.otherUsers = res.data.data;
+						this.otherUsers = res.data.data
 						this.otherTeachers = this.otherUsers.filter(item => {
-              return item.roles == 'teacher';
+              return item.roles == 'teacher'
             })
             this.otherStudents = this.otherUsers.filter(item => {
-              return item.roles == 'student';
+              return item.roles == 'student'
             })
 					}else{
-						this.snackbar = true;
-						this.notification = '发生错误，请重试或联系管理员';
-						this.snackbarColor = 'red';
+						this.snackbar = true
+						this.notification = '发生错误，请重试或联系管理员'
+						this.snackbarColor = 'red'
 					}
         })
 			},
@@ -242,15 +243,15 @@
           if (res.data.code === 200) {            
             this.users = res.data.data
             this.teachers = this.users.filter(item => {
-              return item.isTeacher == 1;
+              return item.isTeacher == 1
             })
             this.students = this.users.filter(item => {
-              return item.isStudent == 1;
+              return item.isStudent == 1
             })
           }else{
-            this.snackbar = true;
-            this.notification = '发生错误，请重试或联系管理员';
-            this.snackbarColor = 'red';
+            this.snackbar = true
+            this.notification = '发生错误，请重试或联系管理员'
+            this.snackbarColor = 'red'
           }
         })
       },
@@ -259,10 +260,14 @@
           if (res.data.code === 200) {            
             this.getClassUsers()
             this.addTeacherDialog = false
+            this.teacher = ''
+            this.snackbar = true
+            this.notification = '添加成功'
+            this.snackbarColor = 'green'
           }else{
-            this.snackbar = true;
-            this.notification = '发生错误，请重试或联系管理员';
-            this.snackbarColor = 'red';
+            this.snackbar = true
+            this.notification = '发生错误，请重试或联系管理员'
+            this.snackbarColor = 'red'
           }
         })
       },
@@ -270,11 +275,15 @@
         relationApi.setUserClassRelation(this.student, this.class_id, 1, 0).then(res => {
           if (res.data.code === 200) {            
             this.getClassUsers()
+            this.student = ''
             this.addStudentDialog = false
+            this.snackbar = true
+            this.notification = '添加成功'
+            this.snackbarColor = 'green'
           }else{
-            this.snackbar = true;
-            this.notification = '发生错误，请重试或联系管理员';
-            this.snackbarColor = 'red';
+            this.snackbar = true
+            this.notification = '发生错误，请重试或联系管理员'
+            this.snackbarColor = 'red'
           }
         })
       },
@@ -283,9 +292,9 @@
           if (res.data.code === 200) {            
             this.getClassUsers()
           }else{
-            this.snackbar = true;
-            this.notification = '发生错误，请重试或联系管理员';
-            this.snackbarColor = 'red';
+            this.snackbar = true
+            this.notification = '发生错误，请重试或联系管理员'
+            this.snackbarColor = 'red'
           }
         })
       }

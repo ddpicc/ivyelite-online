@@ -26,7 +26,6 @@ let courses =
 		banner_url TEXT COMMENT '封面图片',
 		summary VARCHAR(50) COMMENT '简介',
 		description TEXT COMMENT '详细描述',
-		type VARCHAR(20) NOT NULL COMMENT '类型',
 		PRIMARY KEY ( id )
 	);`
 
@@ -35,8 +34,9 @@ let classes =
 	`create table if not exists classes(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(20) NOT NULL COMMENT '课堂名称',
-		classCount VARCHAR(50) COMMENT '班级人数',
-		time_arrange TEXT COMMENT '上课时间',
+		available_seat INT UNSIGNED COMMENT '班级人数',
+		date_range VARCHAR(20) COMMENT '日期安排',
+		time_range VARCHAR(20) COMMENT '时间安排',
 		status VARCHAR(20) NOT NULL COMMENT '状态',
 		course_id INT UNSIGNED NOT NULL,
 		comment TEXT COMMENT '备注',
@@ -80,13 +80,15 @@ let user_class =
 		PRIMARY KEY ( id )
 	);`
 
-	let user_comment =
-	`create table if not exists user_comment(
+	let order_info =
+	`create table if not exists order_info(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_name VARCHAR(20),
-		comment TEXT COMMENT '封面图片',
-		course_id INT UNSIGNED NOT NULL,
+		wechat TEXT COMMENT '微信号',
+		user_emal VARCHAR(50) NOT NULL COMMENT '邮箱',
+		class_id INT UNSIGNED NOT NULL,
+		user_uid INT UNSIGNED NOT NULL,
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users,courses,classes,user_class,room,receipt,user_comment]
+module.exports = [users,courses,classes,user_class,room,receipt,order_info]

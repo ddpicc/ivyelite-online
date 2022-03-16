@@ -9,19 +9,21 @@
           <v-sheet
             height="36.75rem"
             tile
-            class="swiper pic1"
+            class="swiper"
             color="#E8F5EE"
           >
-            <div class="swiper-inner">
-              <div class="banner-title1">
-                双G保分班，助你申请扶摇直上！
+            <div class="pic1">
+              <div class="swiper-inner">
+                <div class="banner-title1">
+                  双G保分班，助你申请扶摇直上！
+                </div>
+                <div class="banner-title2">
+                  双G保分班，助你申请扶摇直上！
+                </div>
+                <button class="action-button btn hvr-grow" @click="scrolltocourse()">
+                  立即上课
+                </button>
               </div>
-              <div class="banner-title2">
-                双G保分班，助你申请扶摇直上！
-              </div>
-              <button class="action-button btn hvr-grow" @click="scrolltocourse()">
-                立即上课
-              </button>
             </div>
           </v-sheet>
         </v-window-item>
@@ -62,10 +64,16 @@
             <div class="pic3">
               <div class="swiper-inner">
                 <div class="banner-title1 title-size3">
-                  学员<span style="color: #1A8750;">100%</span>提分，
+                  学员100%提分，
                 </div>
                 <div class="banner-title2 title-size3">
-                  平均涨幅高达<span style="color: #1A8750;">18</span>分！
+                  平均涨幅高达18分！
+                </div>
+                <div class="banner-title3 title-size3">
+                  100%
+                </div>
+                <div class="banner-title4 title-size3">
+                  18
                 </div>
                 <button class="action-button btn hvr-grow" @click="scrolltocourse()">
                   立即上课
@@ -794,14 +802,14 @@ export default {
   },
 
   mounted: function(){
-    let timer = setInterval(() => {
+    /* let timer = setInterval(() => {
       this.swiperOn = this.swiperOn + 1 === 3
         ? 0
         : this.swiperOn + 1;
       this.studentOn = this.studentOn + 1 === 2
         ? 0
         : this.studentOn + 1
-    },6000)
+    },6000) */
     
   }
 }
@@ -834,13 +842,9 @@ export default {
     line-height: 140%;
   }
   /* #region banner css */
-  #banner .swiper{
-    position: relative;
-  }
   #banner .swiper .swiper-inner{
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column;    
   }
   #banner .action-button{
     width: 16.4375rem;
@@ -859,6 +863,11 @@ export default {
   #banner .pic1{
     background: url("../assets/Banner_1.jpg") no-repeat center; 
     background-size:contain;
+    height: 36.75rem;
+    width: 90rem;
+    margin: 0 auto;
+
+    position: relative;
   }
   #banner .pic1 .banner-title1{
     font-weight: 600;
@@ -888,6 +897,12 @@ export default {
     height: 36.75rem;
     background: url("../assets/Banner_2.jpg") no-repeat center; 
     background-size:contain;
+
+    height: 36.75rem;
+    width: 90rem;
+    margin: 0 auto;
+
+    position: relative;
   }
   #banner .pic2 .swiper-inner{
     align-items: flex-start;
@@ -926,6 +941,12 @@ export default {
     height: 36.75rem;
     background: url("../assets/Banner3背景.png") no-repeat center; 
     background-size: contain;
+
+    height: 36.75rem;
+    width: 90rem;
+    margin: 0 auto;
+
+    position: relative;
   }
   #banner .pic3 .swiper-inner{
     align-items: flex-start;
@@ -941,6 +962,20 @@ export default {
   }
   #banner .pic3 .banner-title2{
     margin-left:44.125rem;
+  }
+  #banner .pic3 .banner-title3{
+    position: absolute;
+    top: 5.375rem;
+    left: 52.8125rem;
+
+    color: #1A8750;
+  }
+  #banner .pic3 .banner-title4{
+    position: absolute;
+    top: 12.875rem;
+    left: 70.3125rem;
+
+    color: #1A8750;
   }
   #banner .pic3 .btn{
     margin: 3.125rem 0 0 58.5625rem;

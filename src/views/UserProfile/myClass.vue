@@ -21,7 +21,7 @@
 											color="#1F7087"
 											class="mt-2"
 											dark
-											v-for="(item, i) in searching"
+											v-for="(item, i) in classesList"
 											:key="i"
 										>
 											<v-banner
@@ -114,7 +114,7 @@
 	import classRoomApi from '../../api/classRoomApi'
   export default {
     data: () => ({
-			coursesList: [],
+			classesList: [],
 			tab: null,
 			theClass: null,
 			snackbar: false,
@@ -169,8 +169,8 @@
       getUserCourses: function(){
 				relationApi.findClasseseByUser(this.$store.state.user.uid).then( (res) => {
           if (res.data.code === 200) {
-            this.coursesList = res.data.data;
-						for(let element of this.coursesList){
+            this.classesList = res.data.data;
+						for(let element of this.classesList){
 							classRoomApi.searchRoomByCourseId(element.id,'进行中').then( (res) => {
 								if (res.data.code === 200) {
 									if(res.data.data.length > 0){     //有对应的房间
@@ -187,20 +187,6 @@
           }
         })
 			},
-		},
-
-		computed: {
-      searching () {
-        return this.coursesList
-
-        /* const search = this.search.toLowerCase()
-
-        return this.items.filter(item => {
-          const text = item.title.toLowerCase()
-
-          return text.indexOf(search) > -1
-        }) */
-      },
     },
 
 		mounted: function(){

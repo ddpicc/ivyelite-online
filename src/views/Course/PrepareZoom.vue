@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-8"></div>
+				<div class="py-md-4 py-sm-4 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
@@ -46,28 +46,36 @@
 								<v-subheader>设置</v-subheader>
 								<v-list-item>
 									<v-list-item-content>
-										<v-list-item-title>课堂名称 : {{classSubject}}</v-list-item-title>
-										
+										<v-list-item-title v-if="!editSubject">课堂名称 : {{classSubject}}</v-list-item-title>
+										<v-text-field v-else dense v-model="classSubject"></v-text-field>
 									</v-list-item-content>
 									<v-list-item-icon>
-										<v-btn text>
-											编辑
+										<v-btn text @click="editBtnClick()">
+											{{btnText}}
 										</v-btn>
 									</v-list-item-icon>
 								</v-list-item>
 
-								<v-list-item
-									v-for="chat in recent"
-									:key="chat.title"
-								>
+								<v-list-item>
 									<v-list-item-content>
-										<v-list-item-title v-text="chat.title"></v-list-item-title>
+										<v-list-item-title>进入房间时将麦克风开启</v-list-item-title>
 									</v-list-item-content>
-
 									<v-list-item-icon>
 										<v-switch
 											inset
-											v-model="switch1"
+											v-model="ismic_open"
+										></v-switch>
+									</v-list-item-icon>
+								</v-list-item>
+
+								<v-list-item>
+									<v-list-item-content>
+										<v-list-item-title>进入房间时将摄像头开启</v-list-item-title>
+									</v-list-item-content>
+									<v-list-item-icon>
+										<v-switch
+											inset
+											v-model="iscamera_open"
 										></v-switch>
 									</v-list-item-icon>
 								</v-list-item>
@@ -83,7 +91,7 @@
 		<v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
@@ -107,20 +115,15 @@
 		data: () => ({
 			classTitle: '',
 			class_id: null,
-			switch1: true,
-			recent: [
-				{
-					title: '进入房间时将麦克风开启',
-				},
-				{
-					title: '进入房间时将摄像头开启',
-				},
-				{
-					title: '开启笔锋',
-				},				
-			],
 			theClass: null,
 			classSubject: '',
+			editSubject: false,
+			btnText: '编辑',
+
+			ismic_open: true,
+			iscamera_open: true,
+
+
 			snackbar: false,
       snackbarColor: '',
       notification: '',
@@ -131,6 +134,15 @@
 		},
 
 		methods: {
+			editBtnClick: function(){
+				if(this.editSubject == false){
+					this.editSubject = true
+					this.btnText = '保存'
+				}else{
+					this.editSubject = false
+					this.btnText = '编辑'
+				}				
+			},
 			createClass: async function(){
 				//check if there is already one class and it is not closed
 				//only one class for the course at the save time
@@ -220,8 +232,8 @@
 					room_id: room_id,
 					role: 1,
 					begin_timestamp: begin_timestamp,
-					mic: true,
-					camera: true,
+					mic: this.ismic_open,
+					camera: this.iscamera_open,
 					isEndRoomButtonHidden: false,
 					isMemberCountHidden: false,
 					isMemberEquipmentInspectionHidden: false,

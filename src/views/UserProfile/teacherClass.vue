@@ -78,6 +78,23 @@
 				</v-row>
 			</v-col>
 		</v-row>
+		<v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      multi-line="true"
+    >
+      {{ notification }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          关闭
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -89,6 +106,9 @@
 			coursesList: [],
 
 			tab: null,
+			snackbar: false,
+      snackbarColor: '',
+      notification: '',
 		}),
 
 		components: {

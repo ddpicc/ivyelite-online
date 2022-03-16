@@ -47,7 +47,8 @@
         </div>
         <div class="dropdown-content">
           <a href="/#/myprofile/profile">个人资料</a>
-          <a href="/#/myprofile/class">我的课程</a>
+          <a v-if="$store.state.user.roles == 'student'" href="/#/myprofile/class">我的课程</a>
+          <a v-if="$store.state.user.roles == 'teacher'" href="/#/myprofile/teacherclass">我的课堂</a>
           <a @click="logout()">退出</a>
         </div>
       </div>

@@ -2,7 +2,7 @@
   <v-container fluid style="max-width: 1280px">
 		<v-row justify="center">
 			<v-col cols="12">
-				<div class="py-md-12 py-sm-8 py-8"></div>
+				<div class="py-md-4 py-sm-4 py-4"></div>
 				<v-row justify="center">
 					<v-col cols="3">
 						<profile-left></profile-left>
@@ -48,88 +48,27 @@
 
               </v-list>
             </v-card>
-            <div class="py-4"></div>
-            <v-card
-              class="mx-auto"
-              v-if="this.$store.state.user.roles == 'teacher'"
-            >
-              <v-timeline
-                dense
-                clipped
-              >
-                <v-timeline-item
-                  fill-dot
-                  class="white--text mb-12"
-                  color="orange"
-                  large
-                >
-                  <template v-slot:icon>
-                    <span>日期</span>
-                  </template>
-                  <v-text-field
-                    v-model="input"
-                    hide-details
-                    flat
-                    label="输入课堂内容..."
-                    solo
-                    @keydown.enter="comment"
-                  >
-                    <template v-slot:append>
-                      <v-btn
-                        class="mx-0"
-                        depressed
-                        @click="comment"
-                      >
-                        Post
-                      </v-btn>
-                    </template>
-                  </v-text-field>
-                </v-timeline-item>
-
-                <v-timeline-item
-                  v-for="event in timeline"
-                  :key="event.id"
-                  class="mb-4 mr-4"
-                  small
-                >
-                  <v-card class="elevation-2">
-                    <v-card-title>
-                      Lorem ipsum
-                    </v-card-title>
-                    <v-card-text>
-                      Lorem ipsum dolor sit amet
-                    </v-card-text>
-                  </v-card>
-                </v-timeline-item>
-              </v-timeline>
-            </v-card>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
     <v-snackbar
-			v-model="snackbar"
-			:color="snackbarColor"
-			timeout="3000"
-			top
-			dark
-		>
-			<v-icon
-				color="white"
-				class="mr-3"
-			>
-				mdi-bell-plus
-			</v-icon>
-			{{notification}}
-			<v-btn
-				icon
-				@click="snackbar = false"
-			>
-				<v-icon>
-					mdi-close-circle
-				</v-icon>
-			</v-btn>
-		</v-snackbar>
+      v-model="snackbar"
+      :color="snackbarColor"
+      :multi-line="true"
+    >
+      {{ notification }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          关闭
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
