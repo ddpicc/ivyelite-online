@@ -62,7 +62,7 @@
             class="swiper back3"
           >
             <div class="pic3">
-              <div class="swiper-inner">
+              <!--div class="swiper-inner">
                 <div class="banner-title1 title-size3">
                   学员100%提分，
                 </div>
@@ -78,7 +78,7 @@
                 <button class="action-button btn hvr-grow" @click="scrolltocourse()">
                   立即上课
                 </button>
-              </div>
+              </div -->
             </div>
           </v-sheet>
         </v-window-item>
@@ -802,14 +802,14 @@ export default {
   },
 
   mounted: function(){
-    /* let timer = setInterval(() => {
+    let timer = setInterval(() => {
       this.swiperOn = this.swiperOn + 1 === 3
         ? 0
         : this.swiperOn + 1;
       this.studentOn = this.studentOn + 1 === 2
         ? 0
         : this.studentOn + 1
-    },6000) */
+    },6000)
     
   }
 }
@@ -939,8 +939,8 @@ export default {
   }
   #banner .pic3{
     height: 36.75rem;
-    background: url("../assets/Banner3背景.png") no-repeat center; 
-    background-size: contain;
+    background: url("../assets/Banner_4.jpg") no-repeat center; 
+    background-size: cover;
 
     height: 36.75rem;
     width: 90rem;

@@ -40,6 +40,18 @@ exports.getCommentbyCourseId = ( course_id ) => {
 
 // 查找所有课堂
 exports.getAllClasses = () => {
-	let _sql = "select * from classes;"
+	let _sql = "select * from classes where id!=1 and id!=2;"
 	return query( _sql )
+}
+
+// count 该课堂的学生人数
+/* exports.countStudentNm = ( class_id ) => {
+	let _sql = `select count(*) as count from user_class where class_id="${class_id}" and isStudent = 1;`
+	return query( _sql)
+} */
+
+// 更新课堂人数
+exports.updateClassSeat = ( value ) => {
+	let _sql = "update classes set available_seat = available_seat - 1 where id = ?;"
+	return query( _sql, value)
 }

@@ -10,7 +10,7 @@ exports.setUserClassRelation = ( value ) => {
 
 // 获取和当前user有关的课堂
 exports.findClasseseByUser = ( user_uid ) => {
-	let _sql = `select a.* from classes a inner join user_class b on a.id = b.class_id where b.user_uid = "${user_uid}";`
+	let _sql = `select a.* from classes a inner join user_class b on a.id = b.class_id where b.user_uid = "${user_uid}" and b.class_id != 1 and b.class_id != 2;`
 	return query( _sql)
 }
 

@@ -13,18 +13,18 @@ const nodemailer = require('nodemailer');
 function mail(to,title,content) {
 
   let transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com", // hostname
+    host: "smtp.exmail.qq.com", // hostname
     secureConnection: false, // TLS requires secureConnection to be false
     port: 587, // port for secure SMTP
-    tls: {
-       ciphers:'SSLv3'
-    }, auth: {
-        user: 'ivyelite-online@outlook.com', pass: 'ivyelite123'
+    port:465,
+    auth: {
+        user: "online@ivyelite.net",
+        pass: "CuiQian1988" //这是邮箱的授权码不是登录密码。 安全登录的客户端专用密码：
     }
   });
 
   let info = {
-      from: 'ivyelite-online@outlook.com',//发送方邮箱
+      from: 'online@ivyelite.net',//发送方邮箱
       to: to, 
       subject: title,
       //text: content

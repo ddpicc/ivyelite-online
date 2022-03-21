@@ -166,8 +166,8 @@ exports.getRoomInfo = async ctx => {
 
 //save the room information to db
 exports.saveRoomInfoToDb = async ctx => {
-	let { course_id, subject, room_id, begin_timestamp, room_type, password, status } = ctx.request.body;
-	await classRoomModel.saveRoomInfoToDb([course_id, subject, room_id, begin_timestamp, room_type, password, status]).then(res => {
+	let { class_id, subject, room_id, begin_timestamp, room_type, password, status } = ctx.request.body;
+	await classRoomModel.saveRoomInfoToDb([class_id, subject, room_id, begin_timestamp, room_type, password, status]).then(res => {
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -183,8 +183,8 @@ exports.saveRoomInfoToDb = async ctx => {
 }
 
 exports.searchRoomInfoFromDb = async ctx => {
-  let {course_id, status} = ctx.request.query
-	await classRoomModel.searchRoomInfoFromDb(course_id, status).then( (res) => {
+  let {class_id, status} = ctx.request.query
+	await classRoomModel.searchRoomInfoFromDb(class_id, status).then( (res) => {
     //check if the room is expired
     //default duration is 90 mins
 		ctx.body = {

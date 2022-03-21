@@ -3,12 +3,12 @@ var sql = require('./base')
 let query = sql.query
 
 exports.saveRoomInfoToDb = ( value ) => {
-	let _sql = "insert into room set course_id=?,subject=?,room_id=?,begin_timestamp=?,room_type=?,password=?,status=?;"
+	let _sql = "insert into room set class_id=?,subject=?,room_id=?,begin_timestamp=?,room_type=?,password=?,status=?;"
 	return query( _sql, value)
 }
 
-exports.searchRoomInfoFromDb = ( course_id, status ) => {
-	let _sql = `select * from room where course_id="${course_id}" and status="${status}";`
+exports.searchRoomInfoFromDb = ( class_id, status ) => {
+	let _sql = `select * from room where class_id="${class_id}" and status="${status}";`
 	return query( _sql)
 }
 

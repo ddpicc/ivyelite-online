@@ -21,7 +21,7 @@
 											color="#1F7087"
 											class="mt-2"
 											dark
-											v-for="(item, i) in searching"
+											v-for="(item, i) in classesList"
 											:key="i"
 										>
 											<div class="d-flex flex-no-wrap justify-space-between">
@@ -81,7 +81,7 @@
 		<v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
@@ -103,7 +103,7 @@
   import relationApi from '../../api/relationApi'
   export default {
     data: () => ({
-			coursesList: [],
+			classesList: [],
 
 			tab: null,
 			snackbar: false,
@@ -123,7 +123,7 @@
       getUserCourses: function(){
 				relationApi.findClasseseByUser(this.$store.state.user.uid).then( (res) => {
           if (res.data.code === 200) {
-            this.coursesList = res.data.data;
+            this.classesList = res.data.data;
           }else{
             this.snackbar = true;
             this.notification = '发生错误，请重试或联系管理员';
@@ -136,20 +136,6 @@
 				this.$router.push({ path: '/course/classinfo', query: { class_id: item.id} });
 			}
 		},
-
-		computed: {
-      searching () {
-        return this.coursesList
-
-        /* const search = this.search.toLowerCase()
-
-        return this.items.filter(item => {
-          const text = item.title.toLowerCase()
-
-          return text.indexOf(search) > -1
-        }) */
-      },
-    },
 
 		mounted: function(){
 			this.getUserCourses()

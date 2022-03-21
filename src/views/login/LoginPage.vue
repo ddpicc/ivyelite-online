@@ -43,7 +43,7 @@
     <v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
@@ -217,7 +217,7 @@
                   this.snackbarColor = 'green';
                   this.password = ''
                   this.name = ''
-                  /* let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
+                  let content = `<div>感谢您注册常青藤在线教育账号，请在24小时内点击以下链接完成注册验证</div><br>
                                 <a href='https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}'>
                                   https://online.ivyelite.net/#/active?email=${this.loginEmail}&uid=${uid}
                                 </a><br><br>
@@ -234,7 +234,7 @@
                       this.notification = '邮件发送失败，您可以尝试登录账号，或者联系管理员';
                       this.snackbarColor = 'red';
                     }
-                  }) */                   
+                  })                 
                 }else{
                   this.snackbar = true;
                   this.notification = '发生错误，请重试或联系管理员';

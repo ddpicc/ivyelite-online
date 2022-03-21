@@ -56,13 +56,13 @@
                   <div class="window-wrap">
                     <div class="line1">
                       <img class="people-icon" src="../../assets/icon/people.png"/>
-                      {{oneClass.classCount}}
+                      {{oneClass.available_seat}}
                       <img class="clock-icon" src="../../assets/icon/clock.png"/>
                       {{oneClass.time_range}}
                     </div>
                     <div class="line2">
                       <div class="people">
-                        班级人数
+                        剩余席位
                       </div>
                       <div class="clock">
                         {{oneClass.date_range}}
@@ -208,7 +208,15 @@
               <div id="href-success"></div>
             </v-window-item>
             <v-window-item>
-              test
+              课程介绍
+            </v-window-item>
+            <v-window-item>
+              评价
+            </v-window-item>
+            <v-window-item>
+              <div class="schedule">
+                <img src="../../assets/gre schedule1.jpg" alt="class schedule"/>
+              </div>
             </v-window-item>
           </v-window>
         </div>
@@ -217,7 +225,7 @@
     <v-snackbar
       v-model="snackbar"
       :color="snackbarColor"
-      multi-line="true"
+      :multi-line="true"
     >
       {{ notification }}
 
@@ -361,9 +369,7 @@
         this.active = 4
         this.step = 5
         document.querySelector("#href-success").scrollIntoView({behavior: "smooth", block: "end"});    
-      }
-
-        
+      }        
 		},
 
     created: function(){
@@ -548,6 +554,7 @@
   }
   #des .mright{
     margin-right: 7.75rem;
+    cursor: pointer;
   }
   #des .wrap .itemActive{
     color: #1A8750;
@@ -768,5 +775,10 @@
     margin: 3.875rem 0 0 24.4375rem;
   }
   /* #endregion */
+  #des .wrap .schedule img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   /* #endregion */  
 </style>

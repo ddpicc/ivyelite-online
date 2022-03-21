@@ -9459,6 +9459,11 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.nlark.com/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
+vue-verification-input@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/vue-verification-input/-/vue-verification-input-1.0.5.tgz#7180ab106f75f7170597ee0d69bcbce5e86d325f"
+  integrity sha512-m56BHuJ4sEPNgilA6Hkb09keheI2vsXvwjK51C9rmILu6wHA9rZfRIXdLaLriAPN0oOwOhpciFQJzritaOlS/w==
+
 vue@^2.6.11:
   version "2.6.14"
   resolved "https://registry.npmmirror.com/vue/download/vue-2.6.14.tgz?cache=0&sync_timestamp=1633712790340&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fvue%2Fdownload%2Fvue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"

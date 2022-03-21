@@ -91,7 +91,7 @@
     { text: '我的课堂', icon: 'mdi-playlist-star', to: '/myprofile/class', roles: ['student']},
     //{ text: '我的讨论', icon: 'mdi-message-reply', to: '/myprofile/discuss' },
     { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice', roles: ['student'] },
-    { text: '新建1v1课程', icon: 'mdi-star', to: '/course/create', roles: ['admin']},
+    { text: '订单处理', icon: 'mdi-star', to: '/order', roles: ['admin']},
     { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
     { text: '我的课堂', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher']},
     { text: '所有用户', icon: 'mdi-account-multiple', to: '/admin/allusers', roles: ['admin']},

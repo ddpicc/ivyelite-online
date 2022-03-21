@@ -7,4 +7,5 @@ export default {
   findOneClassById: (classId) => api.get(`/courseApi/findOneClassById`, {classId}),
   getCommentbyCourseId: (course_id) => api.get(`/courseApi/getCommentbyCourseId`, {course_id}),
   getAllClasses: () => api.get(`/courseApi/getAllClasses`, {}),
+  //countStudentNm: (class_id) => api.get(`/courseApi/countStudentNm`, {class_id}),
 }

@@ -22,10 +22,6 @@ let courses =
 	`create table if not exists courses(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(20) NOT NULL COMMENT '课程名称',
-		cover_url TEXT COMMENT '封面图片',
-		banner_url TEXT COMMENT '封面图片',
-		summary VARCHAR(50) COMMENT '简介',
-		description TEXT COMMENT '详细描述',
 		PRIMARY KEY ( id )
 	);`
 
@@ -60,7 +56,7 @@ let user_class =
 	let room =
 	`create table if not exists room(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-		course_id INT UNSIGNED NOT NULL,
+		class_id INT UNSIGNED NOT NULL,
 		subject TEXT NOT NULL COMMENT '房间主题',
 		room_id INT UNSIGNED NOT NULL,
 		begin_timestamp BIGINT,
@@ -76,7 +72,8 @@ let user_class =
 		class_id INT UNSIGNED NOT NULL,
 		user_uid INT UNSIGNED NOT NULL,
 		create_timestamp BIGINT,
-		amount FLOAT COMMENT '价钱', 
+		amount FLOAT COMMENT '价钱',
+		processed INT UNSIGNED NOT NULL DEFAULT 1 COMMENT '是否是1v1课程1v1课程需要人工处理',
 		PRIMARY KEY ( id )
 	);`
 

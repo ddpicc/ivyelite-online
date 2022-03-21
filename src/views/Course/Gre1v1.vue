@@ -253,6 +253,12 @@
               </div>
               <div id="href-success"></div>
             </v-window-item>
+            <v-window-item>
+              课程介绍
+            </v-window-item>
+            <v-window-item>
+              评价
+            </v-window-item>
           </v-window>
         </div>
       </div>
@@ -295,21 +301,17 @@
 </template>
 
 <script>
+  import courseApi from '../../api/courseApi'
+  import paymentApi from '../../api/paymentApi'
   export default {
     data: () => ({
       tabList: [
         '报名详情',
         '课程介绍',
         '评价',
-        '课表安排'
       ],
       tabIndex: 0,
-      classIndex: 1,
-      classList: [
-        '暑假班',
-        '周末班',
-        '寒假班',
-      ],
+      theClass: null,
       step: 1,
       active: 1,
 
@@ -381,8 +383,15 @@
           this.step = 5
           this.active = 5
         }else if(curStep == 5){
-          this.step = 6
-          this.active = 6
+          paymentApi.createCheckoutSession(this.theClass.stripe_api_id,this.selectValue,this.theClass.id,this.$store.state.user.uid).then( (res) => {
+            if (res.data.code === 303) {
+              window.location.href = res.data.url
+            }else{
+              this.snackbar = true;
+              this.notification = '发生错误，请重试或联系管理员';
+              this.snackbarColor = 'red';
+            }
+          })
         }
       },
       labelClick: function(curLabel) {
@@ -470,7 +479,18 @@
         }else{
           this.btnEnable4 = false
         }
-      }
+      },
+      getInfo: function(){
+        courseApi.findOneClassById(1).then(res => {
+          if (res.data.code === 200) {
+						this.theClass = res.data.data[0];
+          }else{
+            this.snackbar = true;
+            this.notification = '读取课程错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
+      },
     },
 
     created: function(){
@@ -480,8 +500,13 @@
       }
     },
     mounted: function(){
-      if(this.stripe_session_id)
-        document.querySelector("#href-success").scrollIntoView({behavior: "smooth", block: "center"});
+      this.getInfo()
+      if(this.stripe_session_id){
+        this.active = 6
+        this.step = 6
+        document.querySelector("#href-success").scrollIntoView({behavior: "smooth", block: "center"})
+      }
+        
     },
 
     watch: {
@@ -637,6 +662,7 @@
   }
   #des .mright{
     margin-right: 7.75rem;
+    cursor: pointer;
   }
   #des .wrap .itemActive{
     color: #1A8750;

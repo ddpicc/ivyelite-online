@@ -191,7 +191,7 @@
 			},
 
 			getClass: function(){
-				classRoomApi.searchRoomByCourseId(this.class_id, '进行中').then( (res) => {
+				classRoomApi.searchRoomByClassId(this.class_id, '进行中').then( (res) => {
 					if (res.data.code === 200) {
 						if(res.data.data.length > 0){
 							this.theClass = res.data.data[0];

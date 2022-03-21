@@ -68,7 +68,7 @@ export const asyncRouterMap = [
       {path: '/myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
 
       {path: '/course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareZoom.vue')},
-      {path: '/course/create', name: '新建课程', component: () => import('../views/Course/CreateCourse.vue'), meta: {roles: ['admin']}},
+      {path: '/order', name: '新建课程', component: () => import('../views/Admin/OrderManage.vue'), meta: {roles: ['admin']}},
       {path: '/course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher','student']}},
       {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
 

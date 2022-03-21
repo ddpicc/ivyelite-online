@@ -1,17 +1,18 @@
 const stripeGate = require('stripe')(process.env.VUE_APP_STRIPE_APIKEY);
-//const endpointSecret =  process.env.VUE_APP_STRIPE_WEBHOOKKEY_LOCAL
+const endpointSecret =  process.env.VUE_APP_STRIPE_WEBHOOKKEY_LOCAL
 
-const endpointSecret = process.env.VUE_APP_STRIPE_WEBHOOKKEY_PROD
+//const endpointSecret = process.env.VUE_APP_STRIPE_WEBHOOKKEY_PROD
 
 //"whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR";
 const relationModel = require('../model/relationModel')
 const receiptModel = require('../model/receiptModel')
+const courseModel = require('../model/courseModel')
 
 //create a stripe checkout session
 exports.createCheckoutSession = async ctx => {
-  //let baseurl = 'http://localhost:8080/#'
+  let baseurl = 'http://localhost:8080/#'
 
-  let baseurl = 'https://online.ivyelite.net/#'
+  //let baseurl = 'https://online.ivyelite.net/#'
 
   let { price_id, quantity,class_id,user_uid } = ctx.request.body;
   const session = await stripeGate.checkout.sessions.create({
@@ -65,8 +66,13 @@ exports.paymentNotifyReceive = async ctx => {
     const user_uid = session.metadata.user_uid;
     const class_id = session.metadata.class_id;
     const amount_total = session.amount_total;
+    let processed = 1
+    if(class_id == 1 || class_id == 2){
+      processed = 0
+    }
     await relationModel.setUserClassRelation([user_uid, class_id, 1, 0])
-    await receiptModel.createReceipt([class_id, user_uid, new Date().getTime(), amount_total ]).then(res => {
+    await courseModel.updateClassSeat([class_id])
+    await receiptModel.createReceipt([class_id, user_uid, new Date().getTime(), amount_total, processed ]).then(res => {
       console.log('payment success')
       ctx.status = 200
       ctx.body = {

@@ -142,7 +142,7 @@
 			
       joinClass: function(id) {
 				//get room id
-				classRoomApi.searchRoomByCourseId(id,'进行中').then( (res) => {
+				classRoomApi.searchRoomByClassId(id,'进行中').then( (res) => {
 					if (res.data.code === 200) {
 						if(res.data.data.length > 0){     //有对应的房间
 							this.theClass = res.data.data[0];
@@ -171,7 +171,7 @@
           if (res.data.code === 200) {
             this.classesList = res.data.data;
 						for(let element of this.classesList){
-							classRoomApi.searchRoomByCourseId(element.id,'进行中').then( (res) => {
+							classRoomApi.searchRoomByClassId(element.id,'进行中').then( (res) => {
 								if (res.data.code === 200) {
 									if(res.data.data.length > 0){     //有对应的房间
 										//element.classBegin = true;
