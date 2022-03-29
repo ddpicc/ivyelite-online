@@ -55,9 +55,9 @@
                 >
                   <div class="window-wrap">
                     <div class="line1">
-                      <img class="people-icon" src="../../assets/icon/people.png"/>
+                      <img class="people-icon" src="../../assets/icon/thumbnail_People.png"/>
                       {{oneClass.available_seat}}
-                      <img class="clock-icon" src="../../assets/icon/clock.png"/>
+                      <img class="clock-icon" src="../../assets/icon/thumbnail_clock.png"/>
                       {{oneClass.time_range}}
                     </div>
                     <div class="line2">
@@ -208,14 +208,16 @@
               <div id="href-success"></div>
             </v-window-item>
             <v-window-item>
-              课程介绍
+              <div class="schedule">
+                <img src="../../assets/gre de.jpeg" alt="class schedule"/>
+              </div>
             </v-window-item>
             <v-window-item>
               评价
             </v-window-item>
             <v-window-item>
               <div class="schedule">
-                <img src="../../assets/gre schedule1.jpg" alt="class schedule"/>
+                <img src="../../assets/gre schedule1.jpeg" alt="class schedule"/>
               </div>
             </v-window-item>
           </v-window>

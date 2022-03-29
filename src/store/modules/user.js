@@ -43,9 +43,6 @@ const actions = {
 					commit('SET_UID', data.data[0].uid);
 					commit('SET_NAME', data.data[0].name)
 					resolve('login success');
-				}else if(data.code === 400){
-					commit('SET_UID', data.data[0].uid);
-					resolve('account not active');
 				}else{
 					resolve('login fail');
 				}

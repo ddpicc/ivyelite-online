@@ -69,15 +69,6 @@
                     <v-list-item-title v-text="item.name"></v-list-item-title>
                     <v-list-item-subtitle v-text="'注册时间: ' + new Date(item.register_time).toLocaleString()"></v-list-item-subtitle>
                   </v-list-item-content>
-
-                  <v-list-item-icon v-if="item.is_active == '否'">
-                    <v-btn
-                      text
-                      color="pink"
-                    >
-                      send激活邮件
-                    </v-btn>
-                  </v-list-item-icon>
                 </v-list-item>
               </v-list>
             </v-card>

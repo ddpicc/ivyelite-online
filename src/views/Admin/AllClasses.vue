@@ -13,6 +13,9 @@
 								<v-tabs v-model="tab">
 									<v-tab>正在上课</v-tab>
 									<v-tab>已结课</v-tab>
+                  <v-chip small class="">
+                    添加
+                  </v-chip>
 								</v-tabs>
 								<v-divider class="mb-4"></v-divider>
 								<v-tabs-items v-model="tab">

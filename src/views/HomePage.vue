@@ -62,7 +62,8 @@
             class="swiper back3"
           >
             <div class="pic3">
-              <!--div class="swiper-inner">
+              <div class="person"></div>
+              <div class="swiper-inner">
                 <div class="banner-title1 title-size3">
                   学员100%提分，
                 </div>
@@ -78,7 +79,7 @@
                 <button class="action-button btn hvr-grow" @click="scrolltocourse()">
                   立即上课
                 </button>
-              </div -->
+              </div>
             </div>
           </v-sheet>
         </v-window-item>
@@ -148,7 +149,7 @@
     </section>
     <section id="feature">
       <div class="cont">
-        <div class="title-wrap">
+        <div class="title-wrap" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
           全美第一线上平台，名师在线授课
         </div>
 
@@ -402,41 +403,41 @@
           </div>
         </v-row>
 
-          <div class="content-wrap">
-            <div class="teacher-slider d-flex">
-              <div @click="prev()" class="icon-outter left">
-                <img src="../assets/icon/left arrow.png"/>
-              </div>
-              <div class="slider-wrap">
-                <slider ref="slider" :options="options" @slide='slide'>
-                  <!-- slideritem wrapped package with the components you need -->
-                  <slideritem v-for="(item,index) in teacherImgList" :key="index">
-                    <div class="overlay">
-                      <img :src="teacherImgList[index]"/>
-                    </div>
-                  </slideritem>
-                </slider>
-              </div>
-              <div @click="next()" class="icon-outter right">
-                <img src="../assets/icon/right arrow.png"/>
-              </div>
+        <div class="content-wrap" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
+          <div class="teacher-slider d-flex">
+            <div @click="prev()" class="icon-outter left">
+              <img src="../assets/icon/left arrow.png"/>
             </div>
-            <v-window
-              v-model="teacherOn"
-              reverse
-            >
-              <v-window-item
-                v-for="(item,index) in teacherList" 
-                :key="index"
-              >
-                <div class="teacher-name">{{item['name']}}</div>
-                <ul class="intro-wrap">
-                  <li v-html="item['bp1']"></li>
-                  <li v-html="item['bp2']"></li>
-                </ul>
-              </v-window-item>
-            </v-window>      
+            <div class="slider-wrap">
+              <slider ref="slider" :options="options" @slide='slide'>
+                <!-- slideritem wrapped package with the components you need -->
+                <slideritem v-for="(item,index) in teacherImgList" :key="index">
+                  <div class="overlay">
+                    <img :src="teacherImgList[index]"/>
+                  </div>
+                </slideritem>
+              </slider>
+            </div>
+            <div @click="next()" class="icon-outter right">
+              <img src="../assets/icon/right arrow.png"/>
+            </div>
           </div>
+          <v-window
+            v-model="teacherOn"
+            reverse
+          >
+            <v-window-item
+              v-for="(item,index) in teacherList" 
+              :key="index"
+            >
+              <div class="teacher-name">{{item['name']}}</div>
+              <ul class="intro-wrap">
+                <li v-html="item['bp1']"></li>
+                <li v-html="item['bp2']"></li>
+              </ul>
+            </v-window-item>
+          </v-window>      
+        </div>
 
       </div>
     </section>
@@ -448,7 +449,7 @@
             <div class="yellow-line"></div>
           </div>
         </v-row>
-        <div class="content-wrap">
+        <div class="content-wrap" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
           <v-window
             v-model="studentOn"
           >       
@@ -802,14 +803,14 @@ export default {
   },
 
   mounted: function(){
-    let timer = setInterval(() => {
+    /* let timer = setInterval(() => {
       this.swiperOn = this.swiperOn + 1 === 3
         ? 0
         : this.swiperOn + 1;
       this.studentOn = this.studentOn + 1 === 2
         ? 0
         : this.studentOn + 1
-    },6000)
+    },6000) */
     
   }
 }
@@ -939,14 +940,25 @@ export default {
   }
   #banner .pic3{
     height: 36.75rem;
-    background: url("../assets/Banner_4.jpg") no-repeat center; 
-    background-size: cover;
+    background: url("../assets/Banner3背景.png") no-repeat center; 
+    background-size: contain;
 
     height: 36.75rem;
     width: 90rem;
     margin: 0 auto;
 
     position: relative;
+  }
+  #banner .pic3 .person{
+    position: absolute;
+    width: 48rem;
+    height: 33.125rem;
+    left: 50%;
+    margin-left: -34.53rem;
+    top: 3.4625rem;
+
+    background: url("../assets/Banner_3_1.png") no-repeat bottom; 
+    background-size: cover;
   }
   #banner .pic3 .swiper-inner{
     align-items: flex-start;
@@ -1670,7 +1682,7 @@ export default {
   #teacher .teacher-slider .slider-wrap{
     width: 62.5rem;
     height: 18.975rem;
-    margin-top: 8.25rem;
+    margin-top: 6.25rem;
   }
   #teacher .teacher-slider .overlay{
     width: 18.9375rem;
@@ -1706,10 +1718,10 @@ export default {
     max-width: 1.5rem;
   }
   #teacher .teacher-slider .left{
-    margin: 15.625rem 5.4375rem 0 5.625rem;
+    margin: 13.625rem 5.4375rem 0 5.625rem;
   }
   #teacher .teacher-slider .right{
-    margin: 15.625rem 5.625rem 0 5.4375rem;
+    margin: 13.625rem 5.625rem 0 5.4375rem;
   }
   #teacher .teacher-name{
     font-weight: 600;

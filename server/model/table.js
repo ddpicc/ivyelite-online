@@ -1,4 +1,4 @@
-let users =
+	let users =
 	`create table if not exists users(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(100) COMMENT '用户昵称',
@@ -14,19 +14,17 @@ let users =
 		register_time BIGINT COMMENT '注册时间timestamp',
 		roles VARCHAR(20) NOT NULL DEFAULT 'student' COMMENT '用户类型',
 		avatar_url VARCHAR(50) DEFAULT 'FuObl8yKxcftADmihsFi-tRLWW_O',
-		is_active VARCHAR(2) NOT NULL DEFAULT '否' COMMENT '账号是否激活',
 		PRIMARY KEY ( id )
 	);`
 
-let courses =
+	let courses =
 	`create table if not exists courses(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(20) NOT NULL COMMENT '课程名称',
 		PRIMARY KEY ( id )
 	);`
 
-
-let classes =
+	let classes =
 	`create table if not exists classes(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		name VARCHAR(20) NOT NULL COMMENT '课堂名称',
@@ -41,7 +39,7 @@ let classes =
 		PRIMARY KEY ( id )
 	);`
 
-let user_class =
+	let user_class =
 	`create table if not exists user_class(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_uid INT UNSIGNED NOT NULL,
@@ -88,4 +86,13 @@ let user_class =
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users,courses,classes,user_class,room,receipt,order_info]
+	let config =
+	`create table if not exists config(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		contact_phone VARCHAR(20) COMMENT '电话',
+		contact_wechat TEXT COMMENT '微信号',
+		contact_email VARCHAR(50) COMMENT '邮箱',
+		PRIMARY KEY ( id )
+	);`
+
+module.exports = [users,courses,classes,user_class,room,receipt,order_info,config]

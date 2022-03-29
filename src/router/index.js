@@ -75,6 +75,7 @@ export const asyncRouterMap = [
       {path: '/payment/checkout', name: 'Checkout', component: () => import('../views/Payment/checkout.vue')},
       {path: '/payment/cancel', name: '支付取消', component: () => import('../views/Payment/cancel.vue')},
 
+      {path: '/admin/config', name: '配置选项', component: () => import('../views/Admin/ConfigOptions.vue'), meta: {roles: ['admin'] }},
       {path: '/admin/allusers', name: '所有用户', component: () => import('../views/Admin/AllUser.vue'), meta: {roles: ['admin'] }},
       {path: '/admin/allclasses', name: '所有课堂', component: () => import('../views/Admin/AllClasses.vue'), meta: {roles: ['admin'] }},
       {path: '/admin/classuser', name: '课堂用户', component: () => import('../views/Admin/ClassUser.vue'), meta: {roles: ['admin'] }},
