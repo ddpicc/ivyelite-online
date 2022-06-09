@@ -13,13 +13,42 @@
             <div class="yellow-line"></div>
           </div>
           <div class="banner-bullet">
-            <ul>
-              <li>小规模授课，大规模提分</li>
-              <li>视频直播配套教学，保真无障碍高效学习</li>
-              <li>大数据精准配备题库，真题机经定期拉练</li>
-              <li>业界大牛教师主讲陪练，答题技巧亲传亲授</li>
-              <li>层层递进分级教学，不同level学生齐头并进</li>
-            </ul>
+            <div class="d-flex align-center ln1">
+              <div class="icon">
+                <img src="../../assets/icon/cross mark.png"/>                  
+              </div>
+              远离50-60人 航母级“小班课”
+            </div>
+            <div class="d-flex align-center ln1">
+              <div class="icon">
+                <img src="../../assets/icon/cross mark.png"/>                  
+              </div>
+              拒绝“0”互动，低效瞌睡型直播
+            </div>
+            <div class="d-flex align-center ln2 checkline">
+              <div class="icon">
+                <img src="../../assets/icon/check mark.png"/>                  
+              </div>
+              常青藤团队匠心打造10人精品小班
+            </div>
+            <div class="d-flex ln2">
+              <div class="icon">
+                <img src="../../assets/icon/check mark.png"/>                  
+              </div>
+              直播录播配套教学，重点难点0错过
+            </div>
+            <div class="d-flex ln2">
+              <div class="icon">
+                <img src="../../assets/icon/check mark.png"/>                  
+              </div>
+              业界名师主讲，实时互动，立刻答疑
+            </div>
+            <div class="d-flex ln2">
+              <div class="icon">
+                <img src="../../assets/icon/check mark.png"/>                  
+              </div>
+              大数据网罗真题机经，定期拉练稳定冲分
+            </div>
           </div>
           
         </div>
@@ -56,16 +85,16 @@
                   <div class="window-wrap">
                     <div class="line1">
                       <img class="people-icon" src="../../assets/icon/people.png"/>
-                      {{oneClass.classCount}}
+                      {{oneClass.available_seat}}
                       <img class="clock-icon" src="../../assets/icon/clock.png"/>
-                      2:00 pm - 4:00 pm
+                      {{oneClass.time_range}}
                     </div>
                     <div class="line2">
                       <div class="people">
-                        班级人数
+                        剩余席位
                       </div>
                       <div class="clock">
-                        时间段
+                        {{oneClass.date_range}}
                       </div>
                     </div>
                   </div>
@@ -74,7 +103,7 @@
             </div>
             <div class="card-action">
               <div class="money">
-                ¥799
+                $799
               </div>
               <button class="signup-button hvr-grow" @click="signupBtnClick()">
                 立即报名
@@ -109,16 +138,18 @@
             <v-window-item>
               <div id="href-signup" class="step-label complete-border" v-bind:class="{'inactive-label': active != 1}">
                 <div class="label-title" @click="labelClick(1)">咨询老师</div>
-                <div class="label-subtitle" v-if="active == 1">我们建议先通过以下方式咨询老师，DIY适合你的课时安排。</div>
+                <div class="label-subtitle" v-if="active == 1">我们建议先通过以下方式咨询老师，DIY适合你的课时安排。<br><span style="color: red">常青藤精英教育已签约学生及已咨询过常青藤精英教育留学规划师的同学请直接点击“下一步”。</span></div>
               </div>
               <div v-if="active == 1" class="step-content" v-bind:class="{'complete-border': step > 1, 'uncomplete-border': step <= 1}">
                 <div class="inner-wrap step1">
                   <div class="contact">
-                    <div class="qrcode"></div>
+                    <div class="qrcode">
+                      <img :src="qr_code"/>
+                    </div>
                     <div class="contact-info">
-                      <div>微信号：dftrrgr</div>
-                      <div>手机号：dftrrgr</div>
-                      <div>邮箱：dftrrgr</div>
+                      <div>微信号：{{contact_wechat}}</div>
+                      <div>手机号：{{contact_phone}}</div>
+                      <div>邮箱：{{contact_email}}</div>
                     </div>
                   </div>
                   <button class="step-button next hvr-grow" @click="stepBtnClick(1)">
@@ -208,7 +239,17 @@
               <div id="href-success"></div>
             </v-window-item>
             <v-window-item>
-              test
+              <div class="schedule">
+                <img src="https://d22ssh14k1yxhv.cloudfront.net/gmat de.jpeg" alt="class schedule"/>
+              </div>
+            </v-window-item>
+            <v-window-item>
+              评价
+            </v-window-item>
+            <v-window-item>
+              <div class="schedule">
+                <img src="https://d22ssh14k1yxhv.cloudfront.net/gmat schedule.jpeg" alt="class schedule"/>
+              </div>
             </v-window-item>
           </v-window>
         </div>
@@ -237,6 +278,7 @@
 <script>
   import courseApi from '../../api/courseApi'
   import paymentApi from '../../api/paymentApi'
+  import infoApi from '../../api/infoApi'
   export default {
     data: () => ({
       tabList: [
@@ -248,9 +290,13 @@
       tabIndex: 0,
       classIndex: 0,
       classes: [],
-
       step: 1,
       active: 1,
+
+      contact_wechat: 'dftrrgr',
+      contact_phone: 'dftrrgr',
+      contact_email: 'dftrrgr',
+      qr_code: require("../../assets/image 28.png"),
 
       btnEnable2: false,
       btnEnable3: false,
@@ -292,6 +338,7 @@
         }else if(curStep == 2){
           this.step = 3
           this.active = 3
+          infoApi.saveToColInfo(this.userName,this.wechatNm,this.email,this.classes[this.classIndex].id,this.$store.state.user.uid,'GMAT small class')
         }else if(curStep == 3){
           paymentApi.createCheckoutSession(this.classes[this.classIndex].stripe_api_id,1,this.classes[this.classIndex].id,this.$store.state.user.uid).then( (res) => {
             if (res.data.code === 303) {
@@ -342,7 +389,7 @@
         }
       },
       getClassInfo: function(){
-        courseApi.getClassesbyCourseId(2).then( res => {
+        courseApi.getClassesbyCourseId(4).then( res => {
           if(res.data.code === 200) {
             this.classes = res.data.data
           }else{
@@ -351,12 +398,27 @@
             this.snackbarColor = 'red';
           }
         })
+      },
+      loadConfig: function(){
+        infoApi.loadConfig().then( res => {
+          if(res.data.code === 200) {
+            let config = res.data.data
+            this.contact_wechat = config[0].contact_wechat
+            this.contact_phone = config[0].contact_phone
+            this.contact_email = config[0].contact_email
+            this.qr_code = `${process.env.VUE_APP_IMAGE_BASEURL}${config[0].qr_code}`
+          }else{
+            this.snackbar = true;
+            this.notification = '读取联系信息错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
       }
-      
     },
 
     mounted: function(){
       this.getClassInfo()
+      this.loadConfig()
       if(this.stripe_session_id){
         this.active = 4
         this.step = 5
@@ -415,18 +477,31 @@
     border-radius: 39px;
     z-index: 50;
   }
-  #banner .banner-bullet{
-    padding: 4.21214rem 0 0 10.125rem;
+    #banner .banner-bullet{
+    padding: 2.845rem 0 0 7.75rem;
     font-weight: 400;
     font-size: 1.125rem;
     line-height: 172.7%;
   }
-  #banner .banner-bullet li{
-    margin-bottom: 0.8125rem;
+  #banner .banner-bullet .ln1{
+    margin-left: 2.3125rem;
+    margin-bottom: 1rem;
   }
-  #banner .banner-bullet li::marker{
-    color: #E5C12C;
-    font-size: 1.5rem;
+  #banner .banner-bullet .checkline{
+    margin-top: 2rem;
+  }
+  #banner .banner-bullet .ln2{
+    margin-left: 2.3125rem;
+    margin-bottom: 0.75rem;
+  }
+  #banner .banner-bullet .icon{
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 1.25rem;
+  }
+  #banner .banner-bullet .icon img{
+    width: 100%;
+    height: 100%;
   }
   #banner .card{
     background: #fff;
@@ -440,7 +515,7 @@
     border-radius: 0.375rem;
   }
   #banner .card .card-banner{
-    background: url("../../assets/Desktop-2.jpg") no-repeat center;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Desktop-2.jpg") no-repeat center;
     background-size:contain;
     margin: 0.5rem 0.375rem 0;
     height: 15.9375rem;
@@ -548,6 +623,7 @@
   }
   #des .mright{
     margin-right: 7.75rem;
+    cursor: pointer;
   }
   #des .wrap .itemActive{
     color: #1A8750;
@@ -612,11 +688,13 @@
     display: flex;
     align-items: center;
   }
-  #des .step1 .contact .qrcode{
+   #des .step1 .contact .qrcode{
     width: 14.25rem;
     height: 14.25rem;
     margin-left: 3.375rem;
-    background: url("../../assets/image 28.png") no-repeat center;
+  }
+  #des .step1 .contact .qrcode img{
+    width: 100%;
   }
   #des .step1 .contact .contact-info{
     font-weight: 400;
@@ -751,7 +829,7 @@
   #des .step-content .inner-wrap.step6{
     padding: 0 0 7.6875rem 8.125rem;
     height: 100vh;
-    background: url("../../assets/firework.gif") center no-repeat;    
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/firework.gif") center no-repeat;    
   }
   #des .step6 .title1{
     font-weight: 500;
@@ -768,5 +846,147 @@
     margin: 3.875rem 0 0 24.4375rem;
   }
   /* #endregion */
+  #des .wrap .schedule img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
   /* #endregion */  
+  @media screen and (max-width: 600px) {
+    /* #region banner css */
+  #banner .cont{
+    width: 37.5rem;
+    margin: 0 auto;
+  }
+  #banner .title-wrap{
+    position: relative;
+    padding: 4.6875rem 0 0 4.125rem;
+  }
+  #banner .title-size{
+    top: 1.1rem;
+  }
+  #banner .banner-bullet{
+    padding: 3.21214rem 0 0 2.125rem;
+  }
+  #banner .card{
+    top: 27.4375rem;
+    left: 0;
+    margin-left: 0.875rem;
+    width: 36.0625rem;
+    height: 37.3125rem;
+  }
+  /* #endregion */ 
+
+  /* #region des css */
+  #des .cont{
+    width: 37.5rem;
+    margin: 0 auto;
+    padding: 31.1875rem 0 0;
+  }
+  #des .wrap{
+    margin: 0 0 0 1.625rem;
+  }
+  #des .mright{
+    margin-right: 3.75rem;
+  }
+
+  /* #region step1 css */
+  #des .step-content .inner-wrap.step1{
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding: 0 0 4.6875rem 3.125rem;
+  }  
+  #des .step-content .step1 .contact{
+    width: 30.5rem;
+    height: 17rem;
+  }
+  #des .step1 .contact .qrcode{
+    width: 10.25rem;
+    height: 10.25rem;
+    margin-left: 1.375rem;
+  }
+  #des .step1 .contact .contact-info{
+    margin-left: 1.625rem;
+  }
+  #des .step-button{
+    margin-top: 2rem;
+  }
+  /* #endregion */
+
+  /* #region step4 css */
+  #des .step-content .inner-wrap.step4{
+    padding: 0 0 4.6875rem 3.125rem;
+  }
+  #des .step4 .line1{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #des .step4 .line1 input{
+    width: 23.8125rem;
+    height: 3.5625rem;
+  }
+  #des .step4 .label3 input{
+    width: 23.8125rem;
+    height: 3.5625rem;
+  }
+  #des .step4 .next{
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  /* #region step5 css */
+  #des .step-content .inner-wrap.step5{
+    padding: 0 0 4.6875rem 3.125rem;
+  }
+  #des .step5 .card{
+    width: 30.5rem;
+    height: 17.9375rem;
+  }
+  #des .step5 .card .part1{
+    padding: 1.5rem 1.375rem 0;
+  }
+  #des .step5 .card .part1 .line2{
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  #des .step5 .card .part1 .line2 div{
+    flex: 1 0 100%;
+  }
+  #des .step5 .card .part2{
+    padding: 1.875rem 1.375rem 0;
+  }
+  #des .step5 .next{
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  /* #region step6 css */
+  #des .step-content .inner-wrap.step6{
+    padding: 0 0 4.6875rem 3.125rem;
+    height: 40rem;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/firework.gif") center no-repeat;    
+  }
+  #des .step6 .title1{
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 155.2%;
+    color: #1A8750;
+
+    padding-top: 20rem;
+    padding-left: 2.4375rem;
+  }
+  #des .step6 .next{
+    background: #1A8750;
+    color: #fff;
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+  #des .wrap .schedule img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  /* #endregion */
+}
 </style>

@@ -66,7 +66,7 @@ export default {
 
 		joinRoom: async function(zg, title, uiConfig){
 			try {
-				const userId = this.$store.state.user.uid;
+				const userId = this.urlParams.user_uid;
 				const token = await this.getSDKToken(userId);
 				let info = null;
 				const beginTimestamp = this.urlParams.beginTimestamp
@@ -77,9 +77,9 @@ export default {
 						info.data.subject = ''
 				}
 				zg.inRoomService().setUserParameter({
-					avatarUrl: `${process.env.VUE_APP_IMAGE_BASEURL}${this.$store.state.user.avatar_url}`,
-						//customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
-				})
+          avatarUrl: 'https://img2.baidu.com/it/u=325567737,3478266281&fm=26&fmt=auto&gp=0.jpg',
+          //customIconUrl: 'http://www.gov.cn/guoqing/site1/20100928/001aa04acfdf0e0bfb6401.gif',
+        })
 				zg.inRoomService().setRoomParameter({
 						subject: title || (info && info.data.subject),
 						beginTimestamp: (beginTimestamp && Number(beginTimestamp)) || info.data && info.data.beginTimestamp,
@@ -92,8 +92,8 @@ export default {
 				})
 
 				const res = await zg.inRoomService().joinRoomWithConfig({
-						userID: this.urlParams.role == 1? Number(this.urlParams.host_id) : Number(this.$store.state.user.uid),   //使用数据库里存储的host id，不是老师自己本身的account id
-						userName: this.$store.state.user.name,
+						userID: Number(this.urlParams.user_uid),
+						userName: this.urlParams.user_name,
 						roomID: this.urlParams.room_id,
 						token: token,
 						role: Number(this.urlParams.role),

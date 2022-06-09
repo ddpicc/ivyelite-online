@@ -7,7 +7,6 @@ router.get('/relationApi/isClassReserved', controller.isClassReserved)
 router.get('/relationApi/findUsersByClass', controller.findUsersByClass)
 router.get('/relationApi/findAllUsersNotInClass', controller.findAllUsersNotInClass)
 router.delete('/relationApi/deleteRelation', controller.deleteRelation)
-
-
+router.get('/relationApi/getAllTeacherOrStudent', controller.getAllTeacherOrStudent)
 
 module.exports = router

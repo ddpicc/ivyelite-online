@@ -9459,6 +9459,11 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.nlark.com/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
 
+vue-upload-imgs@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/vue-upload-imgs/-/vue-upload-imgs-2.0.3.tgz#047d222ba324dfccd2b2edfea1064eab43ed49b0"
+  integrity sha512-a57OofcR57N3TQ4KXZRc77rjP5DVlit0yPl1zQIHQ0xvf8lWn8ToOW55OVukG4QMc67AJ3Wj3X0kIxFVtC3cEw==
+
 vue-verification-input@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/vue-verification-input/-/vue-verification-input-1.0.5.tgz#7180ab106f75f7170597ee0d69bcbce5e86d325f"

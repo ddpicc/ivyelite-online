@@ -104,7 +104,7 @@
           align="center"
           justify="center"
         >
-          <v-col align="center" justify="center">
+          <v-col cols="6" md="3" align="center" justify="center">
             <div class="iCountUp">
               <ICountUp
                 :delay="delay"
@@ -114,7 +114,7 @@
             </div>
             <div class="word20 word-margin">申请成功率</div>
           </v-col>
-          <v-col align="center" justify="center">
+          <v-col cols="6" md="3" align="center" justify="center">
             <div class="iCountUp">
               <ICountUp
                 :delay="delay"
@@ -124,7 +124,7 @@
             </div>
             <div class="word20 word-margin">TOP 30 名校录取率</div>
           </v-col>
-          <v-col align="center" justify="center">
+          <v-col cols="6" md="3" align="center" justify="center">
             <div class="iCountUp">
               <ICountUp
                 :delay="delay"
@@ -134,7 +134,7 @@
             </div>
             <div class="word20 word-margin">VIP推荐录取学员</div>
           </v-col>
-          <v-col align="center" justify="center">
+          <v-col cols="6" md="3" align="center" justify="center">
             <div class="iCountUp">
               <ICountUp
                 :delay="delay"
@@ -257,7 +257,7 @@
             v-model="onboarding"
           >
             <v-window-item>
-              <div class="d-flex gre-1v1">
+              <div class="d-flex flex-wrap gre-1v1">
                 <div class="left text-left">
                   <div class="course-icon d-flex align-center">
                     <div class="outer icon1">
@@ -275,7 +275,7 @@
                   </button>
                 </div>
                 <div class="right">
-                  <img src="../assets/online-learning-concept-1.png"/>
+                  <img src="https://d22ssh14k1yxhv.cloudfront.net/online-learning-concept-1.png"/>
                   <div class="fe1" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopLeft'">真题模拟<br>独家讲座</div>                  
                   <div class="fe2" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopRight'">课程定制<br>课时灵活</div>
                   <div class="fe3" v-animate-onscroll.repeat="'animate__animated animate__fadeInBottomLeft'">专注北美<br>顶级师资</div>
@@ -285,7 +285,7 @@
             </v-window-item>
 
             <v-window-item>
-              <div class="d-flex gre-small">
+              <div class="d-flex flex-wrap gre-small">
                 <div class="left text-left">
                   <div class="course-icon d-flex align-center">
                     <div class="outer icon2">
@@ -302,7 +302,7 @@
                   </button>
                 </div>
                 <div class="right">
-                  <img src="../assets/students-in-a-class.png"/>
+                  <img src="https://d22ssh14k1yxhv.cloudfront.net/students-in-a-class.png"/>
                   <div class="fe1" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopLeft'">业界大牛教师主讲陪练<br>答题技巧亲传亲授</div>
                   <div class="fe2" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopRight'">大数据精准配备题库<br>真题机经定期拉练</div>
                   <div class="fe3" v-animate-onscroll.repeat="'animate__animated animate__fadeInBottomLeft'">视频直播配套教学<br>保真无障碍高效学习</div>
@@ -312,7 +312,7 @@
             </v-window-item>
 
              <v-window-item>
-              <div class="d-flex gmat-1v1">
+              <div class="d-flex flex-wrap gmat-1v1">
                 <div class="left text-left">
                   <div class="course-icon d-flex align-center">
                     <div class="outer icon3">
@@ -330,7 +330,7 @@
                   </button>
                 </div>
                 <div class="right">
-                  <img src="../assets/teaching.png"/>
+                  <img src="https://d22ssh14k1yxhv.cloudfront.net/teaching.png"/>
                   <div class="fe1" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopLeft'">真题模拟<br>独家讲座</div>
                   <div class="fe2" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopRight'">课程定制<br>课时灵活</div>
                   <div class="fe3" v-animate-onscroll.repeat="'animate__animated animate__fadeInBottomLeft'">专注北美<br>顶级师资</div>
@@ -340,7 +340,7 @@
             </v-window-item>
 
              <v-window-item>
-              <div class="d-flex gmat-small">
+              <div class="d-flex flex-wrap gmat-small">
                 <div class="left text-left">
                   <div class="course-icon d-flex align-center">
                     <div class="outer icon4">
@@ -358,7 +358,7 @@
                   </button>
                 </div>
                 <div class="right">
-                  <img src="../assets/group-of-people.png"/>
+                  <img src="https://d22ssh14k1yxhv.cloudfront.net/group-of-people.png"/>
                   <div class="fe1" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopLeft'">业界大牛教师主讲陪练<br>答题技巧亲传亲授</div>
                   <div class="fe2" v-animate-onscroll.repeat="'animate__animated animate__fadeInTopRight'">大数据精准配备题库<br>真题机经定期拉练</div>
                   <div class="fe3" v-animate-onscroll.repeat="'animate__animated animate__fadeInBottomLeft'">视频直播配套教学<br>保真无障碍高效学习</div>
@@ -370,7 +370,7 @@
         </div>
       </div>
     </section>
-    <section id="unique">
+    <!--section id="unique">
       <div class="cont" >
         <v-row justify="center">
           <div class="title-wrap">
@@ -393,7 +393,7 @@
           </div>
         </v-row>
       </div>
-    </section>
+    </section-->
     <section id="teacher">
       <div class="cont">
         <v-row justify="center">
@@ -455,7 +455,7 @@
           >       
             <v-window-item  v-for="(student,id) in studentList" 
                 :key="id">
-              <div  class="d-flex">
+              <div class="d-flex">
                 <div class="left">  
                   <div class="layer1"></div>
                   <div class="student-pic">
@@ -470,7 +470,7 @@
                 </div>
                 <div class="right">
                   <div class="score">
-                    <img src="../assets/GRE score1.png"/>
+                    <img :src="student.scorepic"/>
                   </div>
                   <div class="comment">
                     {{student.comment}}
@@ -480,10 +480,10 @@
             </v-window-item>
           </v-window>
           <div class="control">
-            <div @click="studentprev()" class="icon-outter left">
+            <div @click="studentprev()" class="icon-outter iconleft">
               <img src="../assets/icon/left arrow.png"/>
             </div>
-            <div @click="studentnext()" class="icon-outter right">
+            <div @click="studentnext()" class="icon-outter iconright">
               <img src="../assets/icon/right arrow.png"/>
             </div>
           </div>
@@ -500,7 +500,7 @@
         </v-row>
         <v-row justify="center"> 
           <div class="content-wrap">
-            <div class="d-flex" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
+            <div class="d-flex flex-wrap" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
               <div class="media-block media1">
                 <img src="../assets/media/image 17.png"/>
               </div>
@@ -514,7 +514,7 @@
                 <img src="../assets/media/image 20.png"/>
               </div>
             </div>
-            <div class="d-flex" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
+            <div class="d-flex flex-wrap" v-animate-onscroll.repeat="'animate__animated animate__fadeIn'">
               <div class="media-block media5">
                 <img src="../assets/media/image 21.png"/>
               </div>
@@ -549,14 +549,14 @@
               GRE
             </div>
           </div>
-          <div class="d-flex justify-space-between align-center">
+          <div class="d-flex align-center">
             <v-window
               v-model="newsOn"
               v-if="inGmat"
               vertical
             >
               <v-window-item>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <div class="news-block1">
                     <ul class="wrap">
                       <li ><a href="https://gmat.neea.edu.cn/content/outline/index.html" target="_blank">GMAT考试介绍</a></li>
@@ -576,7 +576,7 @@
                 </div>
               </v-window-item>
               <v-window-item>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <div class="news-block1">
                     <ul class="wrap">
                       <li ><a href="https://mp.weixin.qq.com/s/o4SoLXCvB7ccJSnajFQ_kQ" target="_blank">这仅有一次的GMAT在线考试，你如果参加需要注意什么？</a></li>
@@ -595,7 +595,7 @@
               vertical
             >
               <v-window-item>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <div class="news-block1">
                     <ul class="wrap">
                       <li ><a href="http://gre-main.neea.cn/html1/folder/1507/1796-1.htm" target="_blank">GRE考试介绍</a></li>
@@ -615,7 +615,7 @@
                 </div>
               </v-window-item>
               <v-window-item>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <div class="news-block1">
                     <ul class="wrap">
                       <li ><a href="https://mp.weixin.qq.com/s/VpnA5YKoj9OjteE52UqIAw" target="_blank">研究生之路 | GMAT和 GRE到底该如何选择？</a></li>
@@ -693,12 +693,12 @@ export default {
         'GMAT 全程提分班'
       ],
       teacherImgList: [        
-        require('../assets/Cat.png'),
-        require('../assets/Renee.png'),
-        require('../assets/William.png'),
-        require('../assets/Mika.png'),
-        require('../assets/Julia.png'),
-        require('../assets/Victoria.png'),
+        'https://d22ssh14k1yxhv.cloudfront.net/Cat.png',
+        'https://d22ssh14k1yxhv.cloudfront.net/Renee.png',
+        'https://d22ssh14k1yxhv.cloudfront.net/William.png',
+        'https://d22ssh14k1yxhv.cloudfront.net/Mika.png',
+        'https://d22ssh14k1yxhv.cloudfront.net/Julia.png',
+        'https://d22ssh14k1yxhv.cloudfront.net/Victoria.png',
       ],
       teacherList: [
         {
@@ -708,43 +708,100 @@ export default {
         },
         {
           name: 'Renee',
-          bp1: '9年教学经验，超过千名学员，7000＋小时授课，教学经验丰富',
-          bp2: '作为GMAT项目全能主力讲师曾帮学生由480提分到710分，并带<br>出过众多GMAT 750+学员'
+          bp1: '毕业于USC英语专业研究生，至今已有7年考试培训从业经验',
+          bp2: '擅长GMAT逻辑/GRE阅读的教学，带领众多学生成功实现专项提分'
         },{
           name: 'William',
-          bp1: '9年教学经验，超过千名学员，7000＋小时授课，教学经验丰富',
-          bp2: '作为GMAT项目全能主力讲师曾帮学生由480提分到710分，并带<br>出过众多GMAT 750+学员'
+          bp1: '英国G5硕士毕业，从事GMAT教学5年+',
+          bp2: '学生最终成绩平均涨幅110分，90%的学生均达到了目标分数，<br>最短辅导周期是在12天内帮助学生从570分提升到760分'
         },{
           name: 'Mika',
-          bp1: '9年教学经验，超过千名学员，7000＋小时授课，教学经验丰富',
-          bp2: '作为GMAT项目全能主力讲师曾帮学生由480提分到710分，并带<br>出过众多GMAT 750+学员'
+          bp1: 'UCL硕士毕业，持续辅导北美学生gre/gmat写作8年有余，超7000小时',
+          bp2: '授课风格缜密细腻，注重引导学生形成自己的学习思考力，是研究型教师的实力代表'
         },{
           name: 'Julia',
-          bp1: '9年教学经验，超过千名学员，7000＋小时授课，教学经验丰富',
-          bp2: '作为GMAT项目全能主力讲师曾帮学生由480提分到710分，并带<br>出过众多GMAT 750+学员'
+          bp1: 'Columbia硕士毕业，上市教育培训机构前任VIP讲师',
+          bp2: '自身实力超群，雅思听读满分教学能力出众，负责gre 填空<br>专项教学至今已有8年以上教龄'
         },{
           name: 'Victoria',
-          bp1: '9年教学经验，超过千名学员，7000＋小时授课，教学经验丰富',
-          bp2: '作为GMAT项目全能主力讲师曾帮学生由480提分到710分，并带<br>出过众多GMAT 750+学员'
+          bp1: 'NYU 教育学专业研究生，8年以上雅思托福/GMAT/GRE 教学经验',
+          bp2: '英语功底深厚，课上态度亲和幽默。擅长写作、语法教学，总结<br>出语法独家高分策略及考题陷阱，帮助学生快速提分'
         }
       ],
       studentList: [
         {
           id: 1,
-          pic: require('../assets/student/student1.png'),
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student1.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GRE%20score1.png',
           name: 'Victoria',
           class: 'GRE 1对1私教班',
-          university: 'New York University',
+          university: '纽约大学',
           comment: '“1v1的课程就是我最想要的上课类型，时间能按照我方便的来，教学进度也是私人定制，不用怕自己的节奏赶不上。”',
         },
         {
           id: 2,
-          pic: require('../assets/student/student2.png'),
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student2.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GRE2.jpg',
           name: 'Siri L',
           class: 'GRE小班课',
           university: 'Columbia University',
           comment: '“暑假的时候蹭着常青藤的VIP小班课一起从0到1系统学习了一遍GRE，受益匪浅！尤其是Verbal部分老师特别注重逻辑的剖析和技巧的应用，极大地提高了我们解题速度。小班课也挺好的，大家一起上课也更有氛围~”',
         },
+        {
+          id: 3,
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student3.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GRE3.jpg',
+          name: 'Cathy W.',
+          class: 'GRE小班课',
+          university: '约翰斯·霍普金斯大学',
+          comment: '“我Quant部分一直徘徊在161-163左右考了两次都上不去，根本没办法用来申请Finance这些商科；Binghamton的学姐跟我推荐了常青藤的私教课，我就报了20课时的专项提高，终于170完美分手！”',
+        },
+        {
+          id: 4,
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student4.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GRE4.jpg',
+          name: 'Andy W.',
+          class: 'GRE 1对1私教班',
+          university: '康奈尔大学',
+          comment: '“本科前两年太浪了顾着玩，GPA只有2.9。大三准备考研之后就特别注重GRE的备考；常青藤针对我的情况指定了一个1对1保分课程方案，历时6个月的魔鬼训练终于帮我干到了心仪的分数，成功申到Cornell。”',
+        },
+        {
+          id: 5,
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student5.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GMAT1.jpg',
+          name: 'Derek',
+          class: 'GMAT 全程提分班',
+          university: '南加州大学',
+          comment: '“我是试听了好几家美国这边GMAT课程后才最终确定选择了常青藤。猫叔讲课特别有意思，毕竟教学时间久了自成体系，不管是方法论还是做题感觉方面经验分享都很宝贵。我相信市面上其他老师肯定是达不到这个水平的。”',
+        },
+        {
+          id: 6,
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student6.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GMAT2.jpg',
+          name: 'Suki L.',
+          class: 'GMAT 1对1私教课',
+          university: '芝加哥大学',
+          comment: '“谢谢William老师帮我制定了严密的学习计划，让我可以在大三下学期相对来说不那么忙的时候可以边上课边学GMAT，二刷考出理想的分数，780分赶在暑假前结束内卷哈哈哈！也谢谢常青藤的老师们帮我拿到了dream school芝加哥大学的录取。”',
+        },
+        {
+          id: 7,
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student7.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GMAT3.jpg',
+          name: 'Anjia W.',
+          class: 'GMAT 全程提分班',
+          university: '杜克大学',
+          comment: '“一直在纠结要考GRE还是要考GMAT, 后面学长说GMAT好出分我就来找到Philip老师看有没有课程能让我暑假系统准备一下的。意外的是大家上课气氛好棒，感觉跟我们同班同学上Zoom University没什么区别，我也认识到其他要申请Duke的小姐妹。经过2个月的准备考到720分我很满足了哈哈哈！”',
+        },
+        {
+          id: 8,
+          pic: 'https://d22ssh14k1yxhv.cloudfront.net/student/student8.png',
+          scorepic: 'https://d22ssh14k1yxhv.cloudfront.net/student/GMAT4.jpg',
+          name: 'Evelyn',
+          class: 'GMAT 1v1私教班',
+          university: '宾夕法尼亚大学',
+          comment: '“回过头来看我觉得最让我喜欢的是1对1课程里面不久师资优秀（像猫叔老师和威廉老师，经验丰富）更重要的是还有一个很负责任的班主任小姐姐，一直督促我刷题训练，有时候来不及上课也会及时给我送上录播课和课堂笔记，贴心指数满分好吗！谢谢常青藤的各位老师。”',
+        },
+        
       ],
       onboarding: 0,
       swiperOn: 0,
@@ -862,7 +919,7 @@ export default {
     line-height: 4.4375rem;
   }
   #banner .pic1{
-    background: url("../assets/Banner_1.jpg") no-repeat center; 
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner_1.jpg") no-repeat center; 
     background-size:contain;
     height: 36.75rem;
     width: 90rem;
@@ -874,29 +931,25 @@ export default {
     font-weight: 600;
     font-size: 4.375rem;
     line-height: 140%;
-    color: #1A8750;
-    position: absolute;
-    left: 13.5rem;
-    top: 10rem;
-    z-index: 50;
+    color: #989BDF;
+    margin: 10rem 0 0 13.5rem;
   }
   #banner .pic1 .banner-title2{
     font-weight: 600;
     font-size: 4.375rem;
     line-height: 140%;
-    color: #989BDF;
+    color: #1A8750;  
     position: absolute;
     left: 13.6875rem;
     top: 10rem;
-    z-index: 10;
   }
-   #banner .pic1 .btn{
-     margin-top: 21.875rem;
-     margin-left: 36.75rem;
-   }
+  #banner .pic1 .btn{
+    margin-top: 6.875rem;
+    margin-left: 36.75rem;
+  }
   #banner .pic2{
     height: 36.75rem;
-    background: url("../assets/Banner_2.jpg") no-repeat center; 
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner_2.jpg") no-repeat center; 
     background-size:contain;
 
     height: 36.75rem;
@@ -940,7 +993,7 @@ export default {
   }
   #banner .pic3{
     height: 36.75rem;
-    background: url("../assets/Banner3背景.png") no-repeat center; 
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner3%E8%83%8C%E6%99%AF.png") no-repeat center; 
     background-size: contain;
 
     height: 36.75rem;
@@ -957,7 +1010,7 @@ export default {
     margin-left: -34.53rem;
     top: 3.4625rem;
 
-    background: url("../assets/Banner_3_1.png") no-repeat bottom; 
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner_3_1.png") no-repeat bottom; 
     background-size: cover;
   }
   #banner .pic3 .swiper-inner{
@@ -1044,7 +1097,7 @@ export default {
     width: 90rem;
     margin: 0 auto;
     text-align: center;
-    background: url("../assets/mascot.png") no-repeat center bottom;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/mascot.png") no-repeat center bottom;
     background-size: 40.625rem 40.625rem;
   }
   #feature .title-wrap{
@@ -1062,6 +1115,7 @@ export default {
   }
   #feature .feature-wrap {
     display: flex;
+    flex-wrap: wrap;
   }
   #feature .feature-wrap .card1{
     width: 29.5rem;
@@ -1677,7 +1731,7 @@ export default {
   }
   #teacher .teacher-slider{
     height: 26.375rem;
-    background: url("../assets/Teacher-group.png") no-repeat top; 
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Teacher-group.png") no-repeat top; 
   }
   #teacher .teacher-slider .slider-wrap{
     width: 62.5rem;
@@ -1881,6 +1935,12 @@ export default {
     top: 22.6875rem;
     left: 66.6875rem;
   }
+  #student .control .iconleft{
+    margin-left: 6.4375rem;
+  }
+  #student .control .iconright{
+    margin-left: 4.6875rem;
+  }
   #student .control .icon-outter{
     width: 2.6875rem;
     height: 2.6875rem;
@@ -1988,4 +2048,591 @@ export default {
     size: 0.5625rem;
   }
 /* #endregion */
+
+@media screen and (max-width: 600px) {
+  /* #region banner css */
+  #banner .pic1{
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner_1.jpg") no-repeat center; 
+    background-size:contain;
+    height: 36.75rem;
+    width: 37.5rem;
+    margin: 0 auto;
+
+    position: relative;
+  }
+  #banner .pic1 .banner-title1{
+    margin: 6rem 1rem 0 2.5rem;
+  }
+  #banner .pic1 .banner-title2{
+    left: 2.6875rem;
+    top: 6rem;
+  }
+  #banner .pic1 .btn{
+    margin-top: 5.875rem;
+    margin-left: 10.53rem;
+  }
+  #banner .pic2{
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner_2.jpg") no-repeat center; 
+    background-size: contain;
+
+    height: 36.75rem;
+    width: 37.5rem;
+    margin: 0 auto;
+
+    position: relative;
+  }
+  #banner .pic2 .swiper-inner{
+    align-items: flex-start;
+  }
+  #banner .pic2 .title-size2{
+    font-weight: 600;
+    font-size: 2.325rem;
+    line-height: 140%;
+    color: #1A8750;
+  }
+  #banner .pic2 .banner-title1{
+    margin: 5.9375rem 0 0 3.4375rem;
+    color: #C7921F;
+  }
+  #banner .pic2 .banner-title2{
+    margin: 2.375rem 0 0 3.475rem;
+    color: #C7921F;
+  }
+  #banner .pic2 .banner-title3{
+    position: absolute;
+    top: 5.9375rem;
+    left: 3.375rem;
+  }
+  #banner .pic2 .banner-title4{
+    position: absolute;
+    top: 11.5875rem;
+    left: 3.375rem;
+  }
+  #banner .pic2 .btn{
+    margin: 5.125rem 0 0 3.375rem;
+  }
+  #banner .back3{
+    background: linear-gradient(to right, #C6EBFF , #E0F4FF);
+  }
+  #banner .pic3{
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner3背景.png") no-repeat center; 
+    background-size: contain;
+
+    height: 36.75rem;
+    width: 37.5rem;
+    margin: 0 auto;
+
+    position: relative;
+  }
+  #banner .pic3 .person{
+    position: absolute;
+    width: 14rem;
+    height: 33.125rem;
+    left: 50%;
+    margin-left: -34.53rem;
+    top: 3.4625rem;
+
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Banner_3_1.png") no-repeat bottom; 
+    background-size: cover;
+  }
+  #banner .pic3 .title-size3{
+    font-weight: 600;
+    font-size: 2.325rem;
+    line-height: 7.5rem;
+    color: #EFB538;
+  }
+  #banner .pic3 .banner-title1{
+    margin: 5.375rem 0 0 14.125rem;
+  }
+  #banner .pic3 .banner-title2{
+    margin-left:14.125rem;
+  }
+  #banner .pic3 .banner-title3{
+    position: absolute;
+    top: 5.375rem;
+    left: 22.8125rem;
+
+    color: #1A8750;
+  }
+  #banner .pic3 .banner-title4{
+    position: absolute;
+    top: 12.875rem;
+    left: 70.3125rem;
+
+    color: #1A8750;
+  }
+  #banner .pic3 .btn{
+    margin: 3.125rem 0 0 58.5625rem;
+  }
+  #banner .card{
+    top: 32.68rem;
+    left: 50%;
+    margin-left: -16rem;
+    width: 32.0625rem;
+    height: 25.5625rem;
+  }
+  .paddingdiv-15{
+    padding: 18rem 0 0;
+  }
+  /* #endregion */
+
+  /* #region feature css */  
+  #feature .cont{
+    width: 37.5rem;
+    margin: 0 auto;
+    text-align: center;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/mascot.png") no-repeat center ;
+    background-size: 30.625rem 30.625rem;
+  }
+  #feature .title-wrap{
+    margin: 9.5rem 2rem 0 2rem;
+  }
+  #feature .feature-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #feature .feature-wrap .card1{
+    width: 32.0625rem;
+    margin: 1.5625rem auto;
+  }
+  #feature .feature-wrap .card2{
+    width: 32.0625rem;
+    margin: 1.5625rem auto;
+  }
+  #feature .feature-wrap .card3{
+    width: 32.0625rem;
+    margin: 1.5625rem auto;
+  }
+  #feature .feature-wrap .card4{
+    width: 32.0625rem;
+    margin: 1.5625rem auto;
+  }
+  #feature .feature-wrap .feature-icon{
+    margin: 2rem 0 0 2rem;   
+  }
+  #feature .feature-wrap .des{
+    margin: 1.25rem 0 0 2rem;
+  }
+  /* #endregion */
+
+  /* #region course css */
+  #course .cont{
+    width: 37.5rem;
+  }
+  #course .title-wrap{
+    margin: 8.5rem 0 0;  
+  }
+  #course .title-wrap .yellow-line{
+    top: 2.1rem;
+  }
+  #course .content-wrap .space-padding{
+    width: 3.275rem;
+  }
+  #course .content-wrap .course-word{
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 2.125rem;
+  }
+  #course .content-wrap .allCourse{
+    font-size: 1rem;
+  }
+  #course .gre-1v1 .left{
+    flex: 1 0 100%;
+    margin: 0 4.4375rem 0 3.75rem;
+  }
+  #course .gre-small .left{
+    flex: 1 0 100%;
+    margin: 0 4.4375rem 0 3.75rem;
+  }
+  #course .gmat-1v1 .left{
+    flex: 1 0 100%;
+    margin: 0 4.4375rem 0 3.75rem;
+  }
+  #course .gmat-small .left{
+    flex: 1 0 100%;
+    margin: 0 4.4375rem 0 3.75rem;
+  }
+    #course .left .btn-joinclass1{
+    margin: 4.5rem 0 1.5rem;
+  }
+  #course .left .btn-joinclass2{
+    margin: 4.3125rem 0 1.5rem;
+  }
+  #course .left .btn-joinclass3{
+    margin: 3.0625rem 0 1.5rem;
+  }
+  #course .left .btn-joinclass4{
+    margin: 2.9375rem 0 1.5rem;
+  }
+  #course .right{
+    position: relative;
+    height: 300px;
+    width: 300px;
+  }
+  #course .gre-1v1 .right img{
+    position: absolute;
+    width: 30.25rem;
+    height: 30.25rem;
+    top: -2.125rem;
+    left: 4rem;
+  }
+  #course .gre-1v1 .right div{
+    width: 9.25rem;
+    height: 5.125rem;
+  }
+  #course .gre-1v1 .right .fe1{
+    position: absolute;
+    top: 12.75rem;
+    left: 0.125rem;
+  }
+  #course .gre-1v1 .right .fe2{
+    position: absolute;
+    top: 9.0625rem;
+    left: 25.4375rem;
+  }
+  #course .gre-1v1 .right .fe3{
+    position: absolute;
+    top: 23.4375rem;
+    left: 1.125rem;
+  }
+  #course .gre-1v1 .right .fe4{
+    position: absolute;
+    top: 23.4375rem;
+    left: 26.0625rem;
+  }
+  #course .gre-small .right img{
+    position: absolute;
+    width: 30.375rem;
+    height: 30.375rem;
+    top: -2.875rem;
+    left: 3rem;
+  }
+  #course .gre-small .right div{
+    background: #FFFFFF;
+    box-shadow: 0px 0.4375rem 1rem rgba(0, 0, 0, 0.13);
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-weight: 600;
+    font-size: 1.2375rem;
+    line-height: 154.7%;
+  }
+  #course .gre-small .right .fe1{
+    position: absolute;
+    top: 1.5625rem;
+    left: 0rem;
+    width: 13.1875rem;
+    height: 5.125rem;
+  }
+  #course .gre-small .right .fe2{
+    position: absolute;
+    top: 3.5rem;
+    left: 23.1875rem;
+    width: 12.9375rem;
+    height: 5.125rem;
+  }
+  #course .gre-small .right .fe3{
+    position: absolute;
+    top: 20.625rem;
+    left: 0rem;
+    width: 12.4375rem;
+    height: 5.125rem;
+  }
+  #course .gre-small .right .fe4{
+    position: absolute;
+    top: 20.625rem;
+    left: 23.4375rem;
+    width: 13.25rem;
+    height: 5.125rem;
+  }
+
+
+  #course .gmat-1v1 .right img{
+    position: absolute;
+    width: 35.8125rem;
+    height: 35.8125rem;
+    top: -2.1875rem;
+    left: 1rem;
+  }
+  #course .gmat-1v1 .right div{
+    width: 9.25rem;
+    height: 5.125rem;
+  }
+  #course .gmat-1v1 .right .fe1{
+    position: absolute;
+    top: 7.9375rem;
+    left: 0.625rem;
+  }
+  #course .gmat-1v1 .right .fe2{
+    position: absolute;
+    top: 7.25rem;
+    left: 28.4375rem;
+  }
+  #course .gmat-1v1 .right .fe3{
+    position: absolute;
+    top: 20.9375rem;
+    left: 2.5625rem;
+  }
+  #course .gmat-1v1 .right .fe4{
+    position: absolute;
+    top: 18.6875rem;
+    left: 27.3125rem;
+  }
+
+
+  #course .gmat-small .right img{
+    position: absolute;
+    width: 34.375rem;
+    height: 24.562rem;
+    top: 5.1875rem;
+    left: 1.5rem;
+  }
+  #course .gmat-small .right div{
+    background: #FFFFFF;
+    box-shadow: 0px 0.4375rem 1rem rgba(0, 0, 0, 0.13);
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-weight: 600;
+    font-size: 1.2375rem;
+    line-height: 154.7%;
+  }
+  #course .gmat-small .right .fe1{
+    position: absolute;
+    top: 5.5rem;
+    left: 0.5rem;
+    width: 13.1875rem;
+    height: 5.125rem;
+  }
+  #course .gmat-small .right .fe2{
+    position: absolute;
+    top: 8.25rem;
+    left: 22.0625rem;
+    width: 13.937rem;
+    height: 5.125rem;
+  }
+  #course .gmat-small .right .fe3{
+    position: absolute;
+    top: 22.5rem;
+    left: 0;
+    width: 13.1875rem;
+    height: 5.125rem;
+  }
+  #course .gmat-small .right .fe4{
+    position: absolute;
+    top: 22.5rem;
+    left: 23.4375rem;
+    width: 13.25rem;
+    height: 5.125rem;
+  }
+  /* #endregion */
+
+  /* #region teacher css */
+  #teacher .cont{
+    width: 37.5rem;
+  }
+  #teacher .title-wrap .yellow-line{
+    top: 2.1rem;
+  }
+  #teacher .teacher-slider{
+    height: 26.375rem;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Teacher-group.png") no-repeat bottom; 
+  }
+  #teacher .teacher-slider .slider-wrap{
+    width: 25.5rem;
+    height: 18.975rem;
+    margin-top: 6.25rem;
+  }
+  #teacher .teacher-slider .overlay{
+    width: 20rem;
+    height: 20rem;
+  }
+  .slider-item {
+    width: 25rem;
+    transition-timing-function: ease;
+    transition-duration: 100ms;
+  }
+  .slider-item.slider-active {
+    width: 25rem;
+    z-index: 999;
+  }
+  #teacher .teacher-slider .icon-outter{
+    width: 2rem;
+    height: 2rem;
+  }
+  #teacher .teacher-slider .icon-outter img{
+    max-width: 1.5rem;
+  }
+  #teacher .teacher-slider .left{
+    margin: 13.625rem 1.4375rem 0 2.625rem;
+  }
+  #teacher .teacher-slider .right{
+    margin: 13.625rem 1.625rem 0 2.4375rem;
+  }
+  /* #endregion */
+
+  /* #region student css */
+  #student .cont{
+    width: 37.5rem;
+    height: 56rem;
+  }
+  #student .title-wrap .yellow-line{
+    top: 2.1rem;
+  }
+  #student .content-wrap{
+    margin: 8.625rem 0 0;
+    position: relative;
+  }
+  #student .left{
+    position: absolute;
+    margin-left: 1.4375rem;
+    margin-top: 15rem;
+  }
+  #student .left .layer1{
+    width: 12.525rem;
+    height: 12.525rem;
+  }
+  #student .left .student-pic{
+    width: 11.1rem;
+    height: 11.1rem;  
+
+    position: absolute;
+    top: 1.5rem;
+    left: 0.7125rem;
+    z-index: 50;
+  }
+  #student .left .layer3{
+    width: 11.475rem;
+    height: 11.475rem;
+    border-radius: 50%;
+    background: #fff;
+    
+    position: absolute;
+    top: 8.5875rem;
+    left: 0.7125rem;
+    z-index: 999;
+  }
+  #student .layer3 .name{
+    position: absolute;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 155.2%;
+
+    top: 0.8rem;
+    left: 3.5rem;
+  }
+  #student .layer3 .joined-class{
+    width: 7.875rem;
+    height: 2.4rem;
+    padding: 0 0;
+    margin: 2.5625rem 0 0 1.8rem;
+    font-size: 0.75rem;
+  }
+  #student .layer3 .school{
+    width: 7.875rem;
+    height: 2.925rem;
+    margin: 1.3125rem 0 0 1.8rem;
+
+    font-size: 0.75rem;
+  }
+  #student .right{    
+    margin-left: 2.6875rem;
+  }
+  #student .right .score{
+    width: 32.5625rem;
+    height: 12.4375rem;
+    margin-top: 1.9375rem;
+  }
+  #student .right .comment{
+    width: 18.5625rem;
+    margin: 0 0 10rem 13rem;
+    padding: 0.75rem 1rem;
+  }
+  #student .control{
+    position: absolute;
+    display: flex;
+    top: 32.6875rem;
+    left: 20.6875rem;
+  }
+  #student .control .iconleft{
+    margin-left: 2.4375rem;
+  }
+  #student .control .iconright{
+    margin-left: 4.6875rem;
+  }
+
+  /* #endregion */
+
+  /* #region media css */
+  #media .cont{
+    width: 37.5rem;
+    height: 56rem;
+    padding: 6rem 0;
+  }
+  #media .title-wrap .yellow-line{
+    top: 2.1rem;
+  }
+  #media .content-wrap{
+    margin: 4.625rem 0 0;
+  }
+  #media .content-wrap .media-block{
+    width: 14rem;
+    height: 6rem;
+    margin: 0 3.75rem 3.3125rem 0;
+  }
+  #media .content-wrap .media1{
+    margin-left: 4rem;
+  }
+  #media .content-wrap .media3{
+    margin-left: 4rem;
+  } 
+  #media .content-wrap .media5{
+    margin-left: 4rem;
+  }
+  #media .content-wrap .media7{
+    margin-left: 4rem;
+  }
+/* #endregion */
+
+  /* #region news css */
+  #news .cont{
+    width: 37.5rem;
+    padding: 6rem 0;
+  }
+  #news .title-wrap .yellow-line{
+    top: 2.1rem;
+  }
+  #news .content-wrap{
+    padding: 5.0625rem 1.0625rem 0 1.3125rem;
+  }
+  #news .content-wrap .news-block1{
+    margin: 3.875rem 1rem 0 0;
+    text-align: left;
+  }
+  #news .content-wrap .news-block2{
+    margin: 0 0;
+    text-align: left;
+  }
+  #news .content-wrap .wrap{
+    font-weight: 500;
+    font-size: 1.125rem;
+    line-height: 1.5625rem;
+  }
+  #news .content-wrap .wrap a{
+    text-decoration: none;
+  }
+  #news .content-wrap .wrap li{
+    margin-bottom: 0.875rem;
+  }
+  #news .content-wrap .wrap li::marker{
+    color: #1A8750;
+    size: 0.5625rem;
+  }
+/* #endregion */
+
+}
 </style>

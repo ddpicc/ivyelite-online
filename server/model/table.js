@@ -57,6 +57,7 @@
 		class_id INT UNSIGNED NOT NULL,
 		subject TEXT NOT NULL COMMENT '房间主题',
 		room_id INT UNSIGNED NOT NULL,
+		host_id INT UNSIGNED NOT NULL,
 		begin_timestamp BIGINT,
 		room_type INT NOT NULL DEFAULT 1,
 		password VARCHAR(30),
@@ -75,14 +76,15 @@
 		PRIMARY KEY ( id )
 	);`
 
-	let order_info =
-	`create table if not exists order_info(
+	let collect_info =
+	`create table if not exists collect_info(
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_name VARCHAR(20),
 		wechat TEXT COMMENT '微信号',
-		user_emal VARCHAR(50) NOT NULL COMMENT '邮箱',
-		class_id INT UNSIGNED NOT NULL,
-		user_uid INT UNSIGNED NOT NULL,
+		user_email VARCHAR(50) NOT NULL COMMENT '邮箱',
+		class_id INT UNSIGNED,
+		user_uid INT UNSIGNED,
+		origin TEXT COMMENT '来源',
 		PRIMARY KEY ( id )
 	);`
 
@@ -92,7 +94,8 @@
 		contact_phone VARCHAR(20) COMMENT '电话',
 		contact_wechat TEXT COMMENT '微信号',
 		contact_email VARCHAR(50) COMMENT '邮箱',
+		qr_code TEXT COMMENT '二维码图片路径',
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users,courses,classes,user_class,room,receipt,order_info,config]
+module.exports = [users,courses,classes,user_class,room,receipt,collect_info,config]

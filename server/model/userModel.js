@@ -58,3 +58,8 @@ exports.getAllUsers = () => {
 	let _sql = "select * from users;"
 	return query( _sql )
 }
+// 修改用户密码
+exports.updateUserPass = ( value ) => {
+  let _sql = "update users set pass=? where email=?;"
+  return query( _sql, value )
+}

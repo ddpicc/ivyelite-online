@@ -8,7 +8,7 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-img @click="changeAvatar()" :src="avatar_url"></v-img>
+            <v-img class="avatar" @click="changeAvatar()" :src="avatar_url"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="text-h6">
@@ -93,10 +93,10 @@
     { text: '购买记录', icon: 'mdi-receipt', to: '/myprofile/invoice', roles: ['student'] },
     { text: '订单处理', icon: 'mdi-star', to: '/order', roles: ['admin']},
     { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
-    { text: '我的课堂', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher']},
+    { text: '我的课堂', icon: 'mdi-folder', to: '/myprofile/teacherclass', roles: ['teacher','assistant']},
     { text: '配置选项', icon: 'mdi-account-multiple', to: '/admin/config', roles: ['admin']},
     { text: '所有用户', icon: 'mdi-account-multiple', to: '/admin/allusers', roles: ['admin']},
-    { text: '所有课堂', icon: 'mdi-play-box-multiple', to: '/admin/allclasses', roles: ['admin']}
+    { text: '所有课堂', icon: 'mdi-play-box-multiple', to: '/admin/allclasses', roles: ['admin','assistant']}
     
   ]
   export default {
@@ -217,5 +217,8 @@
 <style scoped>
   #imgDialog {
     background-color: aliceblue;
+  }
+  .avatar{
+    cursor: pointer;
   }
 </style>

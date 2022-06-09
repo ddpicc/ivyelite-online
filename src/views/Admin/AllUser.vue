@@ -40,16 +40,8 @@
 
                   <v-list-item-content>
                     <v-list-item-title v-text="item.name"></v-list-item-title>
+                    <v-list-item-subtitle v-text="'注册时间: ' + new Date(item.register_time).toLocaleString()"></v-list-item-subtitle>
                   </v-list-item-content>
-
-                  <v-list-item-icon>
-                    <v-btn
-                      icon
-                      color="pink"
-                    >
-                      <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                  </v-list-item-icon>
                 </v-list-item>
               </v-list>
 

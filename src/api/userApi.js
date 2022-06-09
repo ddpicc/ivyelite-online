@@ -15,4 +15,6 @@ export default {
   getQiniuToken: () => api.get('/userApi/getQiniuToken', {}),
   updateUserAvatar: (avatar_url, uid) => api.post(`/userApi/updateUserAvatar`, {avatar_url, uid}),
   getAllUsers: () => api.get(`/userApi/getAllUsers`, {}),
+  updateUserPass: (pass, email) => api.post(`/userApi/updateUserPass`, {pass, email}),
+
 }

@@ -54,10 +54,10 @@ app.use(async (ctx, next) => {
 
 app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
   // 登录接口不需要验证
-  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/userApi\/sendActivateEmail/,/^\/userApi\/verifyActivateCode/,
+  path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/userApi\/sendActivateEmail/,/^\/userApi\/verifyActivateCode/,/^\/userApi\/updateUserPass/,
     /^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/userApi\/findDataCountByName/,/^\/courseApi\/findOneClassById/,
-    /^\/courseApi\/getAllCourses/,/^\/courseApi\/getAllClasses/,/^\/courseApi\/findOneCourseById/,/^\/courseApi\/getClassesbyCourseId/,/^\/courseApi\/getCommentbyCourseId/,
-    /^\/relationApi\/isClassReserved/,
+    /^\/courseApi\/getAllCourses/,/^\/courseApi\/getAllClasses/,/^\/courseApi\/getClassesbyCourseId/,/^\/relationApi\/isClassReserved/,
+    /^\/infoApi\/loadConfig/,/^\/classroom\/searchRoomByClassId/,/^\/infoApi\/saveToColInfo/,/^\/roomkit\/getSDKToken/,/^\/roomkit\/getRoomInfo/,/^\/classroom\/updateRoomStatus/,
     /^\/payment\/webhook/]
 }));
 
@@ -68,13 +68,18 @@ app.use(require('./routers/classRoomRouter.js').routes())
 app.use(require('./routers/relationRouter.js').routes())
 app.use(require('./routers/paymentRouter.js').routes())
 app.use(require('./routers/receiptRouter.js').routes())
+app.use(require('./routers/infoRouter.js').routes())
 
 io.on("connection", (socket) => {
   // ...
   console.log('connect')
   socket.on('classcreated', data => {
-    console.log('老师已经创建课程', data)
-    socket.broadcast.emit("classopen", "world");
+    console.log('管理员已经创建课程', data)
+    socket.broadcast.emit("classopen", data);
+  })
+  socket.on('classdeleted', data => {
+    console.log('管理员已经删除课程', data)
+    socket.broadcast.emit("classclose", data);
   })
 });
 

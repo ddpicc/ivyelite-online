@@ -49,3 +49,20 @@ exports.getAllUserReceipt = async ctx => {
 		}
 	})
 }
+
+exports.updateReceiptStatus = async ctx => {
+	let { receipt_id } = ctx.request.body;
+	await courseModel.updateReceiptStatus([receipt_id]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}

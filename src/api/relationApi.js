@@ -7,5 +7,5 @@ export default {
   findUsersByClass: (class_id) => api.get(`/relationApi/findUsersByClass`, {class_id}),
   findAllUsersNotInClass: (class_id) => api.get(`/relationApi/findAllUsersNotInClass`, {class_id}),
   deleteRelation: (user_uid, class_id) => api.delete(`/relationApi/deleteRelation`, {user_uid, class_id}),
-  
+  getAllTeacherOrStudent: (role) => api.get(`/relationApi/getAllTeacherOrStudent`, {role}),
 }

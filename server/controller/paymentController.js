@@ -1,7 +1,7 @@
 const stripeGate = require('stripe')(process.env.VUE_APP_STRIPE_APIKEY);
-const endpointSecret =  process.env.VUE_APP_STRIPE_WEBHOOKKEY_LOCAL
+//const endpointSecret =  process.env.VUE_APP_STRIPE_WEBHOOKKEY_LOCAL
 
-//const endpointSecret = process.env.VUE_APP_STRIPE_WEBHOOKKEY_PROD
+const endpointSecret = process.env.VUE_APP_STRIPE_WEBHOOKKEY_PROD
 
 //"whsec_7an8Z5ahxHsex2T30vCSseiAFs5vItXR";
 const relationModel = require('../model/relationModel')
@@ -10,9 +10,9 @@ const courseModel = require('../model/courseModel')
 
 //create a stripe checkout session
 exports.createCheckoutSession = async ctx => {
-  let baseurl = 'http://localhost:8080/#'
+  //let baseurl = 'http://localhost:8080/#'
 
-  //let baseurl = 'https://online.ivyelite.net/#'
+  let baseurl = 'https://online.ivyelite.net/#'
 
   let { price_id, quantity,class_id,user_uid } = ctx.request.body;
   const session = await stripeGate.checkout.sessions.create({
@@ -24,6 +24,7 @@ exports.createCheckoutSession = async ctx => {
       },
     ],
     mode: 'payment',
+    allow_promotion_codes: true,
     success_url: baseurl + '/course/explore/gresmallclass?session_id={CHECKOUT_SESSION_ID}',
     cancel_url: baseurl + '/payment/cancel',
     metadata: {

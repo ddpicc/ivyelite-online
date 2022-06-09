@@ -24,6 +24,14 @@
 											v-for="(item, i) in classesList"
 											:key="i"
 										>
+											<v-banner
+												single-line
+												sticky
+												color="titlegreen"
+												v-if="item.classBegin"
+											>
+												正在上课中..
+											</v-banner>
 											<div class="d-flex flex-no-wrap justify-space-between">
 												<div>
 													<v-card-title
@@ -101,6 +109,7 @@
 <script>
 	import profileLeft from "../../components/ProfileLeft.vue"
   import relationApi from '../../api/relationApi'
+	import classRoomApi from '../../api/classRoomApi'
   export default {
     data: () => ({
 			classesList: [],
@@ -111,19 +120,53 @@
       notification: '',
 		}),
 
+		sockets: {
+			connect: function () {
+				console.log('socket connected')
+			},
+			classopen: function (data) {				
+				let findTheClass = this.classesList.find(function(p){
+          return p.id == data;
+        });
+				console.log(typeof(findTheClass))
+        if(typeof(findTheClass)!="undefined"){
+          this.$set(findTheClass,'classBegin',true)
+        }
+			},
+			classclose: function (data) {
+				let findTheClass = this.classesList.find(function(p){
+          return p.id == data;
+        });
+				console.log(typeof(findTheClass))
+        if(typeof(findTheClass)!="undefined"){
+          this.$set(findTheClass,'classBegin',false)
+        }
+			}
+    },
+
 		components: {
 			profileLeft
 		},
 
 		methods: {
       prepareClass: function(item) {
-				this.$router.push({ path: '/course/prepare', query: {classTitle: item.name, class_id: item.id} });
+				this.$router.push({ path: '/teacherclass/join', query: {classTitle: item.name, class_id: item.id} });
       },
 
-      getUserCourses: function(){
+      getUserClasses: function(){
 				relationApi.findClasseseByUser(this.$store.state.user.uid).then( (res) => {
           if (res.data.code === 200) {
             this.classesList = res.data.data;
+						for(let element of this.classesList){
+							classRoomApi.searchRoomByClassId(element.id,'进行中').then( (res) => {
+								if (res.data.code === 200) {
+									if(res.data.data.length > 0){     //有对应的房间
+										//element.classBegin = true;
+										this.$set(element,'classBegin',true)
+									}
+								}
+							})
+						}
           }else{
             this.snackbar = true;
             this.notification = '发生错误，请重试或联系管理员';
@@ -138,7 +181,7 @@
 		},
 
 		mounted: function(){
-			this.getUserCourses()
+			this.getUserClasses()
 		}
 	}
 </script>

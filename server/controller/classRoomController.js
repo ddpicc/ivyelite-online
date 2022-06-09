@@ -166,8 +166,8 @@ exports.getRoomInfo = async ctx => {
 
 //save the room information to db
 exports.saveRoomInfoToDb = async ctx => {
-	let { class_id, subject, room_id, begin_timestamp, room_type, password, status } = ctx.request.body;
-	await classRoomModel.saveRoomInfoToDb([class_id, subject, room_id, begin_timestamp, room_type, password, status]).then(res => {
+	let { class_id, subject, room_id, host_id, begin_timestamp, room_type, password, status } = ctx.request.body;
+	await classRoomModel.saveRoomInfoToDb([class_id, subject, room_id, host_id, begin_timestamp, room_type, password, status]).then(res => {
 		ctx.body = {
 			code: 200,
       message: '成功',

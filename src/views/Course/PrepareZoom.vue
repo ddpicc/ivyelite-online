@@ -34,12 +34,6 @@
 							</v-card-title>
 
 							<v-card-subtitle>{{theClass.room_id}}</v-card-subtitle>
-
-							<v-card-actions>
-								<v-btn @click="attendClass(theClass.id,theClass.room_id,theClass.begin_timestamp)" text>
-									加入课堂
-								</v-btn>
-							</v-card-actions>
 						</v-card>
 						<v-card>									
 							<v-list subheader>
@@ -53,30 +47,6 @@
 										<v-btn text @click="editBtnClick()">
 											{{btnText}}
 										</v-btn>
-									</v-list-item-icon>
-								</v-list-item>
-
-								<v-list-item>
-									<v-list-item-content>
-										<v-list-item-title>进入房间时将麦克风开启</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-switch
-											inset
-											v-model="ismic_open"
-										></v-switch>
-									</v-list-item-icon>
-								</v-list-item>
-
-								<v-list-item>
-									<v-list-item-content>
-										<v-list-item-title>进入房间时将摄像头开启</v-list-item-title>
-									</v-list-item-content>
-									<v-list-item-icon>
-										<v-switch
-											inset
-											v-model="iscamera_open"
-										></v-switch>
 									</v-list-item-icon>
 								</v-list-item>
 							</v-list>
@@ -154,25 +124,25 @@
 				}
 				const subject = this.classSubject;
 				const room_type = 1;
-				const duration = 90;
+				const duration = 120;
 				const host = {
 					uid: Number(this.$store.state.user.uid)
 				};
-				
+				//使用管理员的id作为host id，但是它不是房间老师的id，老师加入的时候也使用这个host id
 				classRoomApi.createRoom(subject, room_type, duration, host).then( (res) => {
           if (res.data.code === 200) {
 						let roomkitResult = res.data.data;
 						console.log(roomkitResult)
 						//把房间信息存入数据库
-						classRoomApi.saveRoom(this.class_id, subject, roomkitResult.room_id, roomkitResult.begin_timestamp, 1,'','进行中').then( (res) => {
+						classRoomApi.saveRoom(this.class_id, subject, roomkitResult.room_id, this.$store.state.user.uid, roomkitResult.begin_timestamp, 1,'','进行中').then( (res) => {
 							if (res.data.code === 200) {
 								this.snackbar = true;
 								this.notification = '成功';
 								this.snackbarColor = 'green';
-								this.$socket.emit('classcreated', 'Class begin!')	
+								this.$socket.emit('classcreated', this.class_id)	
 								this.theClass = {
 									id: res.data.data.insertId,
-									course_id: this.course_id,
+									class_id: this.class_id,
 									begin_timestamp: roomkitResult.begin_timestamp,
 									password: '',
 									room_type: 1,
@@ -216,6 +186,7 @@
 						this.snackbar = true;
 						this.notification = '删除成功';
 						this.snackbarColor = 'green';
+						this.$socket.emit('classdeleted', this.class_id)
 						this.getClass();
 						//从educloud删除课堂
 					}else{
@@ -225,27 +196,6 @@
 					}
 				})
 			},
-
-			attendClass: function(id,room_id,begin_timestamp){
-				let urlParams = {
-					id: id,
-					room_id: room_id,
-					role: 1,
-					begin_timestamp: begin_timestamp,
-					mic: this.ismic_open,
-					camera: this.iscamera_open,
-					isEndRoomButtonHidden: false,
-					isMemberCountHidden: false,
-					isMemberEquipmentInspectionHidden: false,
-					isMemberJoinRoomMessageHidden: false,
-					isMemberLeaveRoomMessageHidden: false,
-					isVideoViewAutoHidden: false,
-					isCompanyFilesHidden: false,
-					isFixedInOutMessage: false,
-					enableHandwriting: true,
-				}
-				this.$router.push({path: '/zegoClass', query: urlParams});
-			}
 		},
 
 		mounted: function(){
@@ -253,7 +203,7 @@
 				this.snackbar = true;
 				this.notification = '你还没有选择课程，请先选择一个课程';
 				this.snackbarColor = 'red';
-				setTimeout( () => {this.$router.push({path: '/myprofile/teacherclass'});}, 3000);
+				setTimeout( () => {this.$router.push({path: '/admin/allclasses'});}, 3000);
 			}else{
 				this.getClass();
 			}			

@@ -246,3 +246,20 @@ exports.getAllUsers = async ctx => {
 		}
 	})
 }
+
+exports.updateUserPass = async ctx => {
+	let { pass, email } = ctx.request.body;
+	await userModel.updateUserPass([pass, email]).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}

@@ -1,100 +1,175 @@
 <template>
   <header class="header">
 
-      <div class="logo" @click="jumpHome()"></div>
+    <div class="logo" @click="jumpHome()"></div>
 
-      <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
 
-      <div class="dropdown btn-margin">
-        <div class="dropbtn">
-          留学服务
-          <img src="../assets/icon/down arrow.png"/>
-        </div>
-        <div class="dropdown-content">
-          <a href="https://www.ivyelite.net/studying-abroad/high-school-application">高中申请</a>
-          <a href="https://www.ivyelite.net/studying-abroad/undergraduate-application">本科申请</a>
-          <a href="https://www.ivyelite.net/studying-abroad/graduate-application">研究生申请</a>
-        </div>
+    <div v-if="!hide" class="dropdown btn-margin">
+      <div class="dropbtn">
+        留学服务
+        <img src="../assets/icon/down arrow.png"/>
       </div>
-
-      <div class="dropdown btn-margin">
-        <div class="dropbtn">
-          精英课程
-          <img src="../assets/icon/down arrow.png"/>
-        </div>
-        <div class="dropdown-content">
-          <a href="/#/course/explore/gre1v1">GRE 1v1 私教班</a>
-          <a href="/#/course/explore/gresmallclass">GRE 全程提分班</a>
-          <a href="/#/course/explore/gmat1v1">GMAT 1v1 私教班</a>
-          <a href="/#/course/explore/gmatsmallclass">GMAT 全程提分班</a>
-        </div>
+      <div class="dropdown-content">
+        <a href="https://www.ivyelite.net/studying-abroad/high-school-application">高中申请</a>
+        <a href="https://www.ivyelite.net/studying-abroad/undergraduate-application">本科申请</a>
+        <a href="https://www.ivyelite.net/studying-abroad/graduate-application">研究生申请</a>
       </div>
+    </div>
 
-      <a class="aboutus" href="https://www.ivyelite.net/about-us-home">关于我们</a>
-
-      <button
-        v-if="!verifyLogin()"
-        class="header-menu register hvr-grow"
-        @click="jumpLogin()"
-      >
-        <p class="word20">登录</p>
-      </button>
-
-      <div v-if="verifyLogin()" class="dropdown btn-margin">
-        <div class="dropbtn hvr-grow">
-          Welcome, {{userName}}
-          <img src="../assets/icon/down arrow.png"/>
-        </div>
-        <div class="dropdown-content">
-          <a href="/#/myprofile/profile">个人资料</a>
-          <a v-if="$store.state.user.roles == 'student'" href="/#/myprofile/class">我的课程</a>
-          <a v-if="$store.state.user.roles == 'teacher'" href="/#/myprofile/teacherclass">我的课堂</a>
-          <a @click="logout()">退出</a>
-        </div>
+    <div v-if="!hide" class="dropdown btn-margin">
+      <div class="dropbtn">
+        精英课程
+        <img src="../assets/icon/down arrow.png"/>
       </div>
+      <div class="dropdown-content">
+        <a href="/#/course/explore/gre1v1">GRE 1v1私教班</a>
+        <a href="/#/course/explore/gresmallclass">GRE 全程提分班</a>
+        <a href="/#/course/explore/gmat1v1">GMAT 1v1私教班</a>
+        <a href="/#/course/explore/gmatsmallclass">GMAT 全程提分班</a>
+      </div>
+    </div>
 
+    <a v-if="!hide" class="aboutus" href="https://www.ivyelite.net/about-us-home">关于我们</a>
+
+    <button
+      v-if="!verifyLogin() && !hide"
+      class="header-menu register hvr-grow"
+      @click="jumpLogin()"
+    >
+      <p class="word20">登录</p>
+    </button>
+
+    <div v-if="verifyLogin() && !hide" class="dropdown btn-margin">
+      <div class="dropbtn hvr-grow">
+        Welcome, {{userName}}
+        <img src="../assets/icon/down arrow.png"/>
+      </div>
+      <div class="dropdown-content">
+        <a href="/#/myprofile/profile">个人资料</a>
+        <a v-if="$store.state.user.roles == 'student'" href="/#/myprofile/class">我的课程</a>
+        <a v-if="$store.state.user.roles == 'teacher'" href="/#/myprofile/teacherclass">我的课堂</a>
+        <a @click="logout()">退出</a>
+      </div>
+    </div>
+
+    <v-app-bar-nav-icon class="drawer" v-if="hide" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+      right
+    >
+      <v-list>
+        <v-list-group
+          v-for="item in items"
+          :key="item.title"
+          v-model="item.active"
+          :prepend-icon="item.action"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list-item
+            v-for="child in item.items"
+            :key="child.title"
+            :to="child.to"
+          >
+            <v-list-item-content>
+              <v-list-item-title v-text="child.title"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-information-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <a style="text-decoration: none;" href="https://www.ivyelite.net/about-us-home">关于我们</a>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/login" v-if="!verifyLogin()">
+          <v-list-item-icon>
+            <v-icon>mdi-account-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>登录</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-group
+          v-if="verifyLogin()"
+          v-model="active"
+          prepend-icon="mdi-account"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>欢迎你，</v-list-item-title>
+            </v-list-item-content>
+          </template>
+          <v-list-item to="/myprofile/profile">
+            <v-list-item-content>
+              <v-list-item-title>个人资料</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="$store.state.user.roles == 'student'" to="/myprofile/class">
+            <v-list-item-content>
+              <v-list-item-title>我的课程</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="$store.state.user.roles == 'teacher'" to="/myprofile/teacherclass">
+            <v-list-item-content>
+              <v-list-item-title>我的课堂</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item @click="logout()">
+            <v-list-item-content>
+              <v-list-item-title>退出</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+      </v-list>
+    </v-navigation-drawer>
   </header>
 </template>
 
 <script>
-  // Utilities
-  import {
-    mapMutations
-  } from 'vuex'
-
   export default {
     data: () => ({
-      title: '常青藤精英教育',
-      responsive: false,
       userName: '',
+      drawer: false,
+      hide: false,
+
+      items: [
+        {
+          action: 'mdi-school',
+          items: [
+            { title: '高中申请', to: 'https://www.ivyelite.net/studying-abroad/high-school-application' },
+            { title: '本科申请', to: 'https://www.ivyelite.net/studying-abroad/undergraduate-application' },
+            { title: '研究生申请', to: 'https://www.ivyelite.net/studying-abroad/graduate-application' },
+          ],
+          title: '留学服务',
+        },
+        {
+          action: 'mdi-desktop-mac',
+          active: true,
+          items: [
+            { title: 'GRE 1v1私教班', to: '/course/explore/gre1v1' },
+            { title: 'GRE 全程提分班', to: '/course/explore/gresmallclass' },
+            { title: 'GMAT 1v1私教班', to: '/course/explore/gmat1v1' },
+            { title: 'GMAT 全程提分班', to: '/course/explore/gmatsmallclass' },
+          ],
+          title: '精英课程',
+        },
+      ],
+      active: true,
     }),
 
-    watch: {
-      '$route' (val) {
-        this.title = val.name
-      }
-    },
-
-    mounted () {
-      this.onResponsiveInverted()
-      window.addEventListener('resize', this.onResponsiveInverted)
-    },
-    beforeDestroy () {
-      window.removeEventListener('resize', this.onResponsiveInverted)
-    },
-
     methods: {
-      ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
-      onClick () {
-        this.setDrawer(!this.$store.state.app.drawer)
-      },
-      onResponsiveInverted () {
-        if (window.innerWidth < 991) {
-          this.responsive = true
-        } else {
-          this.responsive = false
-        }
-      },
       jumpLogin: function(){
         this.$router.push({ path: '/login' });
       },
@@ -112,7 +187,21 @@
 
       jumpHome: function(){
         this.$router.push({ path: '/' });
-      }
+      },
+      onResponsiveInverted () {
+        if (document.documentElement.clientWidth < 600) {
+          this.hide = true
+        } else {        
+          this.hide = false
+        }
+      },
+    },
+    mounted: function(){
+      this.onResponsiveInverted()
+      window.addEventListener('resize', this.onResponsiveInverted)
+    },
+    beforeDestroy: function(){
+      window.removeEventListener('resize',this.onResponsiveInverted)
     }
   }
 </script>
@@ -166,7 +255,6 @@
     color: #fff;
     margin-right: 5.4375rem;
   }
-
 
   .header .dropdown {
     position: relative;
@@ -231,5 +319,15 @@
     display: block;
   }
 
+@media screen and (max-width: 600px) {
+  .logo{
+    width: 16.75rem;
+    height: 8.25rem;
+    margin-top: 1.5rem;
+  }
+  .drawer{
+    margin-top: 1.5rem;
+  }
+}
 
 </style>

@@ -85,19 +85,36 @@ exports.findAllUsersNotInClass = async ctx => {
 	})
 }
 	
-	exports.deleteRelation = async ctx => {
-		let {user_uid, class_id} = ctx.request.query
-		await relationModel.deleteRelation(user_uid, class_id).then(res => {
-			ctx.body = {
-				code: 200,
-				message: '成功',
-				data: res
-			}
-		}).catch(err => {
-			console.log(err)
-			ctx.body = {
-				code: 500,
-				message: '失败'
-			}
-		})
-	}
+exports.deleteRelation = async ctx => {
+	let {user_uid, class_id} = ctx.request.query
+	await relationModel.deleteRelation(user_uid, class_id).then(res => {
+		ctx.body = {
+			code: 200,
+			message: '成功',
+			data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}
+
+exports.getAllTeacherOrStudent = async ctx => {
+	let { role } = ctx.request.query
+	await relationModel.getAllTeacherOrStudent(role).then( (res) => {
+		ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res
+		}
+	}).catch(err => {
+		console.log(err)
+		ctx.body = {
+			code: 500,
+			message: '失败'
+		}
+	})
+}

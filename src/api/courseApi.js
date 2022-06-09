@@ -1,11 +1,8 @@
 import api from './axiosConfig'
 
 export default {
-  getAllCourses: () => api.get(`/courseApi/getAllCourses`, {}),
-  findOneCourseById: (id) => api.get(`/courseApi/findOneCourseById`, {id}),
   getClassesbyCourseId: (course_id) => api.get(`/courseApi/getClassesbyCourseId`, {course_id}),
   findOneClassById: (classId) => api.get(`/courseApi/findOneClassById`, {classId}),
-  getCommentbyCourseId: (course_id) => api.get(`/courseApi/getCommentbyCourseId`, {course_id}),
   getAllClasses: () => api.get(`/courseApi/getAllClasses`, {}),
-  //countStudentNm: (class_id) => api.get(`/courseApi/countStudentNm`, {class_id}),
+  insertClass: (name, time_range, course_id, comment, status) => api.post(`/courseApi/insertClass`, {name, time_range, course_id, comment, status}),
 }

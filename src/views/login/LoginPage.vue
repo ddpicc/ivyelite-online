@@ -25,7 +25,7 @@
               <div>
                 密码
                 <span style="color: red">*</span>
-                <div v-if="inLogin" class="forget">忘记密码?</div>
+                <div v-if="inLogin" class="forget" @click="forgetPass()">忘记密码?</div>
                 <div v-if="!inLogin && passValid == false" class="email-msg">至少包含一个大写字母，一个小写字母，一个数字</div>
               </div>              
               <input type="password" v-model="password" @keyup.enter="btnClick()" @blur="checkPass(password)">
@@ -132,8 +132,6 @@
         this.name = ''
       },
       checkEmail: function(loginEmail){
-        if(this.inLogin)
-          return
         if(loginEmail != ''){
           let isemail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(loginEmail)
           if(isemail){
@@ -144,6 +142,7 @@
         }else{
           this.emailValid = false
         }
+        console.log(this.emailValid)
       },
       checkPass: function(password){
         if(this.inLogin)
@@ -169,6 +168,30 @@
               this.nameValid = false;
             }else{
               this.nameValid = true;
+            }
+          }else{
+            this.snackbar = true;
+            this.notification = '发生错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
+      },
+
+      forgetPass: function(){
+        if(!this.emailValid){
+          this.snackbar = true;
+          this.notification = '这不是一个有效的邮箱地址';
+          this.snackbarColor = 'red';
+          return;
+        }
+        userApi.findCountByEmail(this.loginEmail).then( (res) => {
+          if (res.data.code === 200) {
+            if(res.data.data[0].count != 0){              
+              this.$router.push({path: '/active', query: { email: this.loginEmail } })                
+            }else{
+              this.snackbar = true;
+              this.notification = '这个邮箱不存在，请先注册账号';
+              this.snackbarColor = 'red';
             }
           }else{
             this.snackbar = true;
@@ -261,7 +284,7 @@
     left: 9.5rem;
   }
   #login .left .btn-wrap .before{
-    z-index: 50;
+    z-index: 6;
 
     background: #1A8750;
     color: #FFFFFF;
@@ -348,7 +371,22 @@
   #login .right{
     width: 45rem;
     height: calc(100vh - 8.5rem);
-    background: url("../../assets/login_banner.jpg") no-repeat top; 
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/login_banner.jpg") no-repeat top; 
     background-size: cover;
   }
+@media screen and (max-width: 600px) {
+  #login .right{
+    display: none;
+  }
+  #login .cont{
+    width: 37.5rem;
+  }
+  #login .left{
+    width: 37.5rem;
+    height: calc(100vh - 8.5rem);
+  }
+  #login .left .wrap{
+    padding: 8.6875rem 11.25rem 11.25rem;
+  }
+}
 </style>

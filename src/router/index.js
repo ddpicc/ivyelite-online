@@ -35,6 +35,8 @@ export const constantRouterMap = [
       {path: '/course/explore/gmat1v1', name: 'Gmat私教班', component: () => import('../views/Course/Gmat1v1.vue')},
       {path: '/course/explore/gresmallclass', name: 'Gre全程提分班', component: () => import('../views/Course/GreSmallClass.vue')},
       {path: '/course/explore/gmatsmallclass', name: 'Gmat全程提分班', component: () => import('../views/Course/GmatSmallClass.vue')},
+      {path: '/lecture', name: '讲座', component: () => import('../views/Course/LecturePage.vue')},
+      {path: '/lectureClass', name: '讲座课堂', component: () => import('../views/Course/LectureClass.vue')},
     ]
   }
 ]
@@ -63,13 +65,14 @@ export const asyncRouterMap = [
     children: [
       {path: '/myprofile/profile', name: '个人资料', component: () => import('../views/UserProfile/myProfile.vue')},
       {path: '/myprofile/class', name: '我的课程', component: () => import('../views/UserProfile/myClass.vue'), meta: {roles: ['student']}},
-      {path: '/myprofile/teacherclass', name: '课程', component: () => import('../views/UserProfile/teacherClass.vue'), meta: {roles: ['teacher'] }},
+      {path: '/myprofile/teacherclass', name: '课程', component: () => import('../views/UserProfile/teacherClass.vue'), meta: {roles: ['teacher','assistant'] }},
+      {path: '/teacherclass/join', name: '加入课程', component: () => import('../views/UserProfile/teacherPrepare.vue'), meta: {roles: ['teacher','assistant'] }},
       //{path: 'myprofile/discuss', name: '我的讨论', component: () => import('../views/UserProfile/myDiscuss.vue')},
       {path: '/myprofile/invoice', name: '购买记录', component: () => import('../views/UserProfile/myInvoice.vue')},
 
-      {path: '/course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareZoom.vue')},
+      {path: '/course/prepare', name: '准备课堂', component: () => import('../views/Course/PrepareZoom.vue'), meta: {roles: ['admin','assistant'] }},
       {path: '/order', name: '新建课程', component: () => import('../views/Admin/OrderManage.vue'), meta: {roles: ['admin']}},
-      {path: '/course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher','student']}},
+      {path: '/course/classinfo', name: '课堂信息', component: () => import('../views/Course/ClassInfo.vue'), meta: {roles: ['teacher','student','assistant']}},
       {path: '/zegoClass', name: '即构课堂', component: () => import('../views/Course/ZegoClass.vue')},
 
       {path: '/payment/checkout', name: 'Checkout', component: () => import('../views/Payment/checkout.vue')},
@@ -77,7 +80,7 @@ export const asyncRouterMap = [
 
       {path: '/admin/config', name: '配置选项', component: () => import('../views/Admin/ConfigOptions.vue'), meta: {roles: ['admin'] }},
       {path: '/admin/allusers', name: '所有用户', component: () => import('../views/Admin/AllUser.vue'), meta: {roles: ['admin'] }},
-      {path: '/admin/allclasses', name: '所有课堂', component: () => import('../views/Admin/AllClasses.vue'), meta: {roles: ['admin'] }},
+      {path: '/admin/allclasses', name: '所有课堂', component: () => import('../views/Admin/AllClasses.vue'), meta: {roles: ['admin','assistant'] }},
       {path: '/admin/classuser', name: '课堂用户', component: () => import('../views/Admin/ClassUser.vue'), meta: {roles: ['admin'] }},
       {path: '*', redirect: '/' }
     ]

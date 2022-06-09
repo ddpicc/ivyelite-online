@@ -40,6 +40,9 @@
               </ul>
             </div>
           </div>
+          <div class="money">
+            $159/hr
+          </div>
           <div class="card-action word22">
             <button class="action-button signup hvr-grow" @click="signupBtnClick()">
               立即报名
@@ -76,16 +79,18 @@
             <v-window-item>
               <div id="href-signup" class="step-label complete-border" v-bind:class="{'inactive-label': active != 1}">
                 <div class="label-title" @click="labelClick(1)">咨询老师</div>
-                <div class="label-subtitle" v-if="active == 1">我们建议先通过以下方式咨询老师，DIY适合你的课时安排。</div>
+                <div class="label-subtitle" v-if="active == 1">我们建议先通过以下方式咨询老师，DIY适合你的课时安排。<br><span style="color: red">常青藤精英教育已签约学生及已咨询过常青藤精英教育留学规划师的同学请直接点击“下一步”。</span></div>
               </div>
               <div v-if="active == 1" class="step-content" v-bind:class="{'complete-border': step > 1, 'uncomplete-border': step <= 1}">
                 <div class="inner-wrap step1">
                   <div class="contact">
-                    <div class="qrcode"></div>
+                    <div class="qrcode">
+                      <img :src="qr_code"/>
+                    </div>
                     <div class="contact-info">
-                      <div>微信号：dftrrgr</div>
-                      <div>手机号：dftrrgr</div>
-                      <div>邮箱：dftrrgr</div>
+                      <div>微信号：{{contact_wechat}}</div>
+                      <div>手机号：{{contact_phone}}</div>
+                      <div>邮箱：{{contact_email}}</div>
                     </div>
                   </div>
                   <button class="step-button next hvr-grow" @click="stepBtnClick(1)">
@@ -262,11 +267,13 @@
       <v-card>
       <div class="inner-wrap dialog">
         <div class="contact">
-          <div class="qrcode"></div>
+          <div class="qrcode">
+            <img :src="qr_code"/>
+          </div>
           <div class="contact-info">
-            <div>微信号：dftrrgr</div>
-            <div>手机号：dftrrgr</div>
-            <div>邮箱：dftrrgr</div>
+            <div>微信号：{{contact_wechat}}</div>
+            <div>手机号：{{contact_phone}}</div>
+            <div>邮箱：{{contact_email}}</div>
           </div>
         </div>
       </div>
@@ -295,6 +302,7 @@
 <script>
   import courseApi from '../../api/courseApi'
   import paymentApi from '../../api/paymentApi'
+  import infoApi from '../../api/infoApi'
   export default {
      data: () => ({
       tabList: [
@@ -306,6 +314,11 @@
       theClass: null,
       step: 1,
       active: 1,
+
+      contact_wechat: 'dftrrgr',
+      contact_phone: 'dftrrgr',
+      contact_email: 'dftrrgr',
+      qr_code: require("../../assets/image 28.png"),
 
       btnEnable2: false,
       btnEnable3: false,
@@ -374,6 +387,7 @@
         }else if(curStep == 4){
           this.step = 5
           this.active = 5
+          infoApi.saveToColInfo(this.userName,this.wechatNm,this.email,this.theClass.id,this.$store.state.user.uid,'GRE 1v1 class')
         }else if(curStep == 5){
           paymentApi.createCheckoutSession(this.theClass.stripe_api_id,this.selectValue,this.theClass.id,this.$store.state.user.uid).then( (res) => {
             if (res.data.code === 303) {
@@ -473,7 +487,7 @@
         }
       },
       getInfo: function(){
-        courseApi.findOneClassById(1).then(res => {
+        courseApi.findOneClassById(2).then(res => {
           if (res.data.code === 200) {
 						this.theClass = res.data.data[0];
           }else{
@@ -483,6 +497,21 @@
           }
         })
       },
+      loadConfig: function(){
+        infoApi.loadConfig().then( res => {
+          if(res.data.code === 200) {
+            let config = res.data.data
+            this.contact_wechat = config[0].contact_wechat
+            this.contact_phone = config[0].contact_phone
+            this.contact_email = config[0].contact_email
+            this.qr_code = `${process.env.VUE_APP_IMAGE_BASEURL}${config[0].qr_code}`
+          }else{
+            this.snackbar = true;
+            this.notification = '读取联系信息错误，请重试或联系管理员';
+            this.snackbarColor = 'red';
+          }
+        })
+      }
     },
 
     created: function(){
@@ -493,6 +522,7 @@
     },
     mounted: function(){
       this.getInfo()
+      this.loadConfig()
       if(this.stripe_session_id){
         this.active = 6
         this.step = 6
@@ -581,7 +611,7 @@
     border-radius: 0.375rem;
   }
   #banner .card .card-banner{
-    background: url("../../assets/Desktop-1.jpg") no-repeat center;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/Desktop-1.jpg") no-repeat center;
     background-size: cover;
     margin: 0.5rem 0.375rem 0;
     height: 15.9375rem;
@@ -604,7 +634,7 @@
   }
   #banner .card .card-content{
     margin: 2rem 3.4375rem 0;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
     border-bottom: 1px dashed #B3B3B3;
   }
   #banner .card .card-content .ul-left{
@@ -621,6 +651,12 @@
   #banner .card .card-content li::marker{
     color: #E5C12C;
     font-size: 1.5rem;
+  }
+  #banner .card .money{
+    font-weight: 600;
+    font-size: 2.75rem;
+    line-height: 155.2%;
+    margin: 0 0 0 3.3125rem;
   }
   #banner .card .card-action .action-button{
     width: 14.125rem;
@@ -639,7 +675,7 @@
   #banner .card .card-action .signup{
     background: #1A8750;
     color: #fff;
-    margin: 2.8125rem 1.55rem 0 3.3125rem;
+    margin: 0.8125rem 1.55rem 0 3.3125rem;
   }
   /* #endregion */ 
 
@@ -721,8 +757,10 @@
   #des .step1 .contact .qrcode{
     width: 14.25rem;
     height: 14.25rem;
-    margin-left: 3.375rem;
-    background: url("../../assets/image 28.png") no-repeat center;
+    margin-left: 3.375rem;    
+  }
+  #des .step1 .contact .qrcode img{
+    width: 100%;
   }
   #des .step1 .contact .contact-info{
     font-weight: 400;
@@ -957,7 +995,7 @@
   #des .step-content .inner-wrap.step6{
     padding: 0 0 7.6875rem 8.125rem;
     height: 100vh;
-    background: url("../../assets/firework.gif") center no-repeat;    
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/firework.gif") center no-repeat;    
   }
   #des .step6 .title1{
     font-weight: 500;
@@ -993,7 +1031,9 @@
     width: 14.25rem;
     height: 14.25rem;
     margin-left: 3.375rem;
-    background: url("../../assets/image 28.png") no-repeat center;
+  }
+  .dialog .contact .qrcode img{
+    width: 100%;
   }
   .dialog .contact .contact-info{
     font-weight: 400;
@@ -1006,4 +1046,234 @@
     margin-bottom: 0.9375rem;
   } 
   /* #endregion */
+
+  @media screen and (max-width: 600px) {
+    /* #region banner css */
+  #banner .cont{
+    width: 37.5rem;
+    margin: 0 auto;
+  }
+  #banner .title-wrap{
+    position: relative;
+    padding: 6.6875rem 0 0 4.125rem;
+  }
+  #banner .title-size{
+    top: 3.1rem;
+  }
+  #banner .banner-bullet{
+    padding: 3.3125rem 0 0 4.25rem;
+  }
+  #banner .card{
+    top: 24.4375rem;
+    left: 0;
+    margin-left: 0.875rem;
+    width: 36.0625rem;
+    height: 37.3125rem;
+  }
+  #banner .card .card-content .ul-left{
+    margin-right: 2.125rem;
+  }
+  /* #endregion */ 
+
+    /* #region des css */
+  #des .cont{
+    width: 37.5rem;
+    margin: 0 auto;
+    padding: 27.1875rem 0 0;
+  }
+  #des .wrap{
+    margin: 0 0 0 1.625rem;
+  }
+  #des .mright{
+    margin-right: 3.75rem;
+  }
+
+  /* #region step1 css */
+  #des .step-content .inner-wrap.step1{
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding: 0 0 4.6875rem 3.125rem;
+  }  
+  #des .step-content .step1 .contact{
+    width: 30.5rem;
+    height: 17rem;
+  }
+  #des .step1 .contact .qrcode{
+    width: 10.25rem;
+    height: 10.25rem;
+    margin-left: 1.375rem;    
+  }
+  #des .step1 .contact .contact-info{
+    margin-left: 1.625rem;
+  }
+  #des .step-button{
+    margin-top: 2rem;
+  }
+  /* #endregion */
+  
+  /* #region step2 css */
+  #des .step-content .inner-wrap.step2{
+    padding: 0 0 4.6875rem 3.125rem;
+  }
+  #des .step2 .class-value{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #des .step2 .time-option{
+    margin-right: 1.375rem;
+    margin-top: 1rem;
+  }
+  #des .step2 .next{
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  /* #region step3 css */
+  #des .step-content .inner-wrap.step3{
+    padding: 0 0 4.6875rem 3.125rem;
+  }
+  #des .step3 .assign-value{
+    width: 30.5rem;
+    height: 28.6875rem;
+    
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  #des .step3 .assign-value .left{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;    
+  }
+  #des .step3 .left .select_value{
+    width: 6.2125rem;
+    height: 2.875rem;
+  }
+  #des .step3 .left .label1{
+    margin: 0 3.625rem 0 1.5625rem;
+  }
+  #des .step3 .left .value1{
+    flex: 1 0 50%;
+    margin-right: 2rem;
+  }
+  #des .step3 .left .label2{
+    margin: 1rem 3.625rem 0 1.5625rem;
+  }
+  #des .step3 .left .value2{
+    flex: 1 0 50%;
+    margin: 1rem 2rem 0 0;
+  }
+  #des .step3 .left .label3{
+    margin: 1rem 3.625rem 0 1.5625rem;
+  }
+  #des .step3 .left .value3{
+    flex: 1 0 50%;
+    margin: 1rem 2rem 0 0;
+  }
+  #des .step3 .assign-value .right{
+    width: 27rem;
+    margin-left: 1.5rem;
+  }
+  #des .step3 .next{
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  /* #region step4 css */
+  #des .step-content .inner-wrap.step4{
+    padding: 0 0 4.6875rem 3.125rem;
+  }
+  #des .step4 .line1{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #des .step4 .line1 .label1{
+    margin-right: 6.8125rem;
+  }
+  #des .step4 .line1 input{
+    width: 23.8125rem;
+    height: 3.5625rem;
+  }
+  #des .step4 .label3 input{
+    width: 23.8125rem;
+    height: 3.5625rem;
+  }
+  #des .step4 .next{
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  /* #region step5 css */
+  #des .step-content .inner-wrap.step5{
+    padding: 0 0 4.6875rem 3.125rem;
+  }
+  #des .step5 .card{
+    width: 30.5rem;
+    height: 20.9375rem;
+  }
+  #des .step5 .card .part1{
+    padding: 1.5rem 1.375rem 0;
+  }
+  #des .step5 .card .part1 .line2{
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  #des .step5 .card .part1 .line2 div{
+    flex: 1 0 100%;
+  }
+  #des .step5 .card .part2{
+    padding: 1.875rem 1.375rem 0;
+  }
+  #des .step5 .card .part2 .line2, .line3{
+    margin-top: 0rem;
+  }
+  #des .step5 .next{
+    background: #1A8750;
+    color: #fff;
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  /* #region step6 css */
+  #des .step-content .inner-wrap.step6{
+    padding: 0 0 4.6875rem 3.125rem;
+    height: 40rem;
+    background: url("https://d22ssh14k1yxhv.cloudfront.net/firework.gif") center no-repeat;    
+  }
+  #des .step6 .title1{
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 155.2%;
+    color: #1A8750;
+
+    padding-top: 20rem;
+    padding-left: 22.4375rem;
+  }
+  #des .step6 .next{
+    background: #1A8750;
+    color: #fff;
+    margin: 3.875rem 0 0 3.125rem;
+  }
+  /* #endregion */
+
+  .dialog{
+    display: flex;
+    align-items: flex-end;
+  }  
+  .dialog .contact{
+    width: 41.5rem;
+    height: 17rem;
+  }
+  .dialog .contact .qrcode{
+    width: 10.25rem;
+    height: 10.25rem;
+    margin-left: 1.375rem;
+  }
+  .dialog .contact .contact-info{
+    margin-left: 1.625rem;
+  }
+  /* #endregion */
+
+}
 </style>

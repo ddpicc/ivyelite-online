@@ -126,9 +126,24 @@
 			connect: function () {
 				console.log('socket connected')
 			},
-			classopen: function (data) {
-				this.classBegin = true;
+			classopen: function (data) {				
+				let findTheClass = this.classesList.find(function(p){
+          return p.id == data;
+        });
+				console.log(typeof(findTheClass))
+        if(typeof(findTheClass)!="undefined"){
+          this.$set(findTheClass,'classBegin',true)
+        }
 			},
+			classclose: function (data) {
+				let findTheClass = this.classesList.find(function(p){
+          return p.id == data;
+        });
+				console.log(typeof(findTheClass))
+        if(typeof(findTheClass)!="undefined"){
+          this.$set(findTheClass,'classBegin',false)
+        }
+			}
     },
 
 		components: {

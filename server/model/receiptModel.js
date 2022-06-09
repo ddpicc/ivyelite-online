@@ -14,6 +14,11 @@ exports.getReceiptByUid = ( user_uid ) => {
 }
 // 获取所有用户的receipt
 exports.getAllUserReceipt = ( ) => {
-  let _sql = `select a.*,b.name,b.comment from receipt a inner join classes b on a.class_id = b.id order by create_timestamp desc;`
+  let _sql = `select a.*,b.name as class_name,b.comment,c.name as user_name,c.email from receipt a inner join classes b on a.class_id = b.id inner join users c on a.user_uid = c.uid order by create_timestamp desc;`
   return query( _sql )
+}
+// 更新receipt处理情况
+exports.updateReceiptStatus = ( value ) => {
+	let _sql = "update receipt set processed = 1 where id = ?;"
+	return query( _sql, value)
 }

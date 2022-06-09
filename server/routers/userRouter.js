@@ -14,4 +14,6 @@ router.get('/userApi/findCountByEmail', controller.findCountByEmail)
 router.get('/userApi/getQiniuToken', controller.getQiniuToken)
 router.post('/userApi/updateUserAvatar', controller.updateUserAvatar)
 router.get('/userApi/getAllUsers', controller.getAllUsers)
+router.post('/userApi/updateUserPass', controller.updateUserPass)
+
 module.exports = router
