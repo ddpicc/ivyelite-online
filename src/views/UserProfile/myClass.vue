@@ -26,21 +26,13 @@
 										>
 											<v-banner
 												single-line
-												sticky
 												color="titlegreen"
 												v-if="item.classBegin"
 											>
-												老师已经开课了，快来一起加入课堂吧!
+												已经开课了，快来一起加入课堂吧!
 
 												<template v-slot:actions>
-													<v-btn
-														outlined
-														rounded
-														small
-														@click="joinClass(item.id)"
-													>
-														加入课堂
-													</v-btn>
+													<hello-zoom v-bind:meetingNumber="item.room.room_id.toString()" v-bind:passWord="item.room.password" v-bind:role="0" v-bind:userName="username"/>
 												</template>
 											</v-banner>
 											<div class="d-flex flex-no-wrap justify-space-between">
@@ -112,6 +104,7 @@
 	import profileLeft from "../../components/ProfileLeft.vue"
   import relationApi from '../../api/relationApi'
 	import classRoomApi from '../../api/classRoomApi'
+	import HelloZoom from '../../components/HelloZoom.vue'
   export default {
     data: () => ({
 			classesList: [],
@@ -120,6 +113,8 @@
 			snackbar: false,
       snackbarColor: '',
       notification: '',
+
+			username: '',
 		}),
 
 		sockets: {
@@ -147,38 +142,12 @@
     },
 
 		components: {
-			profileLeft
+			profileLeft,HelloZoom
 		},
 
 		methods: {
 			explore: function(item){
 				this.$router.push({ path: '/course/classinfo', query: { class_id: item.id} });
-      },
-			
-      joinClass: function(id) {
-				//get room id
-				classRoomApi.searchRoomByClassId(id,'进行中').then( (res) => {
-					if (res.data.code === 200) {
-						if(res.data.data.length > 0){     //有对应的房间
-							this.theClass = res.data.data[0];
-							let urlParams = {
-								room_id: this.theClass.room_id,
-								role: 2,
-								begin_timestamp: this.theClass.begin_timestamp,
-							}
-							this.$router.push({path: '/zegoClass', query: urlParams});
-						}else{
-							//还没有创建房间
-							this.snackbar = true;
-							this.notification = '目前还没开课';
-							this.snackbarColor = 'green';
-						}
-					}else{
-						this.snackbar = true;
-						this.notification = '发生错误，请重试或联系管理员';
-						this.snackbarColor = 'red';
-					}
-				})
       },
 
       getUserCourses: function(){
@@ -190,6 +159,7 @@
 								if (res.data.code === 200) {
 									if(res.data.data.length > 0){     //有对应的房间
 										//element.classBegin = true;
+										this.$set(element,'room',res.data.data[0])
 										this.$set(element,'classBegin',true)
 									}
 								}
@@ -204,9 +174,17 @@
         })
 			},
     },
+		created() {
+			const zoomMeetingSDK = document.getElementById('zmmtg-root')
+
+			// To hide
+			zoomMeetingSDK.style.display = 'none';
+		},
 
 		mounted: function(){
 			this.getUserCourses()
+			this.username = this.$store.state.user.name;
+			
 		}
 	}
 </script>

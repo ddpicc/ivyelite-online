@@ -1,7 +1,10 @@
 const md5 = require('md5')
 const axios = require('axios')
+const request = require('request')
 const classRoomModel = require('../model/roomModel.js')
 const dotenv = require('dotenv')
+const KJUR = require('jsrsasign')
+
 dotenv.config({ path: '../.env'})
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -18,156 +21,10 @@ function tokenExpired(loadFromLocal) {
   }
 }
 
-//get access token from room kit server
-function getAccessToken() {
-  const tryToken = localStorage.getItem('token-info');
-  if(!tryToken || tokenExpired(tryToken)){
-    const nonce = 'ivyelite';
-    const expireSecond = Math.floor(new Date().getTime()/1000) + 3600;
-    const hashStr = `${process.env.VUE_APP_ROOMKIT_SECRETID}${process.env.VUE_APP_ROOMKIT_SECRETKEY}${nonce}${expireSecond}`;
-    const hash = md5(hashStr);
-    const appendUrl = 'auth/get_access_token';
-    let tokeninfo = {
-      var: 1,
-      hash: hash,
-      nonce: nonce,
-      expired: expireSecond
-    };
-    let token = Buffer.from(JSON.stringify(tokeninfo)).toString('base64')
-    console.log('get roomkit access token')
-    return new Promise ((resolve, reject) => {
-      axios({
-        method: 'POST',
-        url: `${process.env.VUE_APP_ROOMKIT_BASEURL}${appendUrl}`,
-        data: {
-          token: token,
-          secret_id: Number(process.env.VUE_APP_ROOMKIT_SECRETID)
-        }
-      }).then( res => {
-        if(res.data.ret.code == 0){
-          let saveToLocal = {
-            access_token: res.data.data.access_token,
-            request_time: Math.floor(new Date().getTime()/1000)
-          }
-          localStorage.setItem('token-info', JSON.stringify(saveToLocal));
-          resolve(res.data.data.access_token);
-        }else{
-          reject(res.data.ret.message);
-        }
-      })
-    })
-  }else{
-    return new Promise ((resolve, reject) => {
-      let access_token = JSON.parse(tryToken).access_token;
-      resolve(access_token);
-    })
-  }
-}
-
-exports.getSDKToken = async ctx => {
-  let { device_id } = ctx.request.body;
-  const timestamp = Math.floor(new Date().getTime()/1000) + 3600 * 24; //过期时间（秒）一天
-  const verifyType = 3;
-  const version = 1;
-  const hashStr = `${process.env.VUE_APP_ROOMKIT_SECRETSIGN.substr(0, 32)}${device_id}${verifyType}${version}${timestamp}`;;
-  const sign = md5(hashStr);
-  const appendUrl = 'auth/get_sdk_token';
-  console.log('get roomkit sdk token')
-  const res = await axios({
-    method: 'POST',
-    url: `${process.env.VUE_APP_ROOMKIT_BASEURL}${appendUrl}`,
-    data: {
-      common_data: {
-        platform: 64,
-      },
-      sign: sign,
-      secret_id: Number(process.env.VUE_APP_ROOMKIT_SECRETID),
-      device_id: device_id,
-      timestamp: timestamp,
-    }
-  })
-  if(res.data.ret.code == 0){
-    ctx.body = {
-			code: 200,
-      message: '成功',
-      data: res.data.data
-		}
-  }else{
-    ctx.body = {
-			code: 500,
-			message: res.data
-		}
-  }
-}
-
-//create a class room from roomkit edu cloud
-exports.createRoom = async ctx => {
-	let token = await getAccessToken();
-  let { subject, room_type, duration, host, settings } = ctx.request.body;
-  const appendUrl = 'room/create';
-  console.log('roomkit create room')
-  let res = await axios({
-    method: 'POST',
-    url: `${process.env.VUE_APP_EDUCLOUD_BASEURL}${appendUrl}`,
-    data: {
-      subject: subject,
-      room_type: room_type,
-      begin_timestamp: new Date().getTime() + 1000 * 600,  //10分钟后,
-      duration: duration,
-      host: host,
-      settings: settings,
-      pid: Number(process.env.VUE_APP_ROOMKIT_PRODUCTID),
-      secret_id: Number(process.env.VUE_APP_ROOMKIT_SECRETID),
-      access_token: token,
-    }
-  })
-  if(res.data.ret.code == 0){
-    ctx.body = {
-			code: 200,
-      message: '成功',
-      data: res.data.data
-		}
-  }else{
-    ctx.body = {
-			code: 500,
-			message: res.data
-		}
-  }
-}
-
-//get class room informationfrom roomkit edu cloud
-exports.getRoomInfo = async ctx => {
-	let token = await getAccessToken();
-  let {room_id} = ctx.request.query;
-  const appendUrl = 'room/get';
-  console.log('get roomkit room by room id' + room_id)
-  let res = await axios({
-    method: 'POST',
-    url: `${process.env.VUE_APP_EDUCLOUD_BASEURL}${appendUrl}`,
-    data: {
-      room_id: room_id,
-      secret_id: Number(process.env.VUE_APP_ROOMKIT_SECRETID),
-      access_token: token,
-    }
-  })
-  if(res.data.ret.code == 0){
-    ctx.body = {
-			code: 200,
-      message: '成功',
-      data: res.data.data
-		}
-  }else{
-    ctx.body = {
-			code: 500,
-			message: res.data
-		}
-  }
-}
-
 //save the room information to db
 exports.saveRoomInfoToDb = async ctx => {
-	let { class_id, subject, room_id, host_id, begin_timestamp, room_type, password, status } = ctx.request.body;
-	await classRoomModel.saveRoomInfoToDb([class_id, subject, room_id, host_id, begin_timestamp, room_type, password, status]).then(res => {
+	let { class_id, subject, room_id, password, status } = ctx.request.body;
+	await classRoomModel.saveRoomInfoToDb([class_id, subject, room_id, password,status]).then(res => {
 		ctx.body = {
 			code: 200,
       message: '成功',
@@ -235,6 +92,156 @@ exports.updateRoomStatus = async ctx => {
 			message: '失败'
 		}
 	})
+}
+
+exports.createZoomClass = async ctx => {
+  let { subject, password } = ctx.request.body;  
+  const zoomToken = localStorage.getItem('zoom-token');
+  let _access_token = JSON.parse(zoomToken).access_token;
+  let res = await axios({
+    method: 'POST',
+    url: 'https://api.zoom.us/v2/users/me/meetings',
+    headers: {
+      Authorization: "Bearer " + _access_token,
+    },
+    data: {
+      agenda: "My Meeting",
+      default_password: false,
+      password: password,
+      pre_schedule: false,
+      topic: subject
+    }
+  })
+  if(res.status == 201){
+    ctx.body = {
+			code: 200,
+      message: '成功',
+      data: res.data
+		}
+  }else{
+    ctx.body = {
+			code: 500,
+			message: res.data.message
+		}
+  }
+}
+
+exports.getZoomAccessToken = async ctx => {
+  const zoomToken = localStorage.getItem('zoom-token');
+  if(!zoomToken || tokenExpired(zoomToken)){
+    console.log('redirect to get zoom access token')
+    //redirect
+    ctx.body = {
+      code: 201,
+      message: 'redirect'
+    }    
+  }else{
+    ctx.body = {
+      code: 200,
+      message: '成功',
+    }  
+  }
+}
+
+exports.handleAuthcode = async ctx => {
+  let { code } = ctx.request.query;
+  console.log('get authcode ' + code)
+
+  var options = {
+    method: 'POST',
+    url: 'https://zoom.us/oauth/token',
+    qs: {
+      grant_type: 'authorization_code',
+      //The code below is a sample Authorization Code. Replace it with your actual Authorization Code while making requests.
+      code: code,
+      //The uri below is a sample redirect_uri. Replace it with your actual redirect_uri while making requests.
+      redirect_uri: 'https://online.ivyelite.net/classroom/zoomauth',
+    },
+    headers: {
+       'Authorization': 'Basic ' + Buffer.from(process.env.VUE_APP_ZOOM_CLIENTID + ':' + process.env.VUE_APP_ZOOM_CLIENTSECRET).toString('base64'),
+    },
+  };
+  
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    console.log(body);
+    let jsonresult = JSON.parse(body)
+    let saveToLocal = {
+      access_token: jsonresult.access_token,
+      refresh_token: jsonresult.refresh_token,
+      request_time: Math.floor(new Date().getTime()/1000)
+    }
+    localStorage.setItem('zoom-token', JSON.stringify(saveToLocal));
+  });
+
+  ctx.redirect('https://online.ivyelite.net/#/admin/allclasses');
+}
+
+exports.getZakToken = async ctx => {
+  const zakToken = localStorage.getItem('zak-token');
+  if(!zakToken || tokenExpired(zakToken)){
+    console.log('get zoom zak token')
+    const zoomToken = localStorage.getItem('zoom-token');
+    let _access_token = JSON.parse(zoomToken).access_token;
+    let res = await axios({
+      method: 'GET',
+      url: 'https://api.zoom.us/v2/users/me/token?type=zak',
+      headers: {
+        Authorization: "Bearer " + _access_token,
+      },
+    })
+    if(res.status == 200){
+      console.log('get zak token: ' + res.data.token)
+      let saveToLocal = {
+        zak_token: res.data.token,
+        request_time: Math.floor(new Date().getTime()/1000)
+      }
+      localStorage.setItem('zak-token', JSON.stringify(saveToLocal));
+      ctx.body = {
+        code: 200,
+        message: '成功',
+        data: res.data.token
+      }
+    }else{
+      ctx.body = {
+        code: 500,
+        message: res.data.message,
+      }
+    }
+  }else{    
+    let _zakToken = JSON.parse(zakToken).zak_token;
+    ctx.body = {
+      code: 200,
+      message: '成功',
+      data: _zakToken
+    }  
+  }
+}
+
+exports.getSignature = async ctx => {
+  const iat = Math.round(new Date().getTime() / 1000) - 30;
+  const exp = iat + 60 * 60 * 2
+
+  const oHeader = { alg: 'HS256', typ: 'JWT' }
+
+  const oPayload = {
+    sdkKey: process.env.VUE_APP_ZOOM_SDK_KEY,
+    mn: ctx.request.body.meetingNumber,
+    role: ctx.request.body.role,
+    iat: iat,
+    exp: exp,
+    appKey: process.env.VUE_APP_ZOOM_SDK_KEY,
+    tokenExp: iat + 60 * 60 * 2
+  }
+
+  const sHeader = JSON.stringify(oHeader)
+  const sPayload = JSON.stringify(oPayload)
+  const signature = KJUR.jws.JWS.sign('HS256', sHeader, sPayload, process.env.VUE_APP_ZOOM_SDK_SECRET)
+  ctx.body = {
+    code: 200,
+    message: '成功',
+    data: signature
+  }
 }
 
 

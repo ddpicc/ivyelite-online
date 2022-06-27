@@ -3,7 +3,7 @@ var sql = require('./base')
 let query = sql.query
 
 exports.saveRoomInfoToDb = ( value ) => {
-	let _sql = "insert into room set class_id=?,subject=?,room_id=?,host_id=?,begin_timestamp=?,room_type=?,password=?,status=?;"
+	let _sql = "insert into room set class_id=?,subject=?,room_id=?,password=?,status=?;"
 	return query( _sql, value)
 }
 

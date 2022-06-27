@@ -56,12 +56,9 @@
 		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		class_id INT UNSIGNED NOT NULL,
 		subject TEXT NOT NULL COMMENT '房间主题',
-		room_id INT UNSIGNED NOT NULL,
-		host_id INT UNSIGNED NOT NULL,
-		begin_timestamp BIGINT,
-		room_type INT NOT NULL DEFAULT 1,
+		room_id VARCHAR(30) NOT NULL,
 		password VARCHAR(30),
-		status VARCHAR(20),
+		status VARCHAR(30),
 		PRIMARY KEY ( id )
 	);`
 

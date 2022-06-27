@@ -14,7 +14,7 @@ function hasPermission(role, to) {
     return true
   }
 }
-const whiteList = ['/login', '/','/home','/course/all','/course/detail','/course/explore/gresmallclass','/course/explore/gre1v1','/course/explore/gmat1v1','/course/explore/gmatsmallclass','/active','/lecture','/lectureClass'] // 不重定向白名单
+const whiteList = ['/login', '/','/home','/course/all','/course/detail','/course/explore/gresmallclass','/course/explore/gre1v1','/course/explore/gmat1v1','/course/explore/gmatsmallclass','/active','/exam'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   if (store.state.user.uid) { // 路由守卫
     if (to.path === '/login') {

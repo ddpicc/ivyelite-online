@@ -57,8 +57,8 @@ app.use(koajwt({ secret: 'Ivyelite Token' }).unless({
   path: [/^\/userApi\/signin/,/^\/userApi\/insertUser/,/^\/userApi\/sendActivateEmail/,/^\/userApi\/verifyActivateCode/,/^\/userApi\/updateUserPass/,
     /^\/userApi\/findDataCountByUid/,/^\/userApi\/findCountByEmail/,/^\/userApi\/findDataCountByName/,/^\/courseApi\/findOneClassById/,
     /^\/courseApi\/getAllCourses/,/^\/courseApi\/getAllClasses/,/^\/courseApi\/getClassesbyCourseId/,/^\/relationApi\/isClassReserved/,
-    /^\/infoApi\/loadConfig/,/^\/classroom\/searchRoomByClassId/,/^\/infoApi\/saveToColInfo/,/^\/roomkit\/getSDKToken/,/^\/roomkit\/getRoomInfo/,/^\/classroom\/updateRoomStatus/,
-    /^\/payment\/webhook/]
+    /^\/infoApi\/loadConfig/,/^\/classroom\/searchRoomByClassId/,/^\/infoApi\/saveToColInfo/,
+    /^\/payment\/webhook/,/^\/classroom\/zoomauth/,/^\/classroom\/getSignature/]
 }));
 
 //  路由
