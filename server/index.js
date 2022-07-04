@@ -69,6 +69,7 @@ app.use(require('./routers/relationRouter.js').routes())
 app.use(require('./routers/paymentRouter.js').routes())
 app.use(require('./routers/receiptRouter.js').routes())
 app.use(require('./routers/infoRouter.js').routes())
+app.use(require('./routers/examRouter.js').routes())
 
 io.on("connection", (socket) => {
   // ...

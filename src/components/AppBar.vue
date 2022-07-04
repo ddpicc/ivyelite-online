@@ -42,7 +42,7 @@
 
     <div v-if="verifyLogin() && !hide" class="dropdown btn-margin">
       <div class="dropbtn hvr-grow">
-        Welcome, {{userName}}
+        欢迎你,{{userName}}
         <img src="../assets/icon/down arrow.png"/>
       </div>
       <div class="dropdown-content">

@@ -95,8 +95,8 @@
     { text: '个人资料', icon: 'mdi-account-details', to: '/myprofile/profile' },
     { text: '配置选项', icon: 'mdi-account-multiple', to: '/admin/config', roles: ['admin']},
     { text: '所有用户', icon: 'mdi-account-multiple', to: '/admin/allusers', roles: ['admin']},
-    { text: '所有课堂', icon: 'mdi-play-box-multiple', to: '/admin/allclasses', roles: ['admin']}
-    
+    { text: '所有课堂', icon: 'mdi-play-box-multiple', to: '/admin/allclasses', roles: ['admin']},
+    { text: '模拟考试', icon: 'mdi-play-box-multiple', to: '/exams', roles: ['student']}
   ]
   export default {
     components: {

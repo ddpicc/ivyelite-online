@@ -35,7 +35,6 @@ export const constantRouterMap = [
       {path: '/course/explore/gmat1v1', name: 'Gmat私教班', component: () => import('../views/Course/Gmat1v1.vue')},
       {path: '/course/explore/gresmallclass', name: 'Gre全程提分班', component: () => import('../views/Course/GreSmallClass.vue')},
       {path: '/course/explore/gmatsmallclass', name: 'Gmat全程提分班', component: () => import('../views/Course/GmatSmallClass.vue')},
-      {path: '/exam', name: '全真模考', component: () => import('../views/Exam/examDashboard.vue')},
     ]
   }
 ]
@@ -58,6 +57,7 @@ const router = new Router({
 
 //用户类型:  admin, student, teacher
 export const asyncRouterMap = [
+  {path: '/exams/start', name: '开始考试', component: () => import('../views/Exam/start.vue')},
   {
     path: '/',
     component: () => import('../Full.vue'),
@@ -78,6 +78,9 @@ export const asyncRouterMap = [
       {path: '/admin/allusers', name: '所有用户', component: () => import('../views/Admin/AllUser.vue'), meta: {roles: ['admin'] }},
       {path: '/admin/allclasses', name: '所有课堂', component: () => import('../views/Admin/AllClasses.vue'), meta: {roles: ['admin'] }},
       {path: '/admin/classuser', name: '课堂用户', component: () => import('../views/Admin/ClassUser.vue'), meta: {roles: ['admin'] }},
+
+      {path: '/exams', name: '全真模考', component: () => import('../views/Exam/exams.vue')},
+      
       {path: '*', redirect: '/' }
     ]
   }

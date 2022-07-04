@@ -95,4 +95,32 @@
 		PRIMARY KEY ( id )
 	);`
 
-module.exports = [users,courses,classes,user_class,room,receipt,collect_info,config]
+	let completion_question =
+	`create table if not exists completion_question(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		type VARCHAR(10) NOT NULL COMMENT '类型',
+		question TEXT NOT NULL COMMENT '问题题干',
+		o1 TEXT COMMENT 'option1',
+		o2 TEXT COMMENT 'option2',
+		o3 TEXT COMMENT 'option3',
+		o4 TEXT COMMENT 'option4',
+		o5 TEXT COMMENT 'option5',
+		o6 TEXT COMMENT 'option6',
+		o7 TEXT COMMENT 'option7',
+		o8 TEXT COMMENT 'option8',
+		o9 TEXT COMMENT 'option9',
+		a1 TEXT COMMENT 'answer1',
+		a2 TEXT COMMENT 'answer2',
+		a3 TEXT COMMENT 'answer3',
+		PRIMARY KEY ( id )
+	);`
+	let info_page = 
+	`create table if not exists info_page(
+		id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+		content TEXT NOT NULL COMMENT '页面内容html格式',
+		comment VARCHAR(20) COMMENT '备注',
+		PRIMARY KEY ( id )
+	);`
+
+
+module.exports = [users,courses,classes,user_class,room,receipt,collect_info,config,info_page]
